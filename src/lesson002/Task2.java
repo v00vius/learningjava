@@ -22,7 +22,7 @@ class Task3 {
     }
 
     void print() {
-        System.out.printf("number: %d, digits: %d %d %d\n", number, n3, n2, n1);
+        System.out.printf("The number: %d, last 3 digits: %d %d %d\n", number, n3, n2, n1);
     }
 }
 
