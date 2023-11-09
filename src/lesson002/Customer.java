@@ -29,8 +29,8 @@ public class Customer {
         // a multithreaded application)
         // begin/lock
         {
-            sum -= amount;
-            customer.sum += amount;
+            this.add(-amount);
+            customer.add(+amount);
         }
         // end/unlock
     }
