@@ -16,11 +16,11 @@ public class Customer {
     }
 
     // add money to a customer account
-    void add(double amount) {
+    public void add(double amount) {
         sum += amount;
     }
     // deposit a customer
-    void deposit(Customer customer,  double amount) {
+    public void deposit(Customer customer,  double amount) {
         if(this == customer)
             return;
 
@@ -35,7 +35,7 @@ public class Customer {
         // end/unlock
     }
 
-    void print() {
+    public void print() {
         System.out.printf("Customer name: %s\n"
                         + "Sum: %10.2f %s\n\n",
                 name,
