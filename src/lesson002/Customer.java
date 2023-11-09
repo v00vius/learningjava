@@ -46,6 +46,8 @@ public class Customer {
 }
 
 class Main {
+    char charVariable = 'C';
+
     public static void main(String[] args) {
         Customer john = new Customer("John");
         Customer elsa = new Customer("Elsa");
