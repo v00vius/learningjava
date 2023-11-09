@@ -61,7 +61,7 @@ public class Task2 {
                 + "longVar: %d\n"
                 + "bool: %S\n"
                 + "sVar: \"%s\"\n"
-                + "sVar: %s\n",
+                + "this: %s\n",
                 charVar,
                 intVar,
                 byteVar,
@@ -72,7 +72,7 @@ public class Task2 {
                 bool ? "YES" : "NO",
                 sVar,
                 self
-                );
+        );
     }
 
     public static void main(String[] args) {
