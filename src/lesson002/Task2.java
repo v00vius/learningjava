@@ -8,7 +8,7 @@ class Task3 {
         this.number = number;
     }
 
-    void split() {
+    Task3 split() {
         int tmp = number;
 
 //  Should be a loop here :-)
@@ -19,6 +19,8 @@ class Task3 {
         tmp /= 10;
 
         n3 = tmp % 10;
+
+        return this;
     }
 
     void print() {
@@ -85,15 +87,13 @@ public class Task2 {
         System.out.print("\n\nTask #3\n");
 
         Task3 theTask3a = new Task3(123);
-        theTask3a.split();
-        theTask3a.print();
+        theTask3a.split().print();
 
         Task3 theTask3b = new Task3(4321);
-        theTask3b.split();
-        theTask3b.print();
+        theTask3b.split().print();
 
         Task3 theTask3c = new Task3(9000);
-        theTask3c.split();
-        theTask3c.print();
+        theTask3c.split().print();
+
     }
 }
