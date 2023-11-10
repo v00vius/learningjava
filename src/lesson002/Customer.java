@@ -16,11 +16,11 @@ public class Customer {
     }
 
     // add money to a customer account
-    void add(double amount) {
+    public void add(double amount) {
         sum += amount;
     }
     // deposit a customer
-    void deposit(Customer customer,  double amount) {
+    public void deposit(Customer customer,  double amount) {
         if(this == customer)
             return;
 
@@ -29,13 +29,13 @@ public class Customer {
         // a multithreaded application)
         // begin/lock
         {
-            sum -= amount;
-            customer.sum += amount;
+            this.add(-amount);
+            customer.add(+amount);
         }
         // end/unlock
     }
 
-    void print() {
+    public void print() {
         System.out.printf("Customer name: %s\n"
                         + "Sum: %10.2f %s\n\n",
                 name,
@@ -46,6 +46,8 @@ public class Customer {
 }
 
 class Main {
+    char charVariable = 'C';
+
     public static void main(String[] args) {
         Customer john = new Customer("John");
         Customer elsa = new Customer("Elsa");
