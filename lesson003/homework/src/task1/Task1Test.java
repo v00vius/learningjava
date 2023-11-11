@@ -8,5 +8,8 @@ public class Task1Test {
         martian.setAge(520);
         martian.setPlace("Mars");
         martian.print();
+
+        System.exit(10);
+
     }
 }
