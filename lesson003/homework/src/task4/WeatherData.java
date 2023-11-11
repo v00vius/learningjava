@@ -1,9 +1,18 @@
 package task4;
 
+import java.io.File;
+
 public class WeatherData {
     static private final int maxWeatherData = 64;
     public WeatherData(String fileName) {
         setPlace(fileName);
+        loadWeatherData(fileName);
+    }
+    public void loadWeatherData(String fileName) {
+        dailyWeatherData = new DailyWeather[maxWeatherData];
+        File fp = new File(fileName);
+    }
+    public void updateStats() {
 
     }
 
