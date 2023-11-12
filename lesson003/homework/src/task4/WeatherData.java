@@ -54,9 +54,33 @@ public class WeatherData {
         for(int i = 0; i < nWeatherData; ++i) {
             dailyWeatherData[i].print();
         }
+
+        System.out.printf("\nMin temperature: %d\n", minTemp );
+        System.out.printf("Max temperature: %d\n", maxTemp );
+        System.out.printf("Avg temperature, daily: %d\n", avgTempDay );
+        System.out.printf("Avg temperature, nightly: %d\n", avgTempNight );
     }
     public void updateStats() {
+        minTemp = 500;
+        maxTemp = -500;
+        avgTempDay = 0;
+        avgTempNight = 0;
 
+        for(int i = 0; i < nWeatherData; ++i) {
+            if(dailyWeatherData[i].tempMin < minTemp) {
+                minTemp = dailyWeatherData[i].tempMin;
+            }
+
+
+            if(dailyWeatherData[i].tempMax > maxTemp)
+                maxTemp = dailyWeatherData[i].tempMax;
+
+            avgTempDay += dailyWeatherData[i].tempMax;
+            avgTempNight += dailyWeatherData[i].tempMin;
+        }
+
+        avgTempDay /= nWeatherData;
+        avgTempNight /= nWeatherData;
     }
 
     public String place() { return place; }
@@ -66,15 +90,9 @@ public class WeatherData {
     protected String place;
     protected int nWeatherData;
     protected DailyWeather[] dailyWeatherData;
+
+    protected int minTemp;
+    protected int avgTempDay;
+    protected int avgTempNight;
+    protected int maxTemp;
 }
-/*
-0 - Date
-1 - Sol
-2 - Air Temperature (°F | °C), min
-3 - Air Temperature (°F | °C), max
-4 - Pressure (Pa)
-5 - Sunrise
-6 - Sunset
-           0;   1;   2;     3;  4;    5;    6
-Nov. 1, 2023;3995;10°F;-103°F;695;05:34;17:24
-*/
