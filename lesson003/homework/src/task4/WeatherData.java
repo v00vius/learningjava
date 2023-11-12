@@ -1,6 +1,6 @@
 package task4;
 
-import utils.Utils;
+import utils.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,6 +13,18 @@ public class WeatherData {
         dailyWeatherData = new DailyWeather[maxWeatherData];
         loadWeatherData(fileName);
     }
+/*
+Curiosity Rover Daily Mars Weather Report
+0 - Date
+1 - Sol
+2 - Air Temperature (°F), min
+3 - Air Temperature (°F), max
+4 - Pressure (Pa)
+5 - Sunrise (unused)
+6 - Sunset (unused)
+          0;  1;  2;   3;  4;   5;   6
+Nov. 1, 2023;3995;10;-103;695;05:34;17:24
+*/
     public void loadWeatherData(String fileName) {
 
         File fp = new File(fileName);
@@ -20,9 +32,10 @@ public class WeatherData {
         System.out.println("# Loading data from '" + fileName + "' ...");
 
         if(!(fp.exists() && fp.canRead()))
-            Utils.fatalExit("Error: File '" + fileName + "' doesn't exists");
+            Utils.fatalExit("Error: File '" + fileName + "' doesn't exist");
 
         Scanner sc = null;
+
         try {
             sc = new Scanner(fp);
         } catch (FileNotFoundException e) {
@@ -45,20 +58,21 @@ public class WeatherData {
                                                );
 
         }
+
         System.out.println("# Done");
     }
     public void print() {
         System.out.println(place());
-        System.out.println("         Date     Day (Sol)   Tmax, C     Tmin, C      Pressure, Pa");
+        System.out.println("         Date     Day (Sol)   Tmax,°C     Tmin,°C      Pressure, Pa");
 
         for(int i = 0; i < nWeatherData; ++i) {
             dailyWeatherData[i].print();
         }
 
-        System.out.printf("\nMin temperature: %d\n", minTemp );
-        System.out.printf("Max temperature: %d\n", maxTemp );
-        System.out.printf("Avg temperature, daily: %d\n", avgTempDay );
-        System.out.printf("Avg temperature, nightly: %d\n", avgTempNight );
+        System.out.printf("\nMin temperature: %d°C\n", minTemp );
+        System.out.printf("Max temperature: %d°C\n", maxTemp );
+        System.out.printf("Avg temperature, daily: %d°C\n", avgTempDay );
+        System.out.printf("Avg temperature, nightly: %d°C\n", avgTempNight );
     }
     public void updateStats() {
         minTemp = 500;

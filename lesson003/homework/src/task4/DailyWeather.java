@@ -22,7 +22,7 @@ public class DailyWeather {
         this.airPressure = airPressure;     // in Pascals
     }
     public void print() {
-        System.out.printf("%15s %10d %10d %10d %15d\n", date, dayNumber, tempMin, tempMax, airPressure);
+        System.out.printf("%15s %10d %10d %10d %15d\n", date, dayNumber, tempMax, tempMin, airPressure);
     }
 //  protected:
     protected String date;
