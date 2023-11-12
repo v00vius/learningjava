@@ -12,5 +12,18 @@ public class Task5Test {
 
         x += x++;
         System.out.printf("\nResult of the 'x += x++' where x = 3 is x = %d\n", x);
+// Java gives result x = 6
+// C++ gives result x = 7
+/*
+#include <iostream>
+
+int main(int ac, char* av[])  {
+        int x = 3;
+
+        x += x++;
+
+        std::cout << "Result of the x += x++ where x = 3 is " << x << std:: endl;
+}
+*/
     }
 }
