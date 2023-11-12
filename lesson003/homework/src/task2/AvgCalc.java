@@ -7,14 +7,14 @@ public class AvgCalc {
     int avg;
     int rem;
 
-    int calcAvg() {
+    public int calcAvg() {
         avg = a0 + a1 + a2 + a3 + a4 + a5 + a6 + a7 + a8 + a9;
         rem = avg % 10;
 
         return avg /= 10;
     }
 
-    void print() {
+    public void print() {
         System.out.printf("average: %d\nremaining: %d", avg, rem);
     }
 }
