@@ -7,5 +7,10 @@ public class Task5Test {
 
         div3loop14.doAll();
         div2loop10.doAll();
+
+        int x = 3;
+
+        x += x++;
+        System.out.printf("\nResult of the 'x += x++' where x = 3 is x = %d\n", x);
     }
 }
