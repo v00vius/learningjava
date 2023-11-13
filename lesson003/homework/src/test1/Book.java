@@ -66,7 +66,9 @@ public class Book {
 
 
     public static void main(String[] args) {
-        Book book1 = Book.newBook("Java For Dummies", "Barry A. Burd", 434, 9175690, true);
+        Book book1 = Book.newBook("Java For Dummies", "Barry A. Burd",
+                            434, 9175690, true);
+
         Book book2 = Book.newBook("Effective Java", "Joshua Bloch");
 
         book2.setPages(416).setId(4685997).setAvailable(true);
