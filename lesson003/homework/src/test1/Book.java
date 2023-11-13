@@ -71,7 +71,8 @@ public class Book {
 
         Book book2 = Book.newBook("Effective Java", "Joshua Bloch");
 
-        book2.setPages(416).setId(4685997).setAvailable(true);
+        book2.setPages(416).setId(4685997)
+                    .setAvailable(true);
 
         book1.print();
         book2.print();
