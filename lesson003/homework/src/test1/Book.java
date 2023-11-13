@@ -21,9 +21,9 @@ public class Book {
     }
 
     public void print() {
-        System.out.println("\nThe info of a book:");
-        System.out.println("\tBook name: " + name
-                        + "\n\tBook ID: " + id
+//        System.out.println("\nAbout the book:");
+        System.out.println("\n\tBook name: " + name
+                        + "\n\tID: " + id
                         + "\n\tBy: " + writtenBy
                         + "\n\tNumber of pages: " + pages
                         + "\n\tIs available (in the library): " + (available ? "Yes" : "No")
