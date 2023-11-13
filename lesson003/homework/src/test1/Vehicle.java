@@ -15,6 +15,13 @@ public class Vehicle {
         System.out.println("The vehicle '" + model + "' has created");
     }
 
+    public void print() {
+        System.out.println("The vehicle data:");
+        System.out.println("\tmodel: " + model);
+        System.out.println("\tEngine displacement: " + engineDisplacement + " cc");
+        System.out.println("\tTrim: " + trim);
+        System.out.println("\tTransmission type: " + (isManualTransmission ? "manual" : "auto"));
+    }
     public void horn(int seconds) {
         System.out.println("Horn " + seconds + " seconds");
     }
@@ -31,10 +38,10 @@ public class Vehicle {
     public static void main(String[] args) {
         Vehicle car = new Vehicle("Ford Shelby", 5000, "Orange", true);
 
+        car.print();
         car.horn(3);
         car.move();
         car.stop();
-
     }
 
 }
