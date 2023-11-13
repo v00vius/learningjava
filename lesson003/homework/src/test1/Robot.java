@@ -27,15 +27,13 @@ public class Robot {
         this.model = model;
     }
 
-    public void print() {
-        System.out.printf("Make: %s, model: %s", getMake(), getModel());
+    public void sayHello() {
+        System.out.printf("Hello! I am  '%s' robot, model '%s'\n", getMake(), getModel());
     }
-}
 
-class RobotDemo {
     public static void main(String[] args) {
         Robot robot = new Robot("The best", "R001");
 
-        robot.print();
+        robot.sayHello();
     }
 }
