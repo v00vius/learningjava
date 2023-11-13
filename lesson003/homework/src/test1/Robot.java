@@ -7,7 +7,7 @@ public class Robot {
     private String model;
 
     private double amount;
-    private double exchangeRate = 1.2;
+    private double exchangeRate = 0.97;
 
 
     public Robot(String make, String model) {
