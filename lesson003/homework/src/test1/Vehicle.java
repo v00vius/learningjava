@@ -41,7 +41,9 @@ public class Vehicle {
         car.print();
         car.horn(3);
         car.move();
-        car.stop();
+        int distance = car.stop();
+
+        System.out.println("Distance passed: " + distance + " km");
     }
 
 }
