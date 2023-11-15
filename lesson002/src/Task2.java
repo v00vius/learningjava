@@ -1,5 +1,3 @@
-package lesson002;
-
 class Task3 {
     int number;
     int n1, n2, n3;

@@ -3,8 +3,6 @@
 // A simple app that demonstrates class basics
 // and some interactions between objects of a class
 
-package lesson002;
-
 // A bank customer
 public class Customer {
     protected String name;
