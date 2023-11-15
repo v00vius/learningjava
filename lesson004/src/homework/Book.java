@@ -29,6 +29,13 @@ public class Book {
                         + "\n\tIs available (in the library): " + (available ? "Yes" : "No")
         );
     }
+    public void printOneLine() {
+//        System.out.println("\nAbout the book:");
+        System.out.println("\"" + name + "\"\t" + id + "\t\"" + writtenBy + "\"\t" + pages + "\t"
+                + (available ? "available" : "unavailable")
+        );
+    }
+
     public int getPages() {
         return pages;
     }
@@ -66,16 +73,34 @@ public class Book {
 
 
     public static void main(String[] args) {
+        Book book = Book.newBook("C++ Concurrency in Action: Practical Multithreading",
+                            "Anthony Williams");
+
+        book.setPages(528)
+                .setId(988770)
+                .setAvailable(false);
+
         Book book1 = Book.newBook("Java For Dummies", "Barry A. Burd",
-                            434, 9175690, true);
+                            434, 175690, true);
 
         Book book2 = Book.newBook("Effective Java", "Joshua Bloch");
 
         book2.setPages(416)
-                .setId(4685997)
+                .setId(685997)
                 .setAvailable(true);
 
+        Book book3 = Book.newBook("The Art of Multiprocessor Programming", "Maurice Herlihy",
+                536, 973376, false);
+
+        book.print();
         book1.print();
         book2.print();
+        book3.print();
+
+        System.out.println("\nBook\tId\tPages\tAuthor\tAvailability");
+        book.printOneLine();
+        book1.printOneLine();
+        book2.printOneLine();
+        book3.printOneLine();
     }
 }
