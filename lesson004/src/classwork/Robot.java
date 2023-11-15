@@ -1,6 +1,4 @@
-package test1;
-
-import java.io.PrintStream;
+package classwork;
 
 public class Robot {
     private String make;

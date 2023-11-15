@@ -1,4 +1,4 @@
-package test1;
+package homework;
 
 public class Book {
     private String name;
