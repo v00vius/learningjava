@@ -15,4 +15,7 @@ public class UserInterface {
     public int getInt(String prompt) {
         return Integer.parseInt(getString(prompt));
      }
+    public double getDouble(String prompt) {
+        return Double.parseDouble(getString(prompt));
+    }
 }
