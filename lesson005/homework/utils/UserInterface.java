@@ -10,6 +10,7 @@ public class UserInterface {
 
     public String getString(String prompt) {
         System.out.print(prompt);
+
         return console.nextLine();
     }
     public int getInt(String prompt) {

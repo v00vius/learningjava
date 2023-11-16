@@ -28,7 +28,7 @@ public class Pizza {
     }
 
     public static void main(String[] args) {
-        Pizza pizza1 = new Pizza("Cheese task3.Pizza", 24);
+        Pizza pizza1 = new Pizza("Cheese Pizza", 24);
         Pizza pizza2 = new Pizza("Pepperoni task3.Pizza", 28);
 
         System.out.println(pizza1.toString());

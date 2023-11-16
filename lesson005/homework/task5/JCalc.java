@@ -5,7 +5,6 @@ import utils.UserInterface;
 public class JCalc {
     private double num1;
     private double num2;
-
     private double sum;
     private double sub;
     private double mul;
@@ -25,6 +24,7 @@ public class JCalc {
         System.out.println("  num1 - num2 = " + sub);
         System.out.println("  num1 * num2 = " + mul);
         System.out.println("  num1 / num2 = " + div);
+
         return this;
     }
 
@@ -55,10 +55,11 @@ public class JCalc {
     }
 
     public static void main(String[] args) {
-        UserInterface ui = new UserInterface();
 
         System.out.println("Hello, I'm a simple math calculator.");;
         System.out.println("I can give you a sum, a subtraction, a multiplication and a division of two numbers.");;
+
+        UserInterface ui = new UserInterface();
         double number1 = ui.getDouble("Enter the first number, please: ");
         double number2 = ui.getDouble("Enter the second number, please: ");
 
