@@ -97,7 +97,7 @@ public class Book {
         book2.print();
         book3.print();
 
-        System.out.println("\nBook\tId\tAuthor\tPages\tAvailability");
+        System.out.println("\nBook\tID\tAuthor\tPages\tAvailability");
         book.printOneLine();
         book1.printOneLine();
         book2.printOneLine();
