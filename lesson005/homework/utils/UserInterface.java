@@ -3,7 +3,7 @@ package utils;
 import java.util.Scanner;
 
 public class UserInterface {
-    Scanner console;
+    private Scanner console;
     public UserInterface() {
         console = new Scanner(System.in);
     }
