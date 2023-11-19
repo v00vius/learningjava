@@ -19,6 +19,7 @@ public class Account {
         if(balance <= 0)
             return 0;
 
+        // find the nearest denominator
         for(int sum = balance / 2; sum > 0; --sum) {
             if(balance % sum == 0) {
                 balance -= sum;
