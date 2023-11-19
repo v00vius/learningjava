@@ -1,9 +1,6 @@
 import utils.UserInterface;
 
-import javax.sound.midi.Soundbank;
-import java.net.SocketOption;
-
-public class test1 {
+public class Test1 {
     public static void main(String[] args) {
         UserInterface ui = new UserInterface();
 
