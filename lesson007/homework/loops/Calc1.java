@@ -9,7 +9,7 @@ public class Calc1 {
         this.number = number;
     }
 
-    void power3() {
+    public void power3() {
         for (int i = 1; i <= number ; ++i) {
             System.out.println(i + " to power 3 = " + i * i * i);
         }
