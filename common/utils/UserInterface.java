@@ -11,7 +11,7 @@ public class UserInterface {
     public String getString(String prompt) {
         System.out.print(prompt);
 
-        return console.nextLine();
+        return console.nextLine().trim();
     }
     public int getInt(String prompt) {
         return Integer.parseInt(getString(prompt));

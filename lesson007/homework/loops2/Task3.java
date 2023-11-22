@@ -11,7 +11,7 @@ public class Task3 {
         attempts = 0;
     }
     public boolean isEqual(String word) {
-        boolean ok =  hello.equals(word.trim());
+        boolean ok =  hello.equals(word);
 
         if(!ok)
             ++attempts;
