@@ -2,11 +2,6 @@ package programming;
 
 import java.util.Random;
 
-/* Quadrant numbers are:
-    2|1
-    -+-
-    3|4
- */
 public class Quadrant {
     private Point point;
 
@@ -19,11 +14,16 @@ public class Quadrant {
         byte by = point.gety() >= 0 ? (byte)1 : 0;
         int qID = 0;
 
+/* Quadrant numbers are:
+    2|1
+    -+-
+    3|4
+ */
         switch ((by << 1) | bx) {
-            case 1: ++qID;
-            case 0: ++qID;
-            case 2: ++qID;
-            case 3: ++qID;
+            case 0: qID = 3; break;
+            case 1: qID = 4; break;
+            case 2: qID = 2; break;
+            case 3: qID = 1;
         }
 
         return qID;
