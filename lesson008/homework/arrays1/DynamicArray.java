@@ -70,6 +70,12 @@ public class DynamicArray {
     public int get(int i) {
         return data[i];
     }
+    public int inc(int i) {
+        return data[i]++;
+    }
+    public int dec(int i) {
+        return data[i]--;
+    }
     //
     // set a value at the index i
     public int set(int i, int value) {
