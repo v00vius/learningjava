@@ -68,6 +68,6 @@ public class Task3 {
         int frequentlyUsed = mostFrequentlyUsed(array);
 
         System.out.println(array);
-        System.out.println(frequentlyUsed);
+        System.out.println("The most frequently used element: " + frequentlyUsed);
     }
 }
