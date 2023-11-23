@@ -78,7 +78,8 @@ public class DynamicArray {
         return prev;
     }
     //
-    // add an element of the value to the end of array
+    // add an element of the value to the end of the array
+    // returns array size
     public int add(int value) {
         set(getSize(), value);
 
@@ -86,6 +87,7 @@ public class DynamicArray {
     }
     //
     // grow an array to the size newSIze (logical)
+    // returns allocated storage of elements
     private int  grow(int newSize) {
         int  newAllocated = newSize + (newSize >> 2);
         int[] newData = new int[newAllocated];
