@@ -1,3 +1,5 @@
+package arrays1;
+
 import utils.UserInterface;
 import utils.Utils;
 

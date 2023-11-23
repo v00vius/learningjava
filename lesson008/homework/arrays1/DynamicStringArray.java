@@ -1,48 +1,48 @@
-import java.util.Arrays;
+package arrays1;
 
-public class DynamicArray {
+public class DynamicStringArray {
     static
     public int minArraySize = 16;
-    private int[] data;
+    private String[] data;
     private int size;           // size (logical) of an array
     private int allocated;      // real (allocated) size of an array
 
-    private void lowLevelInit(int[] array, int sz) {
+    private void lowLevelInit(String[] array, int sz) {
         size = (array == null) ? sz : array.length;
         allocated = (size <= minArraySize) ? minArraySize : (size + (size >> 2));
-        data = new int[allocated];
+        data = new String[allocated];
 
         if(array != null) {
             for (int i = 0; i < size; i++)
                 data[i] = array[i];
         }
     }
-    public DynamicArray() {
+    public DynamicStringArray() {
         lowLevelInit(null, 0);
     }
-    public DynamicArray(int sz) {
+    public DynamicStringArray(int sz) {
         lowLevelInit(null, sz);
     }
-    public DynamicArray(int[] array) {
+    public DynamicStringArray(String[] array) {
         lowLevelInit(array, 0);
     }
     @Override
     public String toString() {
-        String s = "DynamicArray: size=" + size + ", allocated=" + allocated + " for storage\n";
+        String s = "arrays1.DynamicStringArray: size=" + size + ", allocated=" + allocated + " for storage\n";
 
         if(size == 0)
             return s + "{}";
         else
-            s += "{";
+            s += "{\n";
 
         for (int i = 0; i < size ; i++) {
-            s += get(i);
+            s += "\t\"" + get(i) + "\"";
 
             if(i < size - 1)
-                s += ", ";
+                s += ",\n";
         }
 
-        s += "}";
+        s += "\n}";
 
         return s;
     }
@@ -54,43 +54,39 @@ public class DynamicArray {
     }
     //
     // get a value at the index i
-    public int get(int i) {
+    public String get(int i) {
         return data[i];
     }
     //
     // set a value at the index i
-    public int set(int i, int value) {
-        int prev;
+    public String set(int i, String value) {
+        String prev;
 
         if(i < size) {
             prev = data[i];
         }
         else if(i < allocated) {
-                size = i + 1;
-                prev = 0;
+            size = i + 1;
+            prev = null;
         }
         else {
             grow(i + 1);
-            prev = 0;
+            prev = null;
         }
 
         data[i] = value;
         return prev;
     }
-    //
-    // add an element of the value to the end of the array
-    // returns array size
-    public int add(int value) {
-        set(getSize(), value);
+    public int add(String s) {
+        set(getSize(), s);
 
         return getSize();
     }
     //
     // grow an array to the size newSIze (logical)
-    // returns allocated storage of elements
     private int  grow(int newSize) {
         int  newAllocated = newSize + (newSize >> 2);
-        int[] newData = new int[newAllocated];
+        String[] newData = new String[newAllocated];
 
         for(int i = 0; i < size; ++i)
             newData[i] = data[i];

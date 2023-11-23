@@ -1,4 +1,4 @@
-
+package arrays1;
 
 public class Array3 {
     static

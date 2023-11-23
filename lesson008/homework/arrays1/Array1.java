@@ -1,7 +1,8 @@
+package arrays1;
+
 import utils.UserInterface;
 import utils.Utils;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Random;
 

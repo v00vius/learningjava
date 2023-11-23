@@ -1,46 +1,63 @@
-public class DynamicStringArray {
+package arrays1;
+
+import java.util.Arrays;
+
+public class DynamicArray {
     static
     public int minArraySize = 16;
-    private String[] data;
+    private int[] data;
     private int size;           // size (logical) of an array
     private int allocated;      // real (allocated) size of an array
 
-    private void lowLevelInit(String[] array, int sz) {
+    private void lowLevelInit(int[] array, int sz) {
         size = (array == null) ? sz : array.length;
         allocated = (size <= minArraySize) ? minArraySize : (size + (size >> 2));
-        data = new String[allocated];
+        data = new int[allocated];
 
         if(array != null) {
             for (int i = 0; i < size; i++)
                 data[i] = array[i];
         }
     }
-    public DynamicStringArray() {
+    public DynamicArray() {
         lowLevelInit(null, 0);
     }
-    public DynamicStringArray(int sz) {
+    public DynamicArray(int sz) {
         lowLevelInit(null, sz);
     }
-    public DynamicStringArray(String[] array) {
+    public DynamicArray(int[] array) {
         lowLevelInit(array, 0);
+    }
+
+    public boolean isUnique() {
+        for (int i = 0; i < getSize() - 1; ++i) {
+            int elem = get(i);
+
+            for(int j = i + 1; j < getSize(); ++j) {
+                if(elem == get(j))
+                    return false;
+            }
+        }
+
+        return true;
     }
     @Override
     public String toString() {
-        String s = "DynamicStringArray: size=" + size + ", allocated=" + allocated + " for storage\n";
+        String s = "arrays1.DynamicArray: size=" + size + ", allocated=" + allocated + " for storage\n";
 
         if(size == 0)
             return s + "{}";
         else
-            s += "{\n";
+            s += "{";
 
         for (int i = 0; i < size ; i++) {
-            s += "\t\"" + get(i) + "\"";
+            s += get(i);
 
             if(i < size - 1)
-                s += ",\n";
+                s += ", ";
         }
 
-        s += "\n}";
+        s += "}";
 
         return s;
     }
@@ -52,39 +69,43 @@ public class DynamicStringArray {
     }
     //
     // get a value at the index i
-    public String get(int i) {
+    public int get(int i) {
         return data[i];
     }
     //
     // set a value at the index i
-    public String set(int i, String value) {
-        String prev;
+    public int set(int i, int value) {
+        int prev;
 
         if(i < size) {
             prev = data[i];
         }
         else if(i < allocated) {
-            size = i + 1;
-            prev = null;
+                size = i + 1;
+                prev = 0;
         }
         else {
             grow(i + 1);
-            prev = null;
+            prev = 0;
         }
 
         data[i] = value;
         return prev;
     }
-    public int add(String s) {
-        set(getSize(), s);
+    //
+    // add an element of the value to the end of the array
+    // returns array size
+    public int add(int value) {
+        set(getSize(), value);
 
         return getSize();
     }
     //
     // grow an array to the size newSIze (logical)
+    // returns allocated storage of elements
     private int  grow(int newSize) {
         int  newAllocated = newSize + (newSize >> 2);
-        String[] newData = new String[newAllocated];
+        int[] newData = new int[newAllocated];
 
         for(int i = 0; i < size; ++i)
             newData[i] = data[i];
