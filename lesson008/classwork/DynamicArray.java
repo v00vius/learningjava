@@ -4,26 +4,47 @@ public class DynamicArray {
     static
     public int minArraySize = 16;
     private int[] data;
-    private int size;
-    private int allocated;
+    private int size;           // size (logical) of an array
+    private int allocated;      // real (allocated) size of an array
 
-    public DynamicArray(int sz) {
-        this.size = sz;
-        allocated = size <= minArraySize ? minArraySize : size + (size >> 2);
-
+    private void lowLevelInit(int[] array, int sz) {
+        size = (array == null) ? sz : array.length;
+        allocated = (size <= minArraySize) ? minArraySize : (size + (size >> 2));
         data = new int[allocated];
+
+        if(array != null) {
+            for (int i = 0; i < size; i++)
+                data[i] = array[i];
+        }
+    }
+    public DynamicArray() {
+        lowLevelInit(null, 0);
+    }
+    public DynamicArray(int sz) {
+        lowLevelInit(null, sz);
     }
     public DynamicArray(int[] array) {
-        this.size = array.length;
-        allocated = size <= minArraySize ? minArraySize : size + (size >> 2);
-        data = new int[allocated];
-
-        for(int i = 0; i < size; i++)
-            data[i] = array[i];
+        lowLevelInit(array, 0);
     }
     @Override
     public String toString() {
-        return "DynamicArray: size=" + size + ", allocated=" + allocated + "%n" + Arrays.toString(data);
+        String s = "DynamicArray<int>: size=" + size + ", allocated=" + allocated + " new elements\n";
+
+        if(size == 0)
+            return s + "{}";
+        else
+            s += "{";
+
+        for (int i = 0; i < size ; i++) {
+            s += get(i);
+
+            if(i < size - 1)
+                s += ", ";
+        }
+
+        s += "}";
+
+        return s;
     }
     public int getSize() {
         return size;
@@ -31,19 +52,22 @@ public class DynamicArray {
     public int getAllocated() {
         return allocated;
     }
+    //
+    // get a value at the index i
     public int get(int i) {
         return data[i];
     }
+    //
+    // set a value at the index i
     public int set(int i, int value) {
         int prev;
 
-        if(i < allocated) {
-            if (i < size)
-                prev = data[i];
-            else {
+        if(i < size) {
+            prev = data[i];
+        }
+        else if(i < allocated) {
                 size = i + 1;
                 prev = 0;
-            }
         }
         else {
             grow(i + 1);
@@ -53,8 +77,11 @@ public class DynamicArray {
         data[i] = value;
         return prev;
     }
+
+    //
+    // grow an array to the size newSIze (logical)
     private int  grow(int newSize) {
-        int  newAllocated = newSize + newSize >> 2;
+        int  newAllocated = newSize + (newSize >> 2);
         int[] newData = new int[newAllocated];
 
         for(int i = 0; i < size; ++i)
