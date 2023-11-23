@@ -1,7 +1,5 @@
 package arrays1;
 
-import java.util.Arrays;
-
 public class DynamicArray {
     static
     public int minArraySize = 16;
