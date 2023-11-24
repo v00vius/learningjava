@@ -1,7 +1,16 @@
 package arrays1;
 
 import java.util.Random;
-
+//
+// Dynamic Array of int (integers)
+// Usege:
+// to create an empty array:
+//   DynamicArray array = DynamicArray();
+// to set 100-th elemet to a value of 21 (array grows automatically):
+//    array.set(100, 21)
+// to get an i-th Element:
+//    int value = array.get(i);
+// 
 public class DynamicArray {
     static
     public int minArraySize = 16;
@@ -9,6 +18,19 @@ public class DynamicArray {
     private int size;           // size (logical) of an array
     private int allocated;      // real (allocated) size of an array
 
+    // an empty array
+    public DynamicArray() {
+        lowLevelInit(null, 0);
+    }
+    // an array of sz elements
+    public DynamicArray(int sz) {
+        lowLevelInit(null, sz);
+    }
+    // an array initialized by an existing 'array'. 'array' can be null
+    public DynamicArray(int[] array) {
+        lowLevelInit(array, 0);
+    }
+    
     private void lowLevelInit(int[] array, int sz) {
         size = (array == null) ? sz : array.length;
         allocated = (size <= minArraySize) ? minArraySize : (size + (size >> 2));
@@ -19,16 +41,8 @@ public class DynamicArray {
                 data[i] = array[i];
         }
     }
-    public DynamicArray() {
-        lowLevelInit(null, 0);
-    }
-    public DynamicArray(int sz) {
-        lowLevelInit(null, sz);
-    }
-    public DynamicArray(int[] array) {
-        lowLevelInit(array, 0);
-    }
 
+    // fill (0..nElements - 1) of random numbers in (0 .. range - 1)
     public DynamicArray fillRandom(int nElements, int range) {
         Random rnd = new Random();
 
@@ -38,6 +52,7 @@ public class DynamicArray {
         return this;
     }
 
+    // check if all alements are unique
     public boolean isUnique() {
         for (int i = 0; i < getSize() - 1; ++i) {
             int elem = get(i);
@@ -50,6 +65,7 @@ public class DynamicArray {
 
         return true;
     }
+    // get averago of elements
     public int avg() {
         int sum = 0;
 
@@ -59,7 +75,7 @@ public class DynamicArray {
 
         return sum / getSize();
     }
-
+    // reverse an array in the place (do not create new one)
     public DynamicArray reverse() {
         for (int i = 0; i < getSize() / 2; i++) {
             int tmp = get(i);
@@ -90,9 +106,11 @@ public class DynamicArray {
 
         return s;
     }
+    // get logical size
     public int getSize() {
         return size;
     }
+    // get size of storage
     public int getAllocated() {
         return allocated;
     }
@@ -101,9 +119,11 @@ public class DynamicArray {
     public int get(int i) {
         return data[i];
     }
+    // increment i-th element (returns previous value)
     public int inc(int i) {
         return data[i]++;
     }
+    // decrement i-th element (returns previous value)
     public int dec(int i) {
         return data[i]--;
     }
