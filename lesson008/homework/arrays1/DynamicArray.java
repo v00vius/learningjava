@@ -1,5 +1,7 @@
 package arrays1;
 
+import java.util.Random;
+
 public class DynamicArray {
     static
     public int minArraySize = 16;
@@ -25,6 +27,15 @@ public class DynamicArray {
     }
     public DynamicArray(int[] array) {
         lowLevelInit(array, 0);
+    }
+
+    public DynamicArray fillRandom(int nElements, int range) {
+        Random rnd = new Random();
+
+        for (int i = 0; i < nElements;)
+            set(i++, rnd.nextInt(range));
+
+        return this;
     }
 
     public boolean isUnique() {

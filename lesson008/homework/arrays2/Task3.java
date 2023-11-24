@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class Task3 {
     static
-    public int mostFrequentlyUsed(DynamicArray array) {
+    public Triple mostFrequentlyUsed(DynamicArray array) {
         DynamicArray element = new DynamicArray();
         DynamicArray refCount = new DynamicArray();
         boolean[] elementUsed = new boolean[array.getSize()];
@@ -40,34 +40,19 @@ public class Task3 {
             }
         }
 
-/*
-        System.out.println("elements");
-        System.out.println(element);
-
-        System.out.println("ref count");
-        System.out.println(refCount);
-*/
-
-        return element.get(index);
-    }
-    static
-    public DynamicArray fillRandom(DynamicArray data, int nElements, int range) {
-        Random rnd = new Random();
-
-        for (int i = 0; i < nElements;)
-            data.set(i++, rnd.nextInt(range));
-
-        return data;
+        return new Triple(element.get(index), refCount.get(index), 0);
     }
 
 
     public static void main(String[] args) {
         DynamicArray array = new DynamicArray();
-        fillRandom(array, 30, 11);
+        array.fillRandom( 30, 11);
 
-        int frequentlyUsed = mostFrequentlyUsed(array);
+        Triple frequentlyUsed = mostFrequentlyUsed(array);
 
         System.out.println(array);
-        System.out.println("The most frequently used element: " + frequentlyUsed);
+        System.out.println("The most frequently used element: "
+                + frequentlyUsed.getFirst() + ", usage count: "
+                + frequentlyUsed.getSecond());
     }
 }
