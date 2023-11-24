@@ -59,6 +59,17 @@ public class DynamicArray {
 
         return sum / getSize();
     }
+
+    public DynamicArray reverse() {
+        for (int i = 0; i < getSize() / 2; i++) {
+            int tmp = get(i);
+
+            set(i, get(getSize() - 1 - i));
+            set(getSize() - 1 - i, tmp);
+        }
+
+        return this;
+    }
     @Override
     public String toString() {
         String s = "arrays1.DynamicArray: size=" + size + ", allocated=" + allocated + " for storage\n";
