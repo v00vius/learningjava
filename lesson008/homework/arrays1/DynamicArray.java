@@ -50,6 +50,15 @@ public class DynamicArray {
 
         return true;
     }
+    public int avg() {
+        int sum = 0;
+
+        for (int i = 0; i < getSize(); ++i) {
+            sum += get(i);
+        }
+
+        return sum / getSize();
+    }
     @Override
     public String toString() {
         String s = "arrays1.DynamicArray: size=" + size + ", allocated=" + allocated + " for storage\n";
