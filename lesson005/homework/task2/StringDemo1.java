@@ -7,8 +7,8 @@ public class StringDemo1 {
 
         UserInterface ui = new UserInterface();
 
-        String str1 = ui.getString("Enter the word 1, please: ");
-        String str2 = ui.getString("Enter the word 2, please: ");
+        String str1 = ui.getString("Enter a word 1, please: ");
+        String str2 = ui.getString("Enter a word 2, please: ");
 
         System.out.println("You have entered two words: \""
                 + str1 + "\" and \"" + str2 + "\"");
