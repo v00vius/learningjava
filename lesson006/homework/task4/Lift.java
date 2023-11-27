@@ -39,7 +39,7 @@ public class Lift {
 
         System.out.println(lift1);
 
-        int attempts = lift1.numberOfLifts(0, 50, 1);
+        int attempts = lift1.numberOfLifts(0, 2, 1);
 
         if(attempts == Lift.liftFail)
             System.out.println("The lift is out of service!");
