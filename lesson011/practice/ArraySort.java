@@ -11,8 +11,8 @@ public class ArraySort {
         int endIndex = workingArray.length - 1;
 
         while (notSorted) {
-            System.out.println(notSorted);
-            System.out.println(Arrays.toString(workingArray));
+//            System.out.println(notSorted);
+//            System.out.println(Arrays.toString(workingArray));
             notSorted = false;
             ++iterations;
 

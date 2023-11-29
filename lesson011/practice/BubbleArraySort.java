@@ -44,13 +44,13 @@ public class BubbleArraySort {
 
 //        int[] arrayForSort = {8,3,5,2,1,4,7,6};
         int[] arrayForSort = randomArray(10);
-        System.out.println("Array before sort: ");
-        System.out.println(Arrays.toString(arrayForSort));
+//        System.out.println("Array before sort: ");
+//        System.out.println(Arrays.toString(arrayForSort));
 
         ArraySort sort = new ArraySort();
         int iterations =  sort.bubbleSort(arrayForSort);
 
         System.out.println("Array after sort (" + iterations + " iterations):");
-        System.out.println(Arrays.toString(arrayForSort));
+//        System.out.println(Arrays.toString(arrayForSort));
     }
 }
