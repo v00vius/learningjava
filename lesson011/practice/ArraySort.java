@@ -1,7 +1,8 @@
 import java.util.Arrays;
 
 public class ArraySort {
-    public void bubbleSort(int[] workingArray){
+    public int  bubbleSort(int[] workingArray){
+        int iterations = 0;
         boolean notSorted = true;
         int temp;
 
@@ -13,17 +14,23 @@ public class ArraySort {
             System.out.println(notSorted);
             System.out.println(Arrays.toString(workingArray));
             notSorted = false;
-            for (int i = 0; i < endIndex; i++) {
+            ++iterations;
+
+//            System.out.println(endIndex);
+
+            for (int i = 0; i < endIndex; ++i) {
                 if (workingArray[i] > workingArray[i + 1]) {
                     temp = workingArray[i];
                     workingArray[i] = workingArray[i + 1];
                     workingArray[i + 1] = temp;
                     notSorted = true;
-                    //System.out.println(Arrays.toString(workingArray));
+//                    System.out.println(Arrays.toString(workingArray));
                 }
             }
 
             --endIndex;
         }
+
+        return iterations;
     }
 }
