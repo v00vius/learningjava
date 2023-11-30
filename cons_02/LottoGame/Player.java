@@ -1,7 +1,7 @@
 public class Player {
     private String nickname;
     private int age;
-    private Cart[] carts[3];
+    private Cart[] carts;
 
     public Player(String nickname, int age) {
         this.nickname = nickname;

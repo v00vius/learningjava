@@ -38,7 +38,7 @@ public class LottoGame {
         }
     }
 
-    public void registerPlayers() {
+    public void registerPlayers() {https://github.com/v00vius/learningjava/tree/master/cons_02/LottoGame
         UserInput ui = new UserInput();
 
         numberOfPlayers = ui.getInt("Number of players: ");
