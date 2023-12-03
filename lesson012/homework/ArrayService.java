@@ -8,6 +8,10 @@ public class ArrayService {
         array = new int[arraySize];
     }
 
+    public ArrayService(int[] array) {
+        this.array = array;
+    }
+
     public ArrayService randomFill(int bound) {
         Random random = new Random();
 
