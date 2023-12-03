@@ -1,6 +1,6 @@
 public class ArrayServiceTest {
     public static void main(String[] args) {
-        ArrayService test = new ArrayService(20);
+        ArrayService test = new ArrayService(11);
 
         test.randomFill(99);
 

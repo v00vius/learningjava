@@ -20,13 +20,42 @@ public class ArrayService {
     public String toString() {
         return Arrays.toString(array);
     }
-    public int selectionSort() {
-        return 0;
+
+    private void swap(int indexA, int indexB) {
+        int tmp = array[indexA];
+
+        array[indexA] = array[indexB];
+        array[indexB] = tmp;
+    }
+    public int insertionSort() {
+        int iterations = 0;
+
+        for (int lastSorted = 0; lastSorted < array.length - 1; ++lastSorted) {
+            if(array[lastSorted] <= array[lastSorted + 1]) {
+                ++iterations;
+                continue;
+            }
+
+            int index = lastSorted;
+
+            do  {
+                swap(index, index + 1);
+
+                if(index == 0)
+                    break;
+
+                --index;
+                ++iterations;
+            }
+            while(array[index] > array[index + 1]);
+        }
+
+        return iterations;
     }
     public int bubbleSort() {
         return 0;
     }
-    public int insertionSort() {
+    public int selectionSort() {
         int lastSorted = 0;
         int iterations = 0;
 
