@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.util.Random;
 
+/*
 public class LottoGame {
     private int numberOfPlayers;//  10
     private int[] numbers;
@@ -71,3 +72,4 @@ public class LottoGame {
 //        player1 = new Player();
     }
 }
+*/

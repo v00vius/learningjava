@@ -1,5 +1,5 @@
 public class Cart {
-        private int[] numbers[15];
+        private int[] numbers;
 
     public Cart(int[] numbers) {
 //        напонить карточку
