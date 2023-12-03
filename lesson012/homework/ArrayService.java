@@ -53,7 +53,16 @@ public class ArrayService {
         return iterations;
     }
     public int bubbleSort() {
-        return 0;
+        int iterations = 0;
+
+        for (int lastSorted = array.length - 1; lastSorted >= 0; --lastSorted) {
+            for (int j = 0; j < lastSorted; ++j, ++iterations) {
+                if(array[j] > array[j + 1])
+                    swap(j, j + 1);
+            }
+        }
+
+        return iterations;
     }
     public int selectionSort() {
         int lastSorted = 0;
