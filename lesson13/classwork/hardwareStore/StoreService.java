@@ -29,6 +29,8 @@ public class StoreService {
             String  name = ui.getString("hardwareStore.Tool set #" + ( i + 1) + " name: ");
             int tool1 = ui.getInt("hardwareStore.Tool #1, id: ");
             int tool2 = ui.getInt("hardwareStore.Tool #2, id: ");
+
+//            toolSets[i] = new ToolSet(name, );
         }
 
         return toolSets;
