@@ -1,19 +1,16 @@
 package hardwareStore;
 
 public class Toolz {
-    private int id;
     private String name;
 
-    public Toolz(int id, String name) {
-        this.id = id;
+    public Toolz(String name) {
         this.name = name;
     }
 
     @Override
     public String toString() {
-        return "hardwareStore.Tool{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+        return "Toolz{" +
+                "name='" + name + '\'' +
                 '}';
     }
 }

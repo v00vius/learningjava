@@ -7,12 +7,15 @@ public class HardwareStore {
     private ToolSet[] toolSets;
     private Toolz[] tools;
 
-    public HardwareStore(String name, ToolSet[] toolSets, Toolz[] tools) {
+    public HardwareStore(String name) {
         this.name = name;
-        this.toolSets = toolSets;
-        this.tools = tools;
+        this.toolSets = new ToolSet[Config.maxToolSets];
+        this.tools = new Toolz[Config.maxTools];
     }
 
+    public int newTool(String name) {
+
+    }
     @Override
     public String toString() {
         return "hardwareStore.HardwareStore{" +
