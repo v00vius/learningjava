@@ -7,14 +7,14 @@ import javax.tools.Tool;
 public class StoreService {
     private HardwareStore store;
 
-    public Tool[] newTools() {
+    public Toolx[]  newTools() {
         UserInterface ui = new UserInterface();
         int numberOfTools = ui.getInt("Number of tools: ");
-        Tool[] tools = new Tool[numberOfTools];
+        Toolx[] tools = new Toolx[numberOfTools];
 
         for (int i = 0; i < tools.length; i++) {
             String toolName = ui.getString("hardwareStore.Tool #" + (i + 1)  +  " name: ");
-            tools[i] = new Tool(i, toolName);
+            tools[i] = new Toolx(i, toolName);
         }
 
         return tools;
@@ -35,7 +35,7 @@ public class StoreService {
     }
 
     public HardwareStore newHardwareStore() {
-        Tool[] tools = newTools();
+        Toolx[] tools = newTools();
         ToolSet[] toolSets = newToolSets();
         UserInterface ui = new UserInterface();
 

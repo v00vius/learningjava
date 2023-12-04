@@ -1,10 +1,10 @@
 package hardwareStore;
 
-public class Tool {
+public class Toolx {
     private int id;
     private String name;
 
-    public Tool(int id, String name) {
+    public Toolx(int id, String name) {
         this.id = id;
         this.name = name;
     }

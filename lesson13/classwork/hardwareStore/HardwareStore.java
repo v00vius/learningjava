@@ -6,9 +6,9 @@ import java.util.Arrays;
 public class HardwareStore {
     private String name;
     private ToolSet[] toolSets;
-    private Tool[] tools;
+    private Toolx[] tools;
 
-    public HardwareStore(String name, ToolSet[] toolSets, Tool[] tools) {
+    public HardwareStore(String name, ToolSet[] toolSets, Toolx[] tools) {
         this.name = name;
         this.toolSets = toolSets;
         this.tools = tools;
