@@ -81,9 +81,7 @@ public class ArrayService {
             }
 
             if(indexOfMin != lastSorted) {
-                int tmp = array[lastSorted];
-                array[lastSorted] = array[indexOfMin];
-                array[indexOfMin] = tmp;
+                swap(lastSorted, indexOfMin);
             }
 
             ++lastSorted;
