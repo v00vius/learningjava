@@ -1,14 +1,13 @@
 package hardwareStore;
 
-import javax.tools.Tool;
 import java.util.Arrays;
 
 public class HardwareStore {
     private String name;
     private ToolSet[] toolSets;
-    private Toolx[] tools;
+    private Toolz[] tools;
 
-    public HardwareStore(String name, ToolSet[] toolSets, Toolx[] tools) {
+    public HardwareStore(String name, ToolSet[] toolSets, Toolz[] tools) {
         this.name = name;
         this.toolSets = toolSets;
         this.tools = tools;

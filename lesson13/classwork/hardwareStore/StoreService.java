@@ -2,19 +2,17 @@ package hardwareStore;
 
 import utils.UserInterface;
 
-import javax.tools.Tool;
-
 public class StoreService {
     private HardwareStore store;
 
-    public Toolx[]  newTools() {
+    public Toolz[]  newTools() {
         UserInterface ui = new UserInterface();
         int numberOfTools = ui.getInt("Number of tools: ");
-        Toolx[] tools = new Toolx[numberOfTools];
+        Toolz[] tools = new Toolz[numberOfTools];
 
         for (int i = 0; i < tools.length; i++) {
             String toolName = ui.getString("hardwareStore.Tool #" + (i + 1)  +  " name: ");
-            tools[i] = new Toolx(i, toolName);
+            tools[i] = new Toolz(i, toolName);
         }
 
         return tools;
@@ -37,7 +35,7 @@ public class StoreService {
     }
 
     public HardwareStore newHardwareStore() {
-        Toolx[] tools = newTools();
+        Toolz[] tools = newTools();
         ToolSet[] toolSets = newToolSets();
         UserInterface ui = new UserInterface();
 
