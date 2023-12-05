@@ -7,12 +7,12 @@ public class InstrumentInventory {
     private int availableItems;
     private Instrument[] instruments;
     public InstrumentInventory() {
-        instruments = new Instrument[maxAvailableItems];
         availableItems = 0;
+        instruments = new Instrument[maxAvailableItems];
     }
     public void append(Instrument tool) {
-        ++availableItems;
         instruments[availableItems] = tool;
+        ++availableItems;
     }
 
     @Override

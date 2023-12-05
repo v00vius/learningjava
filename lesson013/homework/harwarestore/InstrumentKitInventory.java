@@ -15,7 +15,12 @@ public class InstrumentKitInventory {
 
     @Override
     public String toString() {
-        String line = "Instrument kit inventory: " + availableItems + " kits available\n";
+        String line = "Instrument kit inventory: " + availableItems + " kits available";
 
+        for (int i = 0; i < availableItems; i++) {
+            line += "\n" + (i + 1) + ") " + instrumentKits[i];
+        }
+
+        return line;
     }
 }

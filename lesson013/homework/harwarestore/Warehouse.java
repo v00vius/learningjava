@@ -2,6 +2,24 @@ package harwarestore;
 
 public class Warehouse {
     private String name;
-    private Instrument[] instruments;
-    private InstrumentKit[] instrumentKits;
+    private InstrumentInventory instruments;
+    private InstrumentKitInventory kits;
+
+    public Warehouse(String name) {
+        this.name = name;
+        instruments = new InstrumentInventory();
+        kits = new InstrumentKitInventory();
+    }
+    public void append(Instrument tool) {
+        instruments.append(tool);
+    }
+    public void append(InstrumentKit kit) {
+        kits.append(kit);
+    }
+
+    @Override
+    public String toString() {
+        return "Warehouse '" + name + "': instruments and kits\n"
+            + instruments + "\n" + kits;
+    }
 }
