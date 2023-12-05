@@ -17,8 +17,8 @@ public class Service {
             ui.message(store + "\n");
 
             int choice = ui.menuChoice(new String[] {
-                    "Load an instrument to the warehouse",
-                    "Load a kit to the warehouse"
+                    "Load an instrument into the warehouse",
+                    "Load a kit into the warehouse"
             });
 
             if(choice == 0)
@@ -29,6 +29,8 @@ public class Service {
             else if(choice == 2)
                 loadKit();
         }
+
+        ui.message("Bye!\n");
     }
 
     public void loadInstrument() {
@@ -42,7 +44,7 @@ public class Service {
         Instrument tool = store.findInstrumentByName(instrumentName);
 
         if(tool != null) {
-            ui.message("Instrument '" + instrumentName + "' already exists in the Warehouse\n");
+            ui.message("Instrument '" + instrumentName + "' already exists in the Warehouse.\n");
             return;
         }
 

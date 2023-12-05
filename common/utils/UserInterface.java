@@ -25,6 +25,8 @@ public class UserInterface {
         boolean selectionOk = false;
 
         while(!selectionOk) {
+            message("\n*** MENU ***\n");
+
             for (int i = 0; i < menuItems.length; ++i) {
                 message("  " + (i + 1) + ") " + menuItems[i] + "\n");
             }
