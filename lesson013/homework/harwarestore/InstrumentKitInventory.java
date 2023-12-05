@@ -19,7 +19,7 @@ public class InstrumentKitInventory {
     }
     public InstrumentKit findByName(String name) {
         for (int i = 0; i < getAvailableItems(); i++) {
-            if(name.equals(instrumentKits[i].getName()))
+            if(name.equalsIgnoreCase(instrumentKits[i].getName()))
                 return instrumentKits[i];
         }
 

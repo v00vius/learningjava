@@ -14,14 +14,12 @@ public class Warehouse {
     public String getName() {
         return name;
     }
-
     public void append(Instrument tool) {
         instruments.append(tool);
     }
     public void append(InstrumentKit kit) {
         kits.append(kit);
     }
-
     public Instrument findInstrumentByName(String name) {
         return instruments.findByName(name);
     }

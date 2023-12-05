@@ -21,7 +21,7 @@ public class InstrumentInventory {
     }
     public Instrument findByName(String name) {
         for (int i = 0; i < getAvailableItems(); ++i) {
-            if(name.equals(instruments[i].getName()))
+            if(name.equalsIgnoreCase(instruments[i].getName()))
                 return instruments[i];
         }
 
