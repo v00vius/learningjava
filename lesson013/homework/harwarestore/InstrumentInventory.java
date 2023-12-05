@@ -10,6 +10,11 @@ public class InstrumentInventory {
         availableItems = 0;
         instruments = new Instrument[maxAvailableItems];
     }
+
+    public int getAvailableItems() {
+        return availableItems;
+    }
+
     public void append(Instrument tool) {
         instruments[availableItems] = tool;
         ++availableItems;

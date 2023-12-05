@@ -8,6 +8,11 @@ public class InstrumentKitInventory {
         availableItems = 0;
         instrumentKits = new InstrumentKit[maxAvailableItems];
     }
+
+    public int getAvailableItems() {
+        return availableItems;
+    }
+
     public void append(InstrumentKit kit) {
         instrumentKits[availableItems] = kit;
         ++availableItems;

@@ -3,6 +3,7 @@ package harwarestore;
 public class App {
     public static void main(String[] args) {
         Warehouse store = new Warehouse("Hardware store");
+        System.out.println(store);
 
         Instrument tool1 = new Instrument("Axe");
         Instrument tool2 = new Instrument("Hammer");
