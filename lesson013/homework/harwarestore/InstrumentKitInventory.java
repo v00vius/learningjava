@@ -20,9 +20,9 @@ public class InstrumentKitInventory {
 
     @Override
     public String toString() {
-        String line = "Instrument kit inventory: " + availableItems + " kits available";
+        String line = "Instrument kit inventory: " + getAvailableItems() + " kits available";
 
-        for (int i = 0; i < availableItems; i++) {
+        for (int i = 0; i < getAvailableItems(); i++) {
             line += "\n" + (i + 1) + ") " + instrumentKits[i];
         }
 

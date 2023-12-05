@@ -3,7 +3,7 @@ package harwarestore;
 import java.util.Arrays;
 
 public class InstrumentInventory {
-    private int maxAvailableItems = 10;
+    private int maxAvailableItems = 20;
     private int availableItems;
     private Instrument[] instruments;
     public InstrumentInventory() {
@@ -22,9 +22,9 @@ public class InstrumentInventory {
 
     @Override
     public String toString() {
-        String line = "Instrument inventory: " + availableItems + " items available";
+        String line = "Instrument inventory: " + getAvailableItems() + " items available";
 
-        for (int i = 0; i < availableItems; ++i) {
+        for (int i = 0; i < getAvailableItems(); ++i) {
             line += "\n  " + (i + 1) + ") " + instruments[i];
         }
 
