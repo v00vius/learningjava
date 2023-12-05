@@ -25,5 +25,8 @@ public class App {
         System.out.println(kit2);
 
         System.out.println(store);
+
+        Service service = new Service(store);
+        service.loadWarehouse();
     }
 }

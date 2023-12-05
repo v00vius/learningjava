@@ -10,6 +10,11 @@ public class Warehouse {
         instruments = new InstrumentInventory();
         kits = new InstrumentKitInventory();
     }
+
+    public String getName() {
+        return name;
+    }
+
     public void append(Instrument tool) {
         instruments.append(tool);
     }
@@ -17,6 +22,12 @@ public class Warehouse {
         kits.append(kit);
     }
 
+    public Instrument findInstrumentByName(String name) {
+        return instruments.findByName(name);
+    }
+    public InstrumentKit findKitByName(String name) {
+        return kits.findByName(name);
+    }
     @Override
     public String toString() {
         return "Warehouse '" + name + "': instruments and kits\n"

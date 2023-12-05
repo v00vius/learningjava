@@ -19,6 +19,14 @@ public class InstrumentInventory {
         instruments[availableItems] = tool;
         ++availableItems;
     }
+    public Instrument findByName(String name) {
+        for (int i = 0; i < getAvailableItems(); ++i) {
+            if(name.equals(instruments[i].getName()))
+                return instruments[i];
+        }
+
+        return null;
+    }
 
     @Override
     public String toString() {

@@ -13,6 +13,10 @@ public class InstrumentKit {
         instruments[1] = tool2;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString() {
         return "Kit " + name + ":\n"
