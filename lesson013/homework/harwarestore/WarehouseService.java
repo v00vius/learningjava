@@ -2,11 +2,11 @@ package harwarestore;
 
 import utils.UserInterface;
 
-public class Service {
+public class WarehouseService {
     private Warehouse store;
     private UserInterface ui;
 
-    public Service(Warehouse store) {
+    public WarehouseService(Warehouse store) {
         this.store = store;
         ui = new UserInterface();
     }

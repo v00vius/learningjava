@@ -24,6 +24,9 @@ public class UserInterface {
         int selection = 0;
         boolean selectionOk = false;
 
+        if(null == menuItems)
+            return 0;
+
         while(!selectionOk) {
             message("\n*** MENU ***\n");
 

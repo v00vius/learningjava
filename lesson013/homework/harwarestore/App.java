@@ -21,7 +21,7 @@ public class App {
         InstrumentKit  kit2 = new InstrumentKit("Kit B", tool1, tool2);
         store.append(kit2);
 
-        Service service = new Service(store);
+        WarehouseService service = new WarehouseService(store);
         service.loadWarehouse();
     }
 }
