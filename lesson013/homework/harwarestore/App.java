@@ -1,7 +1,7 @@
 package harwarestore;
 
 public class App {
-    
+
     public static void main(String[] args) {
         Warehouse store = new Warehouse("Hardware store");
 
