@@ -1,6 +1,7 @@
 import entity.Card;
 import entity.Cards;
 import service.DeckService;
+import service.GameRoom;
 
 import java.util.Arrays;
 
@@ -21,7 +22,7 @@ public class PokerApp {
     - вывести информацию о картах у игроков -> printPlayersInfo()
 
          */
-
+/*
         Cards cards = new Cards();
         DeckService service = new DeckService();
 
@@ -40,6 +41,15 @@ public class PokerApp {
         deckShuffle = service.deckShuffle(deckShuffle);
 
         System.out.println(Arrays.toString(deckShuffle));
+*/
+        Game game = new Game();
+        GameRoom room = new GameRoom();
+
+        game.registerPlayers(room.getPlayers());
+        game.dealCards();
+        room.printCards(game.getPlayers());
+
+        game.go();
 
     }
 }

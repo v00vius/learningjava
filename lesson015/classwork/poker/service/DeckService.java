@@ -28,6 +28,7 @@ public class DeckService {
             deckShuffle[i] = deckShuffle[randomIndex];
             deckShuffle[randomIndex] = tempCard;
         }
+
         return deckShuffle;
     }
 

@@ -6,8 +6,13 @@ public class Cards {
     в каждой ячейке этого массива будет храниться ссылка на элемент - экземпляр класса Card
     у которого есть две переменные - value и suit
      */
+    private int numberCardsDealt;
+    private Card[] deck;
 
-    private Card[] deck = new Card[52];
+    public Cards() {
+        this.numberCardsDealt = 0;
+        deck = new Card[52];
+    }
 
     public Card[] getDeck() {
         return deck;
@@ -17,4 +22,13 @@ public class Cards {
         this.deck = deck;
     }
 
+    public int getNumberCardsDealt() {
+        return numberCardsDealt;
+    }
+    public Card dealCard() {
+        Card card =  deck[numberCardsDealt];
+        ++numberCardsDealt;
+
+        return card;
+    }
 }
