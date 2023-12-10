@@ -12,4 +12,3 @@ public class Utils {
         return Math.PI * diameter * diameter / 4.0;
     }
 }
-

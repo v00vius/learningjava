@@ -27,16 +27,25 @@ public class GameRoom {
     public void printCards(Player[] persons) {
         for (int i = 0; i < persons.length; ++i) {
             printCards(persons[i]);
+            println("");
         }
     }
 
     public void printCards(Player player) {
-        System.out.println("Player " + player.getName());
-        System.out.println("cards: ");
+        println("Player - " + player.getName());
         Card[] playerCards = player.getPlayerCards();
 
         for (int i = 0; i < playerCards.length; ++i) {
-            System.out.println(playerCards[i].toString());
+            print("  " + playerCards[i].toString());
         }
+
+        println("");
     }
+    public void println(String str) {
+        System.out.println(str);
+    }
+    public void print(String str) {
+        System.out.print(str);
+    }
+
 }

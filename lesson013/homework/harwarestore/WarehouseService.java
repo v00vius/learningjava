@@ -1,5 +1,6 @@
 package harwarestore;
 
+import utils.Menu;
 import utils.UserInterface;
 
 public class WarehouseService {
@@ -12,22 +13,29 @@ public class WarehouseService {
     }
 
     public void loadWarehouse() {
-        while(true) {
-            userInterface.message("*** [Warehouse '" + store.getName() + "'] ***\n");
-            userInterface.message(store + "\n");
+        Menu menu = new Menu("Warehouse");
 
-            int choice = userInterface.menuChoice(new String[] {
-                    "Load an instrument into the warehouse",
-                    "Load a kit into the warehouse"
-            });
+        menu.add(new String[] {
+                "Load an instrument into the warehouse",
+                "Load a kit into the warehouse",
+                "Show the warehouse items"
+                }
+        );
+
+        while(true) {
+            int choice = menu.show().select();
 
             if(choice == 0)
                 break;
 
             if(choice == 1)
                 loadInstrument();
+
             else if(choice == 2)
                 loadKit();
+
+            else if(choice == 3)
+                userInterface.message(store + "\n");
         }
 
         userInterface.message("Bye!\n");
