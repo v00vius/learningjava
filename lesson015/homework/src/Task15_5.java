@@ -1,3 +1,5 @@
+import utils.UserInterface;
+
 import java.util.Random;
 
 public class Task15_5 {
@@ -43,6 +45,21 @@ public class Task15_5 {
 
         return (int) (avg / data.length);
     }
+
+    public ArrayInt getEvenFrom(ArrayInt array) {
+        int[] data = array.getData();
+        int[] onlyEven = new int[array.getSize()];
+
+        int counter = 0;
+
+        for (int i = 0; i < data.length; ++i) {
+            if(0 == data[i] % 2)
+                onlyEven[counter++] = data[i];
+        }
+
+        return new ArrayInt(onlyEven, counter);
+    }
+
     public void print(ArrayInt array) {
         int[] data = array.getData();
 
@@ -54,6 +71,16 @@ public class Task15_5 {
         }
 
         System.out.println("}");
+    }
+    boolean isAllDigits(String str) {
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+
+            if(!('0' <= ch && ch <= '9'))
+                return false;
+        }
+
+        return true;
     }
 
     public static void main(String[] args) {
@@ -105,7 +132,39 @@ public class Task15_5 {
         else
             System.out.println("avg1 > avg2");
 
-        System.out.println("Bye!");
+//
+//      Task15_8
+        UserInterface ui = new UserInterface();
 
+        int arraySize;
+
+        while(true) {
+            String str = ui.getString("Enter a number that is > 3: ");
+
+            if(str.isEmpty() || !task.isAllDigits(str)) {
+                System.out.println("Wrong 'number' (" + str + "). Once again, please.");
+                continue;
+            }
+
+            arraySize = Integer.parseInt(str);
+
+            if(arraySize > 3)
+                break;
+            else
+                System.out.println("Wrong number (" + arraySize + "). Once again, please.");
+        }
+
+        System.out.println("Creating an array of size (" + arraySize+ ") of random numbers [0;" + arraySize + "] ...");
+
+        array = new ArrayInt(arraySize);
+        task.randomFill(array, 0, arraySize);
+        System.out.println("The Created array:");
+        task.print(array);
+
+        array1 = task.getEvenFrom(array);
+        System.out.println("The array of even numbers from the initial array:");
+        task.print(array1);
+
+        System.out.println("Bye!");
     }
 }

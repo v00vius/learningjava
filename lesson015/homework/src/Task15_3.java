@@ -8,6 +8,7 @@ public class Task15_3 {
             return new String[0];
 
         DynamicStringArray strings = new DynamicStringArray();
+
         int wordBeginIndex = 0;
 
         while(wordBeginIndex < line.length()) {
@@ -39,8 +40,14 @@ public class Task15_3 {
     boolean isBlank(int ch) {
         return (ch == ' ' || ch == '\t');
     }
-    void printWords() {
+    void printWords(DynamicStringArray strings) {
+        String[] words = strings.getData();
 
+        System.out.println("Words list");
+
+        for (int i = 0; i < words.length; i++) {
+            System.out.println("  " + words[i]);
+        }
     }
 
     public static void main(String[] args) {
@@ -61,6 +68,7 @@ public class Task15_3 {
             ui.message("Already have entered " + words.getSize() + " word(s)\n");
         }
 
+        wordCounter.printWords(words);
         ui.message("Total have entered " + words.getSize() + " word(s)\nBye!\n");
     }
 }
