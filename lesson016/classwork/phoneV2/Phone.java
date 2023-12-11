@@ -43,7 +43,7 @@ public class Phone {
         return "Phone{" +
                 ".imei=" + imei +
                 " .simCard=" + simCard +
-                ". model='" + model + '\'' +
+                " .model='" + model + '\'' +
                 " .phoneCase=" + phoneCase +
                 '}';
     }
