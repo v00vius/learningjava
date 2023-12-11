@@ -1,8 +1,8 @@
-public class Array12 {
+public class ArrayInt {
     private int[] data;
 
-    public Array12() {
-        data = new int[8];
+    public ArrayInt(int size) {
+        data = new int[size];
     }
 
     public int[] getData() {
