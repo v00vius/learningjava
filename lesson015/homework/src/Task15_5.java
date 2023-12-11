@@ -33,6 +33,16 @@ public class Task15_5 {
             data[i] = 0;
         }
     }
+    public int average(ArrayInt array) {
+        int[] data = array.getData();
+        double avg = 0.0;
+
+        for (int i = 0; i < data.length; ++i) {
+            avg += data[i];
+        }
+
+        return (int) (avg / data.length);
+    }
     public void print(ArrayInt array) {
         int[] data = array.getData();
 
@@ -69,5 +79,33 @@ public class Task15_5 {
         task.transform(array);
         System.out.println("After transform:");
         task.print(array);
+
+//
+//      Task15_7
+        array = new ArrayInt(5);
+        task.randomFill(array, 0, 5);
+        System.out.println("\n\nInitial array1:");
+        task.print(array);
+
+        ArrayInt array1 = new ArrayInt(5);
+        task.randomFill(array1, 0, 5);
+        System.out.println("Initial array2:");
+        task.print(array1);
+
+        int avg = task.average(array);
+        int avg1 = task.average(array1);
+
+        System.out.println("Average of array1 (avg1): " + avg);
+        System.out.println("Average of array2 (avg2): " + avg1);
+
+        if(avg < avg1)
+            System.out.println("avg1 < avg2");
+        else if(avg == avg1)
+            System.out.println("avg1 == avg2");
+        else
+            System.out.println("avg1 > avg2");
+
+        System.out.println("Bye!");
+
     }
 }
