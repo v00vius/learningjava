@@ -52,7 +52,7 @@ public class Menu {
                     return selection;
             }
 
-            ui.message("Wrong selection. Once again, please.\n");
+            ui.message("The Wrong selection. Once again, please.\n");
         }
     }
     private void grow() {

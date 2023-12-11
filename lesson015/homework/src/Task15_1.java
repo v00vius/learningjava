@@ -1,4 +1,4 @@
-public class Task1 {
+public class Task15_1 {
     public String[] reverse(String[] strings) {
         for (int i = 0; i < strings.length / 2; i++) {
             String tmp = strings[i];
@@ -31,13 +31,13 @@ public class Task1 {
                 "хранения результатов."
         };
 
-        Task1 task1 = new Task1();
+        Task15_1 task151 = new Task15_1();
 
-        task1.println("Before:");
-        task1.printStrings(strings);
+        task151.println("Before:");
+        task151.printStrings(strings);
 
-        task1.println("After:");
-        task1.reverse(strings);
-        task1.printStrings(strings);
+        task151.println("After:");
+        task151.reverse(strings);
+        task151.printStrings(strings);
     }
 }
