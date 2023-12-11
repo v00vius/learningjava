@@ -39,6 +39,9 @@ public class Task15_3 {
     boolean isBlank(int ch) {
         return (ch == ' ' || ch == '\t');
     }
+    void printWords() {
+
+    }
 
     public static void main(String[] args) {
         UserInterface ui = new UserInterface();
