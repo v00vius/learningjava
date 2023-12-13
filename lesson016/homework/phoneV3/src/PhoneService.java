@@ -29,7 +29,7 @@ public class PhoneService {
         return insertSimCard(phone, simCard, 0);
     }
 
-    public boolean insertSimCard(Phone phone, SimCard simCard, int index){
+    public boolean insertSimCard(Phone phone, SimCard simCard,  int index) {
         if (simCard.getNumber() != 0) {
             phone.setSimCard(index, simCard);
 
