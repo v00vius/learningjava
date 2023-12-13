@@ -3,11 +3,12 @@ package utils;
 public class Menu {
     private String name;
     private UserInterface ui;
-
     private String[] menuItems;
+    
     public Menu(String name) {
         this.name = name;
         ui = new UserInterface();
+        menuItems = new String[0];
     }
 
     public Menu add(String item) {
@@ -16,6 +17,7 @@ public class Menu {
 
         return this;
     }
+    
     public Menu add(String[] items) {
         grow(items.length);
 
@@ -58,12 +60,8 @@ public class Menu {
     private void grow() {
         grow(1);
     }
+    
     private void grow(int delta) {
-        if(menuItems == null) {
-            menuItems = new String[delta];
-            return;
-        }
-
         String[] newItems = new String[menuItems.length + delta];
 
         for (int i = 0; i < menuItems.length; i++) {
