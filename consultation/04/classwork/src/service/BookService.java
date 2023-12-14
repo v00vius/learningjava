@@ -1,15 +1,18 @@
 package service;
 
 import entity.*;
+
 public class BookService {
 
     public Book[] createBookStorage(int size) {
         return new Book[size];
     }
+
     public Book createBook(int id, String author, String  name) {
         return new Book(id, author, name );
 
     }
+
     public boolean addBookToStore(Book[] store, Book aBook) {
         int position = findFreePlace(store);
 
@@ -20,6 +23,7 @@ public class BookService {
 
         return true;
     }
+
     private int findFreePlace(Book[] store) {
         for (int i = 0; i < store.length; i++) {
             if(store[i] == null)
