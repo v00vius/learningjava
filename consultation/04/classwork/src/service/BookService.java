@@ -8,11 +8,6 @@ public class BookService {
         return new Book[size];
     }
 
-    public Book createBook(int id, String author, String  name) {
-        return new Book(id, author, name );
-
-    }
-
     public boolean addBookToStore(Book[] store, Book aBook) {
         int position = findFreePlace(store);
 
