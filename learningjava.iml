@@ -4,28 +4,12 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/lesson003/homework/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/lesson003/lessoncode/code" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/lesson004/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/lesson002/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/lesson005/homework" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/lesson006/homework" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/common" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/lesson006/classwork" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/lesson007/classwork" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/lesson007/homework" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/lesson008/homework" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/lesson008/homework" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/cons_02/LottoGame" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/lesson011/practice" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/lesson012/classwork" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/lesson012/homework" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/lesson013/homework" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/consultation/03/lotto" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/lesson015/classwork/poker" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/lesson015/homework/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/lesson016/classwork" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/lesson13/classwork" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lesson018/classwork/src" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

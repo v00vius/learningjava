@@ -8,8 +8,8 @@ public class App {
             new SportCar("Ford Shelby V8 5.7L 660hp  (0-200 km/h in 12.3s)")
         };
 
-        for (Vehicle vehicle : vehicles) {
-            vehicle.accelerate();
+        for (int i = 0; i < vehicles.length; i++) {
+            vehicles[i].accelerate();
         }
     }    
 }
