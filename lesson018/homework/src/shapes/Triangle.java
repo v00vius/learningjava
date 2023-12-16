@@ -19,4 +19,10 @@ public class Triangle extends Shape {
     public double getPerimeter() {
         return sideA + sideB + sideC;
     }
+    public void print() {
+        System.out.println("Shape: " + getTitle() + "\n"
+                    + "  - sideA: " + sideA + "\n"
+                    + "  - sideB: " + sideB + "\n"
+                    + "  - sideC: " + sideC + "\n");
+    }
 }

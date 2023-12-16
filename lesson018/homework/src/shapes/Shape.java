@@ -8,6 +8,6 @@ public class Shape {
     public double getArea();
     abstract
     public double getPerimeter();
-    // abstract
-    // public Shape copyThis();
+    abstract
+    public void print();
 }

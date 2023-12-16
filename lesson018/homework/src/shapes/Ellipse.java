@@ -14,6 +14,11 @@ public class Ellipse extends Circle {
         double h = Math.pow(radius2 - radius, 2.0) / Math.pow(radius2 + radius, 2.0);
 
         return Math.PI * (radius2 + radius) 
-                * (1.0 + 3.0 * h / (10.0 + Math.pow(4.0 -3 * h, 0.5)));
+                * (1.0 + 3.0 * h / (10.0 + Math.pow(4.0 - 3.0 * h, 0.5)));
+    }
+    public void print() {
+        System.out.println("Shape: " + getTitle() + "\n"
+                    + "  - radius1: " + radius + "\n"
+                    + "  - radius2: " + radius2 + "\n");
     }
 }

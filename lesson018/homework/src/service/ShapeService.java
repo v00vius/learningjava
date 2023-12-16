@@ -8,7 +8,7 @@ public class ShapeService {
     private Shape nullShape;
     private Random random;
 
-    public ShapeService(int numberOfShapes) {
+    public ShapeService() {
         this.nullShape = new Line(0.0);
         random = new Random();
     }

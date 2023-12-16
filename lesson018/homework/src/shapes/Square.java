@@ -8,5 +8,9 @@ public class Square extends Shape {
     }
     public String getTitle() { return "Square"; }
     public double getArea() { return height * height; }
-    public double getPerimeter() { return height * 4; }
+    public double getPerimeter() { return height * 4.0; }
+    public void print() {
+        System.out.println("Shape: " + getTitle() + "\n"
+                    + "  - height: " + height + "\n");
+    }
 }

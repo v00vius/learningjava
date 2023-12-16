@@ -10,5 +10,10 @@ public class Rectangle extends Square {
 
     public String getTitle() { return "Rectangle"; }
     public double getArea() { return height * length; }
-    public double getPerimeter() { return 2 * (height + length); }
+    public double getPerimeter() { return 2.0 * (height + length); }
+    public void print() {
+        System.out.println("Shape: " + getTitle() + "\n"
+                    + "  - height: " + height + "\n"
+                    + "  - length: " + length + "\n");
+    }
 }

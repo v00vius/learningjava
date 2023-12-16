@@ -8,5 +8,9 @@ public class Circle extends Shape {
     }
     public String getTitle() { return "Circle"; }
     public double getArea() { return Math.PI * radius * radius; }
-    public double getPerimeter() { return 2 * Math.PI * radius; }
+    public double getPerimeter() { return 2.0 * Math.PI * radius; }
+    public void print() {
+        System.out.println("Shape: " + getTitle() + "\n"
+                    + "  - radius: " + radius + "\n");
+    }
 }
