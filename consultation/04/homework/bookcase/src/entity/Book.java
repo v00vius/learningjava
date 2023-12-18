@@ -15,5 +15,17 @@ public class Book {
     public String toString() {
         return "Book [title=" + title + ", author=" + author + "]";
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
    
 }

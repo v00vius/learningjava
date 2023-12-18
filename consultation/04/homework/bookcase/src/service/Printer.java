@@ -1,20 +1,31 @@
 package service;
 
+import entity.Book;
 import entity.BookCase;
 
 public class Printer {
     public void print(BookCase bookCase) {
         for (int i = 0; i < bookCase.getNumberOfShelves(); ++i) {
-            System.out.println("Shelf " + (i + 1));
+            System.out.println("[Shelf " + i + "]" );
 
             for (int j = 0; j < bookCase.getBooksPerShelf(); ++j) {
                 if(bookCase.isEmpty(i, j))
                     continue;
 
-                System.out.println("  " + (j + 1) + " - " + bookCase.getBookAt(i, j));
+                Book book = bookCase.getBookAt(i, j);
+                
+                System.out.println("  " + j + " - '" 
+                        + book.getTitle() + "' by " + book.getAuthor()
+                );
             }
+
+            System.out.println("");
         }
         
+        System.out.println("Total number of books: " + bookCase.getCounts());
+        System.out.println("Max number of books on a shelf: " + bookCase.getBooksPerShelf());
+        System.out.println("Books set on the shelf: " + bookCase.getInsertions());
+        System.out.println("Books took off the shelf: " + bookCase.getRemovals());
         System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
     }
 }
