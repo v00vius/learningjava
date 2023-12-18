@@ -72,7 +72,7 @@ public class Phone {
 
     @Override
     public String toString() {
-        return "Phone " + model + "\n" +
+        return "phone " + model + "\n" +
                 "  imei " + imei + "\n" +
                 "  " + phoneCase + "\n" +
                 "  " + Arrays.toString(simCard);
