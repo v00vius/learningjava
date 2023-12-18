@@ -10,7 +10,7 @@ public class Square extends Shape {
     public double getArea() { return height * height; }
     public double getPerimeter() { return height * 4.0; }
     public void print() {
-        System.out.println("Shape: " + getTitle() + "\n"
+        System.out.println(getTitle() + "\n"
                     + "  - height: " + height);
     }
 }

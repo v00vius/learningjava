@@ -20,7 +20,7 @@ public class Triangle extends Shape {
         return sideA + sideB + sideC;
     }
     public void print() {
-        System.out.println("Shape: " + getTitle() + "\n"
+        System.out.println(getTitle() + "\n"
                     + "  - sideA: " + sideA + "\n"
                     + "  - sideB: " + sideB + "\n"
                     + "  - sideC: " + sideC);

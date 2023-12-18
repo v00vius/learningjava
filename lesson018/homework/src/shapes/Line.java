@@ -10,7 +10,7 @@ public class Line extends Shape {
     public double getArea() { return 0.0; }
     public double getPerimeter() { return length; }
     public void print() {
-        System.out.println("Shape: " + getTitle() + "\n"
+        System.out.println(getTitle() + "\n"
                     + "  - length: " + length);
     }
 }

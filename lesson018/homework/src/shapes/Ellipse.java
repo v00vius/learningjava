@@ -17,7 +17,7 @@ public class Ellipse extends Circle {
                 * (1.0 + 3.0 * h / (10.0 + Math.pow(4.0 - 3.0 * h, 0.5)));
     }
     public void print() {
-        System.out.println("Shape: " + getTitle() + "\n"
+        System.out.println(getTitle() + "\n"
                     + "  - radius1: " + radius + "\n"
                     + "  - radius2: " + radius2);
     }

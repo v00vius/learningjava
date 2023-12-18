@@ -10,7 +10,7 @@ public class Circle extends Shape {
     public double getArea() { return Math.PI * radius * radius; }
     public double getPerimeter() { return 2.0 * Math.PI * radius; }
     public void print() {
-        System.out.println("Shape: " + getTitle() + "\n"
+        System.out.println(getTitle() + "\n"
                     + "  - radius: " + radius);
     }
 }
