@@ -19,6 +19,6 @@ public class Ellipse extends Circle {
     public void print() {
         System.out.println("Shape: " + getTitle() + "\n"
                     + "  - radius1: " + radius + "\n"
-                    + "  - radius2: " + radius2 + "\n");
+                    + "  - radius2: " + radius2);
     }
 }

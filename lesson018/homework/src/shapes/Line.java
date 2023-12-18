@@ -11,6 +11,6 @@ public class Line extends Shape {
     public double getPerimeter() { return length; }
     public void print() {
         System.out.println("Shape: " + getTitle() + "\n"
-                    + "  - length: " + length + "\n");
+                    + "  - length: " + length);
     }
 }

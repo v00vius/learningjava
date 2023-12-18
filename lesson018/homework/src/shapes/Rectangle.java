@@ -14,6 +14,6 @@ public class Rectangle extends Square {
     public void print() {
         System.out.println("Shape: " + getTitle() + "\n"
                     + "  - height: " + height + "\n"
-                    + "  - length: " + length + "\n");
+                    + "  - length: " + length);
     }
 }

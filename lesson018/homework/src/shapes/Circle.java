@@ -11,6 +11,6 @@ public class Circle extends Shape {
     public double getPerimeter() { return 2.0 * Math.PI * radius; }
     public void print() {
         System.out.println("Shape: " + getTitle() + "\n"
-                    + "  - radius: " + radius + "\n");
+                    + "  - radius: " + radius);
     }
 }

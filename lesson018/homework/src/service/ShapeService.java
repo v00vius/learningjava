@@ -12,7 +12,7 @@ public class ShapeService {
         this.nullShape = new Line(0.0);
         random = new Random();
     }
-    public Shape createShape(int shapeType, double areaSize) {
+    public Shape shapeFactory(int shapeType, double areaSize) {
             switch (shapeType) {
                 case 1:
                     return new Line(random.nextDouble(areaSize));
@@ -49,7 +49,7 @@ public class ShapeService {
         Shape[] shapes = new Shape[numberOfShapes];
 
         for (int i = 0; i < numberOfShapes; ++i) {
-            shapes[i] = createShape(1 + random.nextInt(6), areaSize);
+            shapes[i] = shapeFactory(1 + random.nextInt(6), areaSize);
         }
 
         return shapes;

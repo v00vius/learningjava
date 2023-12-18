@@ -4,13 +4,17 @@ import shapes.*;
 public class App {
     public static void main(String[] args) {
         ShapeService shapeService = new ShapeService();
-        Shape[] shapes = shapeService.createShapes(20, 100.0);
+        Shape[] shapes = shapeService.createShapes(200, 100.0);
 
         double totalArea = 0.0;
         double totalPerimeter = 0.0;
 
-        for (Shape shape : shapes) {
+        for (int i = 0; i < shapes.length; ++i) {
+            Shape shape = shapes[i];
+
+            System.out.print((i + 1) + ") ");
             shape.print();
+
             double area = shape.getArea();
             double perimeter = shape.getPerimeter();
 

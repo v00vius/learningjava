@@ -11,6 +11,6 @@ public class Square extends Shape {
     public double getPerimeter() { return height * 4.0; }
     public void print() {
         System.out.println("Shape: " + getTitle() + "\n"
-                    + "  - height: " + height + "\n");
+                    + "  - height: " + height);
     }
 }

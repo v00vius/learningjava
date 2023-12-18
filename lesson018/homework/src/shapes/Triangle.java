@@ -23,6 +23,6 @@ public class Triangle extends Shape {
         System.out.println("Shape: " + getTitle() + "\n"
                     + "  - sideA: " + sideA + "\n"
                     + "  - sideB: " + sideB + "\n"
-                    + "  - sideC: " + sideC + "\n");
+                    + "  - sideC: " + sideC);
     }
 }
