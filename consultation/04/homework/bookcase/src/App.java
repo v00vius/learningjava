@@ -1,9 +1,9 @@
 import java.util.Arrays;
 
+import enduser.InformationDesk;
 import entity.Book;
 import entity.BookCase;
 import service.BookCaseService;
-import service.InformationDesk;
 import service.Printer;
 
 class App {

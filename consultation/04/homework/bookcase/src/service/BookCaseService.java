@@ -26,4 +26,26 @@ public class BookCaseService {
     public boolean swapBooks(BookCase bookCase, Book book1, Book book2) {
         return bookCase.swapBooks(book1, book2);
     }
+    public Book getBookAt(BookCase bookCase, int shelf, int index) {
+        return bookCase.getBookAt(shelf, index);
+    }
+    public String[] getBookList(BookCase bookCase) {
+        int counter = 0;
+        String[] bookList = new String[bookCase.getCounts()];
+
+        for (int i = 0; i < bookCase.getNumberOfShelves(); ++i) {
+
+            for (int j = 0; j < bookCase.getBooksPerShelf(); ++j) {
+                if(bookCase.isEmpty(i, j))
+                    continue;
+
+                Book book = bookCase.getBookAt(i, j);
+
+                bookList[counter++] = "'" + book.getTitle() + "' by "
+                                        + book.getAuthor();
+            }
+        }
+
+        return bookList;
+    }
 }

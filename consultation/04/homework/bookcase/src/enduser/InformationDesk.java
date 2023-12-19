@@ -1,7 +1,11 @@
-package service;
+package enduser;
+
+import java.util.Arrays;
 
 import entity.Book;
 import entity.BookCase;
+import service.BookCaseService;
+import service.Printer;
 import utils.*;
 
 public class InformationDesk {
@@ -66,7 +70,7 @@ public class InformationDesk {
         }//while
     }
     public void getInformation() {
-        printer.print(bookCase);
+        printer.printShelves(bookCase);
     }
 
     private void moveBookToShelf() {
@@ -77,8 +81,38 @@ public class InformationDesk {
         System.out.println("It's not implemented yet");
     }
 
+    private boolean isEmptyBook(Book book) {
+        return book.equals(getEmptyBook());
+    }
+    private Book getEmptyBook() {
+        return new Book(0, "", "");
+    }
+    private Book askBook() {
+        UserInterface ui = new UserInterface();
+
+        int shelf = ui.getInt("Which shelf do you want to take the book from? ");
+
+        if(0 > shelf || shelf >= bookCase.getNumberOfShelves()) 
+            return getEmptyBook();
+
+        int index = ui.getInt("Which index do you want to take the book from? ");
+
+        if(0 > index || index >= bookCase.getBooksPerShelf()) 
+            return getEmptyBook();
+
+        return bookCaseService.getBookAt(bookCase, shelf, index);
+    }
     private void takeBook() {
-        System.out.println("It's not implemented yet");
+        Book book = askBook();
+
+        if(isEmptyBook(book) || !bookCaseService.takeBook(bookCase, book)) {
+            System.out.println("That book is not available.");
+            return;
+        }
+
+        System.out.println("Thank you for taking the book:");
+        printer.print(book);
+        System.out.println("\n");
     }
 
     private void addBook() {
