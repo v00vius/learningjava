@@ -74,7 +74,26 @@ public class InformationDesk {
     }
 
     private void moveBookToShelf() {
-        System.out.println("It's not implemented yet");
+        UserInterface ui = new UserInterface();
+
+        Book book = askBookToTake("Which shelf do you want to take the book from? ",
+                                "Which index do you want to take the book from? ");
+
+        if(isEmptyBook(book)) {
+            System.out.println("That slot is  empty. Cannot take the book.");
+            return;
+        }
+
+        int shelf = ui.getInt("Which shelf do you want to move the book to? ");
+
+        if(!isValidIndex(shelf, 0))  {
+            System.out.println("Invalis shelf. Cannot move the book.");
+            return;
+        }      
+        
+        printer.print(book);
+        System.out.println(" is being moved to shelf " + shelf + ".");
+        bookCaseService.moveBookToShelf(bookCase, shelf, book);
     }
 
     private void swapBooks() {
@@ -82,28 +101,36 @@ public class InformationDesk {
     }
 
     private boolean isEmptyBook(Book book) {
-        return book.equals(getEmptyBook());
+        return book.getId() == 0
+                && book.getTitle().equals("")
+                && book.getAuthor().equals("");
     }
     private Book getEmptyBook() {
         return new Book(0, "", "");
     }
-    private Book askBook() {
+
+    private boolean isValidIndex(int shelf, int index) {
+        return 0 <= shelf && shelf < bookCase.getNumberOfShelves()
+            && 0 <= index && index < bookCase.getBooksPerShelf();
+    }
+    private Book askBookToTake(String question1, String question2) {
         UserInterface ui = new UserInterface();
 
-        int shelf = ui.getInt("Which shelf do you want to take the book from? ");
+        int shelf = ui.getInt(question1);
 
-        if(0 > shelf || shelf >= bookCase.getNumberOfShelves()) 
+        if(!isValidIndex(shelf, 0)) 
             return getEmptyBook();
 
-        int index = ui.getInt("Which index do you want to take the book from? ");
+        int index = ui.getInt(question2);
 
-        if(0 > index || index >= bookCase.getBooksPerShelf()) 
+        if(!isValidIndex(shelf, index)) 
             return getEmptyBook();
 
         return bookCaseService.getBookAt(bookCase, shelf, index);
     }
     private void takeBook() {
-        Book book = askBook();
+        Book book = askBookToTake("Which shelf do you want to take the book from? ",
+                                "Which index do you want to take the book from? ");
 
         if(isEmptyBook(book) || !bookCaseService.takeBook(bookCase, book)) {
             System.out.println("That book is not available.");
@@ -116,7 +143,19 @@ public class InformationDesk {
     }
 
     private void addBook() {
-        System.out.println("It's not implemented yet");
+        UserInterface ui = new UserInterface();
+        String title = ui.getString("Which title of the book do you want to add? ");
+        String author = ui.getString("Which author of the book do you want to add? ");
+        Book book = new Book(0, title, author);
+
+        if(isEmptyBook(book))
+        {
+            System.out.println("That book is not valid.");
+            return;
+        }
+
+        book.setId(1 + bookCase.getCounts());
+        bookCaseService.setBook(bookCase, book);
     }
 
     private void initialFill() {
