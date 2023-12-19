@@ -4,7 +4,7 @@ import entity.Book;
 import entity.BookCase;
 
 public class Printer {
-    public void print(BookCase bookCase) {
+    public Printer print(BookCase bookCase) {
         for (int i = 0; i < bookCase.getNumberOfShelves(); ++i) {
             System.out.println("[Shelf " + i + "]" );
 
@@ -27,8 +27,12 @@ public class Printer {
         System.out.println("Books set on the shelf: " + bookCase.getInsertions());
         System.out.println("Books took off the shelf: " + bookCase.getRemovals());
         System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+
+        return this;
     }
-    public void print(Book book) {
+    public Printer print(Book book) {
         System.out.print("'" + book.getTitle() + "' by " + book.getAuthor());
+        
+        return this;
     }
 }

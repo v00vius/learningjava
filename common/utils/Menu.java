@@ -29,7 +29,7 @@ public class Menu {
     }
 
     public Menu show() {
-        ui.message(">>> " + name + " <<<\n");
+        ui.message("=-=-=-=-=- " + name + " -=-=-=-=-=\n");
 
         for (int i = 0; i < menuItems.length; i++) {
             ui.message("  " + (i + 1) + ") " + menuItems[i] + "\n");
