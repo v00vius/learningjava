@@ -93,13 +93,13 @@ public class BookCase extends Counter {
     }
     private boolean takeBookOffAt(int index, Book book) {
         if(books[index].equals(book)) {
-            books[index] = book;
+            books[index] = emptyBook;
             incrementRemovalCount();
 
             return true;
         }
 
-        return true;
+        return false;
     }
     
     public boolean moveBookToShelf(int shelf, Book book) {

@@ -14,9 +14,9 @@ public class Printer {
 
                 Book book = bookCase.getBookAt(i, j);
                 
-                System.out.println("  " + j + " - '" 
-                        + book.getTitle() + "' by " + book.getAuthor()
-                );
+                System.out.print("  " + j + " - ");
+                print(book);                        
+                System.out.println("");
             }
 
             System.out.println("");
@@ -27,5 +27,8 @@ public class Printer {
         System.out.println("Books set on the shelf: " + bookCase.getInsertions());
         System.out.println("Books took off the shelf: " + bookCase.getRemovals());
         System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+    }
+    public void print(Book book) {
+        System.out.print("'" + book.getTitle() + "' by " + book.getAuthor());
     }
 }

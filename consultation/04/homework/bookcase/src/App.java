@@ -18,18 +18,28 @@ class App {
 
         service.setBook(bookCase, book1);
         service.setBookOnShelf(bookCase, 1, book2);
-        service.setBookOnShelf(bookCase, 3, book4);
+        service.setBookOnShelf(bookCase, 2, book4);
         service.setBookOnShelf(bookCase, 3, book3);
 
         Printer printer = new Printer();
 
         printer.print(bookCase);
-
         service.swapBooks(bookCase, book4, book3);
         printer.print(bookCase);
 
-        service.moveBookToShelf(bookCase, 1, book4);
-        service.moveBookToShelf(bookCase, 2, book2);
+        if(!service.moveBookToShelf(bookCase, 0, book4)) {
+            System.out.print(">>> Failed to move ");
+            printer.print(book4);
+            System.out.println(" to the shelf 0");
+        }
+
+        if(!service.moveBookToShelf(bookCase, 0, book2)) {
+            System.out.print(">>> Failed to move ");
+            printer.print(book2);
+            System.out.println(" to the shelf 0");
+
+        }
+
         printer.print(bookCase);
        
     }
