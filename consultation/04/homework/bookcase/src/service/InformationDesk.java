@@ -1,26 +1,96 @@
 package service;
 
+import entity.Book;
 import entity.BookCase;
+import utils.*;
 
 public class InformationDesk {
-//  User information desk
-//      menu
-//          set/take book, print contents of a bookcase, etc.)
-    BookCase bookCase;
-    BookCaseService bookCaseService;
+    private String name;
+    private BookCase bookCase;
+    private BookCaseService bookCaseService;
+    private Menu menu;
+    private Printer printer;
 
-    public InformationDesk() {
+    public InformationDesk(String name){
+        this.name = name;
         bookCaseService = new BookCaseService();
+        bookCase = bookCaseService.createBookCase(5, 2);
+        menu = new Menu(this.name);
+
+        menu.add(
+            new String[] {
+                "Information about Bookcase",
+                "Get the Bookcase initially filled",
+                "Add Book",
+                "Take Book",
+                "Swap Books",
+                "Move Book to Shelf ...",
+            }
+        );
+
+        printer = new Printer();
     }
 
     public void informationDesk() {
-        System.out.println("Information Desk");
-        System.out.println("1. Set Book");
-        System.out.println("2. Take Book");
-        System.out.println("3. Print Bookcase");
-        System.out.println("4. Swap Books");
-        System.out.println("5. Move Book to Shelf");
-        System.out.println("6. Move Book to Shelf");
-        System.out.println("7. Exit");
+        
+        while(true) {
+            int selection = menu.show()
+                                .select();
+
+            switch(selection) {
+                case 1:
+                    getInformation();
+                    break;
+
+                case 2:
+                    initialFill();
+                    break;
+
+                case 3:
+                    addBook();
+                    break;
+                case 4:
+                    takeBook();
+                    break;
+                case 5:
+                    swapBooks();
+                    break;
+                case 6:
+                    moveBookToShelf();
+                    break;
+
+                default:
+                    System.out.println("Have a nice day! Bye!");
+                    return;
+            }                                
+        }//while
+    }
+    public void getInformation() {
+        printer.print(bookCase);
+    }
+
+    private void moveBookToShelf() {
+        System.out.println("It's not implemented yet");
+    }
+
+    private void swapBooks() {
+        System.out.println("It's not implemented yet");
+    }
+
+    private void takeBook() {
+        System.out.println("It's not implemented yet");
+    }
+
+    private void addBook() {
+        System.out.println("It's not implemented yet");
+    }
+
+    private void initialFill() {
+        bookCaseService.setBook(bookCase, new Book(10, "C++ Concurrency in Action: Practical Multithreading",
+                "Anthony Williams"));
+
+        bookCaseService.setBook(bookCase, new Book(20, "Java For Dummies", "Barry A. Burd"));
+        bookCaseService.setBook(bookCase, new Book(30, "Effective Java", "Joshua Bloch"));
+        bookCaseService.setBook(bookCase, new Book(40, "The Art of Multiprocessor Programming", "Maurice Herlihy"));
     }
 }

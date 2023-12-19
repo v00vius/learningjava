@@ -3,10 +3,18 @@ import java.util.Arrays;
 import entity.Book;
 import entity.BookCase;
 import service.BookCaseService;
+import service.InformationDesk;
 import service.Printer;
 
 class App {
     public static void main(String[] args) {
+
+        InformationDesk informationDesk = new InformationDesk("BookCase Information Desk");
+
+
+
+        informationDesk.informationDesk();
+/* 
         Book book1 = new Book(10, "C++ Concurrency in Action: Practical Multithreading",
                 "Anthony Williams");
         Book book2 = new Book(20, "Java For Dummies", "Barry A. Burd");
@@ -41,6 +49,6 @@ class App {
         }
 
         printer.print(bookCase);
-       
+*/       
     }
 }
