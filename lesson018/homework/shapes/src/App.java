@@ -4,7 +4,7 @@ import shapes.*;
 public class App {
     public static void main(String[] args) {
         ShapeService shapeService = new ShapeService();
-        Shape[] shapes = shapeService.createShapes(20, 100.0);
+        Shape[] shapes = shapeService.createShapes(32, 100.0);
 
         double totalArea = 0.0;
         double totalPerimeter = 0.0;

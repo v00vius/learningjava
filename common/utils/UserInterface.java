@@ -15,13 +15,17 @@ public class UserInterface {
         return Integer.parseInt(getString());
     }
     public int getInt(String prompt) {
-        return Integer.parseInt(getString(prompt));
+        message(prompt);
+
+        return getInt();
     }
     public double getDouble() {
         return Double.parseDouble(getString());
     }
     public double getDouble(String prompt) {
-        return Double.parseDouble(getString(prompt));
+        message(prompt);
+
+        return getDouble();
     }
     public String getString(String prompt) {
         message(prompt);
