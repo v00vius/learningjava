@@ -1,18 +1,17 @@
-## Getting Started
+ImGui Java
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
 
-## Folder Structure
+https://github.com/SpaiR/imgui-java
 
-The workspace contains two folders by default, where:
+https://github.com/ocornut/imgui
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+Dear ImGui is a bloat-free graphical user interface library for C++ and other languages.
 
-## Dependency Management
+It outputs optimized vertex buffers that you can render anytime in
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+your 3D-pipeline-enabled application.
+
+It is fast, portable, renderer agnostic, and self-contained (no external dependencies).
+
