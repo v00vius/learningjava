@@ -1,5 +1,7 @@
 package shapes;
 
+import java.util.Random;
+
 public class Triangle extends Shape {
     private double sideA;
     private double sideB;
@@ -9,6 +11,8 @@ public class Triangle extends Shape {
         this.sideA = sideA;
         this.sideB = sideB;
         this.sideC = sideC;
+    }
+    public Triangle() {
     }
     @Override
     public String getTitle() { return "Triangle"; }
@@ -28,5 +32,16 @@ public class Triangle extends Shape {
                     + "  - sideA: " + sideA + "\n"
                     + "  - sideB: " + sideB + "\n"
                     + "  - sideC: " + sideC);
+    }
+    @Override
+    public Shape factory(double areaSize) {
+        Random random = new Random();
+
+        double sideA = random.nextDouble(areaSize);
+        double sideB = random.nextDouble(areaSize);
+        double sideC = Math.max(sideA, sideB) +
+                    Math.min(sideA, sideB) / 2.0;
+
+        return new Triangle(sideA, sideB, sideC);
     }
 }

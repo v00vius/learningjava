@@ -54,5 +54,22 @@ public class ShapeService {
 
         return shapes;
     }
+    public Shape[] createShapes2(int numberOfShapes, double areaSize) {
+        Shape[] shapes = new Shape[numberOfShapes];
+        Shape[] factory = {
+                    new Line(),
+                    new Square(),
+                    new Rectangle(),
+                    new Circle(),
+                    new Ellipse(),
+                    new Triangle()
+        };
+
+        for (int i = 0; i < numberOfShapes; ++i) {
+            shapes[i] = factory[random.nextInt(factory.length)].factory(areaSize);
+        }
+
+        return shapes;
+    }
 }
 

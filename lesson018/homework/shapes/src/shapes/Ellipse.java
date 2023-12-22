@@ -1,11 +1,15 @@
 package shapes;
 
+import java.util.Random;
+
 public class Ellipse extends Circle {
     private double radius2;
 
     public Ellipse(double radius, double radius2) {
         super(radius);
         this.radius2 = radius2;
+    }
+    public Ellipse() {
     }
     @Override
     public String getTitle() { return "Ellipse"; }
@@ -25,5 +29,11 @@ public class Ellipse extends Circle {
         System.out.println(getTitle() + "\n"
                     + "  - radius1: " + radius + "\n"
                     + "  - radius2: " + radius2);
+    }
+    @Override
+    public Shape factory(double areaSize) {
+        Random random = new Random();
+
+        return new Ellipse(random.nextDouble(areaSize), random.nextDouble(areaSize));
     }
 }

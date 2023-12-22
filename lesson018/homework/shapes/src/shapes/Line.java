@@ -1,10 +1,14 @@
 package shapes;
 
+import java.util.Random;
+
 public class Line extends Shape {
     private double length;
 
     public Line(double length) {
         this.length = length;
+    }
+    public Line() {
     }
     @Override
     public String getTitle() { return "Line"; }
@@ -17,4 +21,9 @@ public class Line extends Shape {
         System.out.println(getTitle() + "\n"
                     + "  - length: " + length);
     }
+    @Override
+    public Shape factory(double areaSize) {
+        return new Line(new Random().nextDouble(areaSize));
+    }
+
 }

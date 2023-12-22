@@ -1,7 +1,7 @@
 package shapes;
 
 abstract
-public class Shape {
+public class Shape implements ShapeFactory {
     abstract
     public String getTitle();
 

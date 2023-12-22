@@ -1,11 +1,16 @@
 package shapes;
 
+import java.util.Random;
+
 public class Rectangle extends Square {
     private double length;
 
     public Rectangle(double height, double length) {
         super(height);
         this.length = length;
+    }
+
+    public Rectangle() {
     }
 
     @Override
@@ -20,4 +25,12 @@ public class Rectangle extends Square {
                     + "  - height: " + height + "\n"
                     + "  - length: " + length);
     }
+
+    @Override
+    public Shape factory(double areaSize) {
+        Random random = new Random();
+
+        return new Rectangle(random.nextDouble(areaSize), random.nextDouble(areaSize));
+    }
+    
 }
