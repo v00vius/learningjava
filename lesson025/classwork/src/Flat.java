@@ -1,4 +1,4 @@
-public class Flat {
+public class Flat implements Comparable <Flat>{
 private float area;
 private int nRooms;
 
@@ -26,4 +26,11 @@ public String toString()
                 " m^2, nRooms=" + nRooms +
                 "}\n";
 }
+
+        @Override
+        public int compareTo(Flat o)
+        {
+                int cmp = getnRooms() - o.getnRooms();
+                return cmp == 0 ? (int)(getArea() - o.getArea()) : cmp;
+        }
 }
