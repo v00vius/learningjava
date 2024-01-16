@@ -14,7 +14,8 @@ public class Node implements Comparable<Node> {
 
         public void connect(Node n)
         {
-                connected.add(n);
+                if(!this.equals(n))
+                        connected.add(n);
         }
 
         public Set<Edge> getEdges()
