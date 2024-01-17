@@ -177,7 +177,7 @@ public byte get(int x, int y)
 
 private int index(int x, int y)
 {
-        return rows * y + x;
+        return cols * y + x;
 }
 
 private int getX(int idx)
@@ -215,6 +215,17 @@ public String toString()
                 m += '\n';
         }
 
+        m += String.format("Graph (%d) edges:", graph.size());
+
+        for(Edge e : graph) {
+                m += String.format(" [%d->%d]", e.getFrom(), e.getTo());
+        }
+
+        m += String.format("\nWave (%d) edges:", wave.size());
+
+        for(Edge e : wave) {
+                m += String.format(" [%d->%d]", e.getFrom(), e.getTo());
+        }
 
         return m;
 }
