@@ -51,17 +51,17 @@ public BoxManager()
         presision = new Presision(1e-3f);
 }
 
-public HeavyBox createBox(String owner)
+public HeavyBox createBox(String tag)
 {
-        HeavyBox b = new HeavyBox(nextId(), owner);
+        HeavyBox b = new HeavyBox(nextId(), tag);
 
         boxes.add(b);
 
-        List<HeavyBox> myBoxes = tags.get(owner);
+        List<HeavyBox> myBoxes = tags.get(tag);
 
         if(myBoxes == null) {
                 myBoxes = createBoxList();
-                tags.put(owner, myBoxes);
+                tags.put(tag, myBoxes);
         }
 
         myBoxes.add(b);
@@ -69,12 +69,21 @@ public HeavyBox createBox(String owner)
         return b;
 }
 
-public List<HeavyBox> getByVolume()
+public Set<HeavyBox> getByVolume()
 {
+        Set<HeavyBox> byVolume = new TreeSet<>(new byVolume());
 
-        Collections.sort(boxes, new byVolume());
+        byVolume.addAll(boxes);
 
-        return boxes;
+        return byVolume;
+}
+public Set<HeavyBox> getByMass()
+{
+        Set<HeavyBox> byMass = new TreeSet<>(new byMass());
+
+        byMass.addAll(boxes);
+
+        return byMass;
 }
 public List<HeavyBox> getBoxes()
 {

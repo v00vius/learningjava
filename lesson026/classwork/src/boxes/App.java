@@ -20,7 +20,14 @@ public static void main(String[] args)
         }
 
         System.out.println(boxManager.getBoxes());
+
         System.out.println("++++++++++++++++++++++");
         System.out.println(boxManager.getTaggedAs("Tag02"));
+
+        System.out.println("By Volume ++++++++++++++++++++++");
+        System.out.println(boxManager.getByVolume());
+
+        System.out.println("By Mass ++++++++++++++++++++++");
+        System.out.println(boxManager.getByMass());
 }
 }

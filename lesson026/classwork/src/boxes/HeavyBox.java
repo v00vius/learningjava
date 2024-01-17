@@ -8,10 +8,10 @@ private float height;
 private float mass;
 private String tag;
 
-public HeavyBox(int id, String owner)
+public HeavyBox(int id, String tag)
 {
         this.id = id;
-        this.tag = owner;
+        this.tag = tag;
 }
 public HeavyBox setData(float length, float width, float height, float mass)
 {
@@ -46,6 +46,7 @@ public String toString()
                 ", width=" + width +
                 ", height=" + height +
                 ", mass=" + mass +
+                ", volume=" + getVolume() +
                 ", tag='" + tag + '\'' +
                 "}\n";
 }
