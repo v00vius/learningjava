@@ -1,4 +1,5 @@
 ## The dynamic events disparcher demo
+
 This pattern eliminates long switch statements and/or if statements in event handling.
 
 For example, instead of

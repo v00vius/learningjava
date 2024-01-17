@@ -1,6 +1,7 @@
 package transport;
 
 public interface Transmission {
-    public void gearUp();
-    public void gearDown();
+        public void gearUp();
+
+        public void gearDown();
 }

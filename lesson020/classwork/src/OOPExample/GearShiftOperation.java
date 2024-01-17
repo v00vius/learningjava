@@ -2,6 +2,6 @@ package OOPExample;
 
 public interface GearShiftOperation {
 
-    void changeGear(boolean isUp);
+        void changeGear(boolean isUp);
 
 }

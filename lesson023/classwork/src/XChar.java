@@ -1,19 +1,23 @@
 public class XChar {
-    private char ch;
+        private char ch;
 
-    public XChar(char ch) {
-        this.ch = ch;
-    }
+        public XChar(char ch)
+        {
+                this.ch = ch;
+        }
 
-    public char getCh() {
-        return ch;
-    }
+        public char getCh()
+        {
+                return ch;
+        }
 
-    public void setCh(char ch) {
-        this.ch = ch;
-    }
+        public void setCh(char ch)
+        {
+                this.ch = ch;
+        }
 
-    public void add() {
-        System.out.println(ch);
-    }
+        public void add()
+        {
+                System.out.println(ch);
+        }
 }

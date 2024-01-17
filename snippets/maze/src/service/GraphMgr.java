@@ -1,11 +1,10 @@
 package service;
 
-import entity.Graph;
-import entity.Node;
+import types.Graph;
+import types.Node;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class GraphMgr {
         public GraphMgr()
@@ -32,7 +31,7 @@ public class GraphMgr {
                                 connect(nodes, n, x - 1, y, rows, cols);
                                 connect(nodes, n, x + 1, y, rows, cols);
                                 connect(nodes, n, x, y - 1, rows, cols);
-                                connect(nodes, n, x , y + 1, rows, cols);
+                                connect(nodes, n, x, y + 1, rows, cols);
 
                                 g.add(n);
                         }
@@ -40,15 +39,19 @@ public class GraphMgr {
 
                 return g;
         }
-        static private void connect(List<Node> nodes, Node n1, int x, int y, int max_y, int max_x) {
-                if(x < 0 || y < 0 || x > max_x - 1 || y > max_y - 1)
+
+        static private void connect(List<Node> nodes, Node n1, int x, int y, int max_y, int max_x)
+        {
+                if (x < 0 || y < 0 || x > max_x - 1 || y > max_y - 1) {
                         return;
+                }
 
                 Node n2 = nodes.get(index(max_y, y, x));
 
                 n1.connect(n2);
                 n2.connect(n1);
         }
+
         static private int index(int rows, int y, int x)
         {
                 return rows * y + x;

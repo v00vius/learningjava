@@ -1,12 +1,13 @@
-import entity.Card;
-import entity.Cards;
+import types.Card;
+import types.Cards;
 import service.DeckService;
 import service.GameRoom;
 
 import java.util.Arrays;
 
 public class PokerApp {
-    public static void main(String[] args) {
+        public static void main(String[] args)
+        {
         /*
     - подготовительные действия с колодой карт
     - создать колоду (создать массив)   -> создать экземпляр класса Cards
@@ -42,14 +43,14 @@ public class PokerApp {
 
         System.out.println(Arrays.toString(deckShuffle));
 */
-        Game game = new Game();
-        GameRoom room = new GameRoom();
+                Game game = new Game();
+                GameRoom room = new GameRoom();
 
-        game.registerPlayers(room.getPlayers());
-        game.dealCards();
-        room.printCards(game.getPlayers());
+                game.registerPlayers(room.getPlayers());
+                game.dealCards();
+                room.printCards(game.getPlayers());
 
-        game.go();
+                game.go();
 
-    }
+        }
 }

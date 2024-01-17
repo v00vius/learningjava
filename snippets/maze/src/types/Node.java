@@ -1,4 +1,4 @@
-package entity;
+package types;
 
 import java.util.*;
 
@@ -14,15 +14,16 @@ public class Node implements Comparable<Node> {
 
         public void connect(Node n)
         {
-                if(!this.equals(n))
+                if (!this.equals(n)) {
                         connected.add(n);
+                }
         }
 
         public Set<Edge> getEdges()
         {
                 HashSet<Edge> edges = new HashSet<>();
 
-                for(Node n : connected) {
+                for (Node n : connected) {
                         Edge e = new Edge(this, n);
 
                         edges.add(e);

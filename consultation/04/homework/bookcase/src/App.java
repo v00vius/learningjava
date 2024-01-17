@@ -1,19 +1,19 @@
 import java.util.Arrays;
 
 import enduser.InformationDesk;
-import entity.Book;
-import entity.BookCase;
+import types.Book;
+import types.BookCase;
 import service.BookCaseService;
 import service.Printer;
 
 class App {
-    public static void main(String[] args) {
+        public static void main(String[] args)
+        {
 
-        InformationDesk informationDesk = new InformationDesk("BookCase Information Desk");
+                InformationDesk informationDesk = new InformationDesk("BookCase Information Desk");
 
 
-
-        informationDesk.informationDesk();
+                informationDesk.informationDesk();
 /* 
         Book book1 = new Book(10, "C++ Concurrency in Action: Practical Multithreading",
                 "Anthony Williams");
@@ -49,6 +49,6 @@ class App {
         }
 
         printer.print(bookCase);
-*/       
-    }
+*/
+        }
 }

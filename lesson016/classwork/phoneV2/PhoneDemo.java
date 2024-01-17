@@ -3,7 +3,8 @@ package phoneV2;
 import java.util.Arrays;
 
 public class PhoneDemo {
-    public static void main(String[] args) {
+        public static void main(String[] args)
+        {
 
                 Phone phone = new Phone(123456789, "Example Model");
                 SimCard simCard1 = new SimCard(987654321);
@@ -24,12 +25,12 @@ public class PhoneDemo {
                 System.out.println("Old Phone Case: " + phoneCase);
                 System.out.println("=======================================");
 
-                phoneCase =  phoneService.setCase(phone, "Transparent", "Silicone");
+                phoneCase = phoneService.setCase(phone, "Transparent", "Silicone");
                 System.out.println("Phone after the new Phone Case: " + phone);
                 System.out.println("Old Phone Case: " + phoneCase);
                 System.out.println("=======================================");
 
-                phoneCase =  phoneService.removeCase(phone);
+                phoneCase = phoneService.removeCase(phone);
                 System.out.println("Phone after removing Phone Case: " + phone);
                 System.out.println("Old Phone Case: " + phoneCase);
                 System.out.println("=======================================");
@@ -37,9 +38,9 @@ public class PhoneDemo {
                 // Проверка вставки сим карты
                 boolean inserted = phoneService.insertSimCard(phone, simCard1);
                 if (inserted) {
-                    System.out.println("Sim карта вставлена: " + phone);
+                        System.out.println("Sim карта вставлена: " + phone);
                 } else {
-                    System.out.println("Ошибка вставки Sim карты.");
+                        System.out.println("Ошибка вставки Sim карты.");
                 }
 
                 // Проверка получения смс
@@ -89,6 +90,6 @@ public class PhoneDemo {
                 System.out.println("Удаленная сим карта " + removed);
                 System.out.println(" Телефон после удаления сим карты: " + phone);
 
-            }
+        }
 
 }

@@ -1,39 +1,45 @@
 package phone;
 
 public class Phone {
-    private int imei;
+        private int imei;
 
-    private SimCard simCard;
+        private SimCard simCard;
 
-    private String model;
+        private String model;
 
-    public Phone(int imei,  String model) {
-        this.imei = imei;
-        this.model = model;
-    }
+        public Phone(int imei, String model)
+        {
+                this.imei = imei;
+                this.model = model;
+        }
 
-    public int getImei() {
-        return imei;
-    }
+        public int getImei()
+        {
+                return imei;
+        }
 
-    public SimCard getSimCard() {
-        return simCard;
-    }
+        public SimCard getSimCard()
+        {
+                return simCard;
+        }
 
-    public void setSimCard(SimCard simCard) {
-        this.simCard = simCard;
-    }
+        public void setSimCard(SimCard simCard)
+        {
+                this.simCard = simCard;
+        }
 
-    public String getModel() {
-        return model;
-    }
+        public String getModel()
+        {
+                return model;
+        }
 
-    @Override
-    public String toString() {
-        return "Phone{" +
-                "imei=" + imei +
-                ", simCard=" + simCard +
-                ", model='" + model + '\'' +
-                '}';
-    }
+        @Override
+        public String toString()
+        {
+                return "Phone{" +
+                       "imei=" + imei +
+                       ", simCard=" + simCard +
+                       ", model='" + model + '\'' +
+                       '}';
+        }
 }

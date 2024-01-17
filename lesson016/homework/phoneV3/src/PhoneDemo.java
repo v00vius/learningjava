@@ -3,7 +3,8 @@
 // import java.util.Arrays;
 
 public class PhoneDemo {
-    public static void main(String[] args) {
+        public static void main(String[] args)
+        {
 
                 Phone phone = new Phone(123456789, "Example Model");
                 SimCard simCard1 = new SimCard(9991188);
@@ -28,33 +29,33 @@ public class PhoneDemo {
                 System.out.println("Old Phone Case:\n" + phoneCase);
                 System.out.println("=======================================");
 
-                phoneCase =  phoneService.setCase(phone, "Transparent", "Silicone");
+                phoneCase = phoneService.setCase(phone, "Transparent", "Silicone");
                 System.out.println("With case13\n" + phone);
                 System.out.println("Old Phone Case:\n" + phoneCase);
                 System.out.println("=======================================");
 
-                phoneCase =  phoneService.removeCase(phone);
+                phoneCase = phoneService.removeCase(phone);
                 System.out.println("Phone after removing Phone Case:\n" + phone);
                 System.out.println("Old Phone Case:\n" + phoneCase);
                 System.out.println("=======================================");
 
                 phoneService.setCase(phone, phoneCase2);
-              
+
                 // Проверка вставки сим карты 
                 boolean inserted = phoneService.insertSimCard(phone, simCard1);
 
                 if (inserted) {
-                    System.out.println("Sim0 карта вставлена: " + phone);
+                        System.out.println("Sim0 карта вставлена: " + phone);
                 } else {
-                    System.out.println("Ошибка вставки Sim0 карты.");
+                        System.out.println("Ошибка вставки Sim0 карты.");
                 }
 
                 inserted = phoneService.insertSimCard(phone, simCard3, 1);
 
                 if (inserted) {
-                    System.out.println("Sim1 карта вставлена: " + phone);
+                        System.out.println("Sim1 карта вставлена: " + phone);
                 } else {
-                    System.out.println("Ошибка вставки Sim1 карты");
+                        System.out.println("Ошибка вставки Sim1 карты");
                 }
 
                 // Проверка получения смс
@@ -91,7 +92,7 @@ public class PhoneDemo {
                 phoneService.receivedSms(phone, "Message 9");
                 phoneService.receivedSms(phone, "Message10");
 
-                phoneService.receivedSms(phone, ">>Message 1",1);
+                phoneService.receivedSms(phone, ">>Message 1", 1);
                 phoneService.receivedSms(phone, ">>Message 2", 1);
                 phoneService.receivedSms(phone, ">>Message 3", 1);
                 phoneService.receivedSms(phone, ">>Message 4", 1);
@@ -106,7 +107,7 @@ public class PhoneDemo {
                 System.out.println("Смс SIM0 после получения всех sms: " + phone.getSimCard(1));
 
                 phoneService.receivedSms(phone, "Message11");
-                phoneService.receivedSms(phone, ">>>Message11",1);
+                phoneService.receivedSms(phone, ">>>Message11", 1);
 
                 System.out.println("=======================================");
                 System.out.println(phone);
@@ -132,6 +133,6 @@ public class PhoneDemo {
                 System.out.println("Удаленная сим1 карта " + removed);
                 System.out.println(" Телефон после удаления сим1 карты: " + phone);
 
-            }
+        }
 
 }

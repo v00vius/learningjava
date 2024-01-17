@@ -4,60 +4,68 @@ import java.util.List;
 import java.util.Map;
 
 public class Company {
-    private Map<String, List<Employee>> departments;
-    private Map<Employee, String> employees;
-    private Map<Integer, Employee> byId;
+        private Map<String, List<Employee>> departments;
+        private Map<Employee, String> employees;
+        private Map<Integer, Employee> byId;
 
-    public Company() {
-        departments = new HashMap<>();
-        employees = new HashMap<>();
-        byId = new HashMap<>();
-    }
-
-    Employee createEmployee(String name, String department) {
-        Employee emp = new Employee(name, department);
-
-        List<Employee>  list = departments.get(department);
-
-        if(list == null) {
-            list = new LinkedList<Employee>();
-            departments.put(department, list);
+        public Company()
+        {
+                departments = new HashMap<>();
+                employees = new HashMap<>();
+                byId = new HashMap<>();
         }
 
-        list.add(emp);
-        employees.put(emp, department);
-        byId.put(emp.getId(), emp);
+        Employee createEmployee(String name, String department)
+        {
+                Employee emp = new Employee(name, department);
 
-        return emp;
-    }
+                List<Employee> list = departments.get(department);
 
-    public Map<String, List<Employee>> getDepartments() {
-        return departments;
-    }
-    public Map<Employee, String> getEmployees() {
-        return employees;
-    }
-    public Map<Integer, Employee> getById() {
-        return byId;
-    }
+                if (list == null) {
+                        list = new LinkedList<Employee>();
+                        departments.put(department, list);
+                }
 
-    public static void main(String[] args) {
-        Company company = new Company();
+                list.add(emp);
+                employees.put(emp, department);
+                byId.put(emp.getId(), emp);
 
-        company.createEmployee("Lucy", "Sales");
-        company.createEmployee("James", "Sales");
-        company.createEmployee("Graham", "Support");
-        company.createEmployee("Ellis", "R&D");
-        company.createEmployee("Scarlett", "R&D");
-        company.createEmployee("Ella", "HR");
+                return emp;
+        }
 
-        System.out.println("+++ Departments ++++++++++++++++");
-        System.out.println(company.getDepartments());
+        public Map<String, List<Employee>> getDepartments()
+        {
+                return departments;
+        }
 
-        System.out.println("+++ Employees +++++++++++++++++");
-        System.out.println(company.getEmployees());
+        public Map<Employee, String> getEmployees()
+        {
+                return employees;
+        }
 
-        System.out.println("+++ Employees IDs ++++++++++++++");
-        System.out.println(company.getById());
-    }
+        public Map<Integer, Employee> getById()
+        {
+                return byId;
+        }
+
+        public static void main(String[] args)
+        {
+                Company company = new Company();
+
+                company.createEmployee("Lucy", "Sales");
+                company.createEmployee("James", "Sales");
+                company.createEmployee("Graham", "Support");
+                company.createEmployee("Ellis", "R&D");
+                company.createEmployee("Scarlett", "R&D");
+                company.createEmployee("Ella", "HR");
+
+                System.out.println("+++ Departments ++++++++++++++++");
+                System.out.println(company.getDepartments());
+
+                System.out.println("+++ Employees +++++++++++++++++");
+                System.out.println(company.getEmployees());
+
+                System.out.println("+++ Employees IDs ++++++++++++++");
+                System.out.println(company.getById());
+        }
 }

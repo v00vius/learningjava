@@ -7,68 +7,78 @@
 //
 
 package test1;
+
 //import java.util.Locale;
 public class NetworkInterface {
-    protected String name;
-    protected int speed = 10;   // 1/10/100 GbE
-    protected boolean isUp = false;
-    protected String ipAddress;
-    protected int ipNetmask;
+        protected String name;
+        protected int speed = 10;   // 1/10/100 GbE
+        protected boolean isUp = false;
+        protected String ipAddress;
+        protected int ipNetmask;
 
-    protected long bytesSend = 0;
-    protected long bytesRecv = 0;
+        protected long bytesSend = 0;
+        protected long bytesRecv = 0;
 
-    // The interface creation count
-    public static int usageCount = 0;
-    public NetworkInterface(String name, String ipAddress, int ipNetmask )  {
-        this.name = name;
-        this.ipAddress = ipAddress;
-        this.ipNetmask = ipNetmask;
+        // The interface creation count
+        public static int usageCount = 0;
 
-        ++usageCount;
-    }
-    public void print() {
-        System.out.printf(/*Locale.US, */ "%s: flags=<%S>\n"
-                        + "\tinet %s netmask 0x%X\n"
-                        + "\tmedia: %d GbE\n"
-                        + "\tRX bytes %16d\n\tTX bytes %16d\n\n",
-                name,
-                isUp() ? "up" : "down",
-                ipAddress,
-                ipNetmask,
-                speed,
-                bytesRecv,
-                bytesSend
+        public NetworkInterface(String name, String ipAddress, int ipNetmask)
+        {
+                this.name = name;
+                this.ipAddress = ipAddress;
+                this.ipNetmask = ipNetmask;
+
+                ++usageCount;
+        }
+
+        public void print()
+        {
+                System.out.printf(/*Locale.US, */ "%s: flags=<%S>\n"
+                                                  + "\tinet %s netmask 0x%X\n"
+                                                  + "\tmedia: %d GbE\n"
+                                                  + "\tRX bytes %16d\n\tTX bytes %16d\n\n",
+                        name,
+                        isUp() ? "up" : "down",
+                        ipAddress,
+                        ipNetmask,
+                        speed,
+                        bytesRecv,
+                        bytesSend
                 );
-    }
+        }
 
-    // adds statistics for a network interface
-    public void addStats(long bytesSend, long bytesRecv) {
-        this.bytesSend += bytesSend;
-        this.bytesRecv += bytesRecv;
-    }
+        // adds statistics for a network interface
+        public void addStats(long bytesSend, long bytesRecv)
+        {
+                this.bytesSend += bytesSend;
+                this.bytesRecv += bytesRecv;
+        }
 
-    // tests whether an interface is up
-    public boolean isUp() {
-        return isUp;
-    }
+        // tests whether an interface is up
+        public boolean isUp()
+        {
+                return isUp;
+        }
 
-    // forces an interface to be up and returns a previous state
-    public boolean up() {
-        boolean prevState = isUp;
+        // forces an interface to be up and returns a previous state
+        public boolean up()
+        {
+                boolean prevState = isUp;
 
-        isUp = true;
+                isUp = true;
 
-        return prevState;
-    }
-    // forces an interface to be down and returns a previous state
-    public boolean down() {
-        boolean prevState = isUp;
+                return prevState;
+        }
 
-        isUp = false;
+        // forces an interface to be down and returns a previous state
+        public boolean down()
+        {
+                boolean prevState = isUp;
 
-        return prevState;
-    }
+                isUp = false;
+
+                return prevState;
+        }
 }
 
 /*

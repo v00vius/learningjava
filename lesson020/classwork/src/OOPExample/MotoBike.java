@@ -1,7 +1,8 @@
 package OOPExample;
 
-public class MotoBike extends MotorizedVehicle{
-    public MotoBike(String model, Integer speed, Engine engine, GearShift gearShift) {
-        super(model, speed, engine, gearShift);
-    }
+public class MotoBike extends MotorizedVehicle {
+        public MotoBike(String model, Integer speed, Engine engine, GearShift gearShift)
+        {
+                super(model, speed, engine, gearShift);
+        }
 }

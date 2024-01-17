@@ -1,27 +1,32 @@
 package OOPExample;
 
 abstract class Vehicle {
-    private String model;
+        private String model;
 
-    private Integer speed;
+        private Integer speed;
 
-    abstract void accelerate();
-    abstract void brake();
+        abstract void accelerate();
 
-    public Vehicle(String model, Integer speed) {
-        this.model = model;
-        this.speed = speed;
-    }
+        abstract void brake();
 
-    public String getModel() {
-        return model;
-    }
+        public Vehicle(String model, Integer speed)
+        {
+                this.model = model;
+                this.speed = speed;
+        }
 
-    public Integer getSpeed() {
-        return speed;
-    }
+        public String getModel()
+        {
+                return model;
+        }
 
-    public void setSpeed(Integer speed) {
-        this.speed = speed;
-    }
+        public Integer getSpeed()
+        {
+                return speed;
+        }
+
+        public void setSpeed(Integer speed)
+        {
+                this.speed = speed;
+        }
 }

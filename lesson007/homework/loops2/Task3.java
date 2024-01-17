@@ -3,34 +3,40 @@ package loops2;
 import utils.UserInterface;
 
 public class Task3 {
-    private String hello;
-    private int attempts;
+        private String hello;
+        private int attempts;
 
-    public Task3(String hello) {
-        this.hello = hello;
-        attempts = 0;
-    }
-    public boolean isEqual(String word) {
-        boolean ok =  hello.equals(word);
+        public Task3(String hello)
+        {
+                this.hello = hello;
+                attempts = 0;
+        }
 
-        if(!ok)
-            ++attempts;
+        public boolean isEqual(String word)
+        {
+                boolean ok = hello.equals(word);
 
-        return ok;
-    }
+                if (!ok) {
+                        ++attempts;
+                }
 
-    public int getAttempts() {
-        return attempts;
-    }
+                return ok;
+        }
 
-    public static void main(String[] args) {
-        UserInterface ui = new UserInterface();
+        public int getAttempts()
+        {
+                return attempts;
+        }
 
-        Task3 hello = new Task3("hello");
+        public static void main(String[] args)
+        {
+                UserInterface ui = new UserInterface();
 
-        while(!hello.isEqual(ui.getString("Hello!\n")))
-            ;
+                Task3 hello = new Task3("hello");
 
-        System.out.println("Total attempts: " + (hello.getAttempts() + 1));
-    }
+                while (!hello.isEqual(ui.getString("Hello!\n")))
+                        ;
+
+                System.out.println("Total attempts: " + (hello.getAttempts() + 1));
+        }
 }

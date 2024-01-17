@@ -31,9 +31,9 @@ public class Bag {
         public String toString()
         {
                 return "comparetors.Bag{" +
-                        "material=" + material +
-                        ", size=" + size +
-                        ", color=" + color +
-                        "}\n";
+                       "material=" + material +
+                       ", size=" + size +
+                       ", color=" + color +
+                       "}\n";
         }
 }

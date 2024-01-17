@@ -1,55 +1,62 @@
 package task1;
 
 public class Grocery {
-    private String name;
-    private boolean isOpen;
+        private String name;
+        private boolean isOpen;
 
-    public Grocery(String name) {
-        this.name = name;
-    }
+        public Grocery(String name)
+        {
+                this.name = name;
+        }
 
-    public boolean isOpen() {
-        return isOpen;
-    }
-    public boolean open() {
-        boolean prevState = isOpen;
+        public boolean isOpen()
+        {
+                return isOpen;
+        }
 
-        isOpen = true;
+        public boolean open()
+        {
+                boolean prevState = isOpen;
 
-        return prevState;
-    }
+                isOpen = true;
 
-    public boolean close() {
-        boolean prevState = isOpen;
+                return prevState;
+        }
 
-        isOpen = false;
+        public boolean close()
+        {
+                boolean prevState = isOpen;
 
-        return prevState;
+                isOpen = false;
 
-    }
+                return prevState;
 
-    @Override
-    public String toString() {
-        return "Grocery \"" + name.toString() + "\"" + (isOpen ? ": open" : ": closed" );
-    }
+        }
 
-    public static void main(String[] args) {
-        Grocery edeka = new Grocery("Edeka");
-        Grocery rewe = new Grocery("Rewe");
+        @Override
+        public String toString()
+        {
+                return "Grocery \"" + name.toString() + "\"" + (isOpen ? ": open" : ": closed");
+        }
 
-        System.out.println(edeka);
-        System.out.println(rewe);
+        public static void main(String[] args)
+        {
+                Grocery edeka = new Grocery("Edeka");
+                Grocery rewe = new Grocery("Rewe");
 
-        edeka.open();
-        rewe.close();
+                System.out.println(edeka);
+                System.out.println(rewe);
 
-        boolean isEdekaOpen = edeka.isOpen();
-        boolean isReweOpen = rewe.isOpen();
-        boolean canBuy = isEdekaOpen || isEdekaOpen;
+                edeka.open();
+                rewe.close();
 
-        System.out.println(edeka);
-        System.out.println(rewe);
+                boolean isEdekaOpen = edeka.isOpen();
+                boolean isReweOpen = rewe.isOpen();
+                boolean canBuy = isEdekaOpen || isEdekaOpen;
 
-        System.out.println("Can I buy? " + canBuy);
-    }
+                System.out.println(edeka);
+                System.out.println(rewe);
+
+                System.out.println("Can I buy? " + canBuy);
+        }
 }

@@ -29,8 +29,9 @@ public class App {
 
                         System.out.println(v);
 
-                        if(v.getId() == 5)
+                        if (v.getId() == 5) {
                                 e.remove();
+                        }
                 }
 
                 System.out.println(list);

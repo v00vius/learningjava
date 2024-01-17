@@ -24,9 +24,9 @@ public class Flat implements Comparable<Flat> {
         public String toString()
         {
                 return "comparetors.Flat {" +
-                        "area=" + area +
-                        " m^2, nRooms=" + nRooms +
-                        "}\n";
+                       "area=" + area +
+                       " m^2, nRooms=" + nRooms +
+                       "}\n";
         }
 
         @Override
