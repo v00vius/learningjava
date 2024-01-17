@@ -44,6 +44,7 @@ public Maze2D(int rows, int cols)
         this.area = new byte[rows * cols];
         fill(EMPTY);
         rnd = new Random(System.currentTimeMillis());
+//        rnd = new Random(20);
         wave = new ArrayList<>();
         graph = new ArrayList<>();
 }
@@ -71,9 +72,12 @@ private void graphAdd(Edge e)
         set(x, y, GRAPH);
 }
 
-public int step()
+public boolean step()
 {
-        wave();
+        wave(true);
+
+        if(wave.isEmpty())
+                return false;
 
         int i = rnd.nextInt(0, wave.size());
         Edge e = wave.get(i);
@@ -81,11 +85,19 @@ public int step()
         wave.remove(i);
         graphAdd(e);
 
-        return wave.size();
+        return true;
 }
 
-public int wave()
+public int wave(boolean lastAdded)
 {
+        if(lastAdded) {
+                int idx = graph.getLast().getFrom();
+                int x0 = getX(idx);
+                int y0 = getY(idx);
+
+                return wave(x0, y0);
+        }
+
         Iterator<Edge> begin = graph.iterator();
         int counter = 0;
 
@@ -103,12 +115,10 @@ public int wave()
 public int wave(int x0, int y0)
 {
         int count = 0;
-
         byte state = get(x0, y0);
 
-        if (state != GRAPH) {
+        if (state != GRAPH)
                 return count;
-        }
 
         int p0 = index(x0, y0);
 
@@ -116,13 +126,12 @@ public int wave(int x0, int y0)
                 int x = x0 + dx[i];
                 int y = y0 + dy[i];
 
-                int p1 = index(x, y);
                 state = get(x, y);
 
-                if (state != EMPTY) {
+                if (state != EMPTY)
                         continue;
-                }
 
+                int p1 = index(x, y);
                 Edge e = new Edge(p1, p0);
 
                 wave.add(e);
