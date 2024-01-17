@@ -5,18 +5,18 @@ public class Maze2D {
 private int rows;
 private int cols;
 private byte[] area;
-private Random rnd;
+static private Random rnd = new Random(System.currentTimeMillis());
 
 private List<Edge> wave;
 private List<Edge> graph;
-static private final byte EMPTY = 0x00;
-static private final byte GRAPH = 0x01;
-static private final byte WAVE = 0x02;
-static private final byte INVALID = 0x10;
-static int[] dx = {-1, 0, 0, 1};
-static int[] dy = {0, -1, 1, 0};
+static public final byte EMPTY = 0x00;
+static public final byte GRAPH = 0x01;
+static public final byte WAVE = 0x02;
+static public final byte INVALID = 0x10;
+static private int[] dx = {-1, 0, 0, 1};
+static private int[] dy = {0, -1, 1, 0};
 
-class Edge {
+public class Edge {
         private int from;
         private int to;
 
@@ -43,12 +43,38 @@ public Maze2D(int rows, int cols)
         this.cols = cols;
         this.area = new byte[rows * cols];
         fill(EMPTY);
-        rnd = new Random(System.currentTimeMillis());
-//        rnd = new Random(20);
         wave = new ArrayList<>();
         graph = new ArrayList<>();
 }
 
+public List<Edge> getGraph()
+{
+        return graph;
+}
+
+public int getRows()
+{
+        return rows;
+}
+
+public int getCols()
+{
+        return cols;
+}
+
+public int size()
+{
+        return rows * cols;
+}
+
+public byte get(int x, int y)
+{
+        return valid(x, y) ? area[index(x, y)] : INVALID;
+}
+public boolean valid(int x, int y)
+{
+        return x >= 0 && x < cols && y >= 0 && y < rows;
+}
 public void init()
 {
         int x = rnd.nextInt(0, cols);
@@ -76,7 +102,7 @@ public boolean step()
 {
         wave(true);
 
-        if(wave.isEmpty())
+        if (wave.isEmpty())
                 return false;
 
         int i = rnd.nextInt(0, wave.size());
@@ -88,9 +114,9 @@ public boolean step()
         return true;
 }
 
-public int wave(boolean lastAdded)
+private int wave(boolean lastAdded)
 {
-        if(lastAdded) {
+        if (lastAdded) {
                 int idx = graph.getLast().getFrom();
                 int x0 = getX(idx);
                 int y0 = getY(idx);
@@ -112,7 +138,7 @@ public int wave(boolean lastAdded)
         return counter;
 }
 
-public int wave(int x0, int y0)
+private int wave(int x0, int y0)
 {
         int count = 0;
         byte state = get(x0, y0);
@@ -134,17 +160,17 @@ public int wave(int x0, int y0)
                 int p1 = index(x, y);
                 Edge e = new Edge(p1, p0);
 
-                wave.add(e);
-                area[p1] = WAVE;
+                waveAdd(e);
                 ++count;
         }
 
         return count;
 }
 
-public int size()
+private void waveAdd(Edge e)
 {
-        return rows * cols;
+        wave.add(e);
+        area[e.getFrom()] = WAVE;
 }
 
 private void fill(byte state)
@@ -152,12 +178,8 @@ private void fill(byte state)
         Arrays.fill(area, state);
 }
 
-boolean valid(int x, int y)
-{
-        return x >= 0 && x < cols && y >= 0 && y < rows;
-}
 
-public boolean set(int x, int y, byte state)
+private boolean set(int x, int y, byte state)
 {
         if (valid(x, y)) {
                 area[index(x, y)] = state;
@@ -168,21 +190,6 @@ public boolean set(int x, int y, byte state)
         }
 }
 
-public boolean clear(int x, int y, byte state)
-{
-        if (valid(x, y)) {
-                area[index(x, y)] &= ~state;
-
-                return true;
-        } else {
-                return false;
-        }
-}
-
-public byte get(int x, int y)
-{
-        return valid(x, y) ? area[index(x, y)] : INVALID;
-}
 
 private int index(int x, int y)
 {
@@ -226,13 +233,13 @@ public String toString()
 
         m += String.format("Graph (%d) edges:", graph.size());
 
-        for(Edge e : graph) {
+        for (Edge e : graph) {
                 m += String.format(" [%d->%d]", e.getFrom(), e.getTo());
         }
 
         m += String.format("\nWave (%d) edges:", wave.size());
 
-        for(Edge e : wave) {
+        for (Edge e : wave) {
                 m += String.format(" [%d->%d]", e.getFrom(), e.getTo());
         }
 
