@@ -14,11 +14,12 @@ private List<Edge> graph;
 static public final byte EMPTY = 0;
 static public final byte GRAPH = 1;
 static public final byte WAVE = 2;
+static public final byte OUTER = 3;
 static public final byte INVALID = (byte)0xFF;
 static public final byte FLOOR = (1 << 4);
 static public final byte RIGHT = (2 << 4);
 static public final byte STATE = 0x0F;
-static public final byte BORDER = (byte)0xF0;
+static public final byte PASS = (byte)0xF0;
 static private int[] dx = {-1, 0, 0, 1};
 static private int[] dy = {0, -1, 1, 0};
 
@@ -46,7 +47,7 @@ public Maze2D(int rows, int cols)
 {
         this.rows = rows;
         this.cols = cols;
-        this.area = new byte[rows * cols];
+        this.area = new byte[(2 + rows) * (2 + cols)];
         fill(EMPTY);
         wave = new ArrayList<>();
         graph = new ArrayList<>();
@@ -98,12 +99,17 @@ private void setBorder(int idx, byte border)
 //}
 private byte getBorder(int x, int y)
 {
-        return get(index(x, y), BORDER);
+        return get(index(x, y), PASS);
 }
 public boolean valid(int x, int y)
 {
         return x >= 0 && x < cols && y >= 0 && y < rows;
 }
+private int index(int x, int y)
+{
+        return (2 + cols) * (1 + y) + x + 1;
+}
+
 public void init()
 {
         int x = rnd.nextInt(0, cols);
@@ -207,19 +213,15 @@ private void fill(byte state)
         Arrays.fill(area, state);
 }
 
-private int index(int x, int y)
-{
-        return cols * y + x;
-}
 
 private int getX(int idx)
 {
-        return idx % cols;
+        return (idx - 1) % (cols + 2);
 }
 
 private int getY(int idx)
 {
-        return idx / cols;
+        return (idx - 1) / (cols + 2) - 1;
 }
 public void createBorders()
 {
