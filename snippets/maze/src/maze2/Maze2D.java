@@ -48,7 +48,6 @@ public Maze2D(int rows, int cols)
         this.rows = rows;
         this.cols = cols;
         this.area = new byte[(2 + rows) * (2 + cols)];
-        fill(EMPTY);
         wave = new ArrayList<>();
         graph = new ArrayList<>();
 }
@@ -79,7 +78,8 @@ public byte get(int idx, byte mask)
 }
 public byte get(int x, int y, byte mask)
 {
-        return valid(x, y) ? get(index(x, y), mask) : INVALID;
+        return get(index(x, y), mask);
+//        return valid(x, y) ? get(index(x, y), mask) : INVALID;
 }
 private void setState(int idx, byte state)
 {
@@ -109,13 +109,22 @@ private int index(int x, int y)
 {
         return (2 + cols) * (1 + y) + x + 1;
 }
+private int getX(int idx)
+{
+        return (idx - 1) % (cols + 2);
+}
+
+private int getY(int idx)
+{
+        return (idx - 1) / (cols + 2) - 1;
+}
 
 public void init()
 {
         int x = rnd.nextInt(0, cols);
         int y = rnd.nextInt(0, rows);
 
-        fill(EMPTY);
+        fill();
         graph.clear();
         wave.clear();
         int idx = index(x, y);
@@ -208,21 +217,20 @@ private void waveAdd(Edge e)
         setState(e.getFrom(), WAVE);
 }
 
-private void fill(byte state)
+private void fill()
 {
-        Arrays.fill(area, state);
+        Arrays.fill(area, 0, cols + 2, OUTER);
+
+        for (int y = 0 ; y < rows; ++y) {
+                area[index(-1, y )] = OUTER;
+                Arrays.fill(area, index(0, y), index(cols, y), EMPTY);
+                area[index(cols, y )] = OUTER;
+        }
+
+        Arrays.fill(area, index(-1, rows), index(cols, rows ), OUTER);
 }
 
 
-private int getX(int idx)
-{
-        return (idx - 1) % (cols + 2);
-}
-
-private int getY(int idx)
-{
-        return (idx - 1) / (cols + 2) - 1;
-}
 public void createBorders()
 {
         for(Edge e : graph) {
@@ -234,9 +242,9 @@ public void createBorders()
                         setBorder(p0, RIGHT);
                 } else if (-1 == distance) {
                         setBorder(p1, RIGHT);
-                } else if (-cols == distance) {
+                } else if (-(2 + cols) == distance) {
                         setBorder(p1, FLOOR);
-                } else if (cols == distance) {
+                } else if ((2 + cols) == distance) {
                         setBorder(p0, FLOOR);
                 }
         }

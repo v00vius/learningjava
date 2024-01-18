@@ -6,7 +6,7 @@ public class App {
 public static void main(String[] args)
 {
         Scanner console = new Scanner(System.in);
-        Maze2D maze = new Maze2D(3, 3);
+        Maze2D maze = new Maze2D(10, 10);
         int totalIterations = 1;
         long avg = 0;
 
