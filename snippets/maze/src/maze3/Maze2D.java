@@ -24,8 +24,10 @@ public Edge init()
         area.clear();
         wave.clear();
         graph.clear();
+
         int idx = rnd.nextInt(rows * cols);
         Edge e = new Edge(idx, idx);
+
         graph.add(e);
         area.set(idx);
 
