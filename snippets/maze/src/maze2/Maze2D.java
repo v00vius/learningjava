@@ -135,24 +135,24 @@ public void init()
 private void graphAdd(Edge e)
 {
         graph.add(e);
-
-        int x = getX(e.getFrom());
-        int y = getY(e.getFrom());
-
-        setState(x, y, GRAPH);
+        setState(e.getFrom(), GRAPH);
 }
-
 public boolean step()
 {
         wave(true);
 
-        if (wave.isEmpty())
-                return false;
+        Edge e;
 
-        int i = rnd.nextInt(0, wave.size());
-        Edge e = wave.get(i);
+        do {
+                if (wave.isEmpty())
+                        return false;
 
-        wave.remove(i);
+                int i = rnd.nextInt(0, wave.size());
+
+                e = wave.remove(i);
+        }
+        while (GRAPH == get(e.getFrom(), STATE));
+
         graphAdd(e);
 
         return true;
@@ -211,19 +211,36 @@ private int wave(int x0, int y0)
         return count;
 }
 
-private int wave2(int x0, int y0)
+private int addFront(int p, int p0)
 {
         int count = 0;
-        int p0 = index(x0, y0);
-        byte state = get(p0 - 1, STATE);
+        byte state = get(p, STATE);
 
         if (state == EMPTY) {
-                Edge e = new Edge(p0 - 1, p0);
+                Edge e = new Edge(p, p0);
 
                 waveAdd(e);
                 ++count;
         }
 
+        return count;
+}
+private int wave2(int x0, int y0)
+{
+        int count;
+        int p0 = index(x0, y0);
+
+        count  = addFront(p0 - 1, p0);
+        count += addFront(p0 + 1, p0);
+        count += addFront(p0 - cols - 2, p0);
+        count += addFront(p0 + cols + 2, p0);
+
+        return count;
+}
+
+private int addWave(int p0, int count)
+{
+        byte state;
         state = get(p0 + 1, STATE);
 
         if (state == EMPTY) {
@@ -232,25 +249,6 @@ private int wave2(int x0, int y0)
                 waveAdd(e);
                 ++count;
         }
-
-        state = get(p0 - cols - 2, STATE);
-
-        if (state == EMPTY) {
-                Edge e = new Edge(p0 - cols - 2, p0);
-
-                waveAdd(e);
-                ++count;
-        }
-
-        state = get(p0 + cols + 2, STATE);
-
-        if (state == EMPTY) {
-                Edge e = new Edge(p0 + cols + 2, p0);
-
-                waveAdd(e);
-                ++count;
-        }
-
         return count;
 }
 
