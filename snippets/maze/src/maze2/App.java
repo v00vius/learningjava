@@ -6,8 +6,8 @@ public class App {
 public static void main(String[] args)
 {
         Scanner console = new Scanner(System.in);
-        Maze2D maze = new Maze2D(1_000, 1_000);
-        int totalIterations = 300;
+        Maze2D maze = new Maze2D(500, 500);
+        int totalIterations = 11;
         long avg = 0;
 
         for (int i = 0; i < totalIterations; ++i)
