@@ -5,18 +5,19 @@ public class Maze2D {
 private int rows;
 private int cols;
 private byte[] area;
-static private Random rnd = new Random(System.currentTimeMillis());
+static private Random rnd = new Random(31);
+//static private Random rnd = new Random(System.currentTimeMillis());
 
 private List<Edge> wave;
 private List<Edge> graph;
-static public final byte EMPTY = 0x00;
-static public final byte GRAPH = 0x01;
-static public final byte WAVE = 0x02;
-static public final byte INVALID = 0x10;
-static public final byte FLOOR = 0x11;
-static public final byte RIGHT = 0x12;
-static public final byte STATE = (GRAPH | WAVE);
-static public final byte BORDER = (FLOOR | RIGHT);
+static public final byte EMPTY = 0;
+static public final byte GRAPH = 1;
+static public final byte WAVE = 2;
+static public final byte INVALID = (byte)0xFF;
+static public final byte FLOOR = (1 << 4);
+static public final byte RIGHT = (2 << 4);
+static public final byte STATE = 0x0F;
+static public final byte BORDER = (byte)0xF0;
 static private int[] dx = {-1, 0, 0, 1};
 static private int[] dy = {0, -1, 1, 0};
 
@@ -73,6 +74,29 @@ public int size()
 public byte get(int x, int y, byte mask)
 {
         return valid(x, y) ? (byte) (mask & area[index(x, y)]) : INVALID;
+}
+private void set(int idx, byte state, byte mask)
+{
+}
+private void setState(int idx, byte state)
+{
+        area[idx] = (byte)(state | (area[idx] & ~STATE));
+}
+private void setState(int x, int y, byte state)
+{
+        setState(index(x, y), state);
+}
+private void setBorder(int idx, byte border)
+{
+        area[idx] |= border;
+}
+private byte getBorder(int idx)
+{
+        return (byte)(area[idx] & BORDER);
+}
+private byte getBorder(int x, int y)
+{
+        return getBorder(index(x, y));
 }
 public boolean valid(int x, int y)
 {
@@ -181,22 +205,6 @@ private void fill(byte state)
         Arrays.fill(area, state);
 }
 
-private void setState(int idx, byte state)
-{
-        area[idx] = (byte)(state | (area[idx] & ~STATE));
-}
-private boolean setState(int x, int y, byte state)
-{
-        if (valid(x, y)) {
-                setState(index(x, y), state);
-
-                return true;
-        } else {
-                return false;
-        }
-}
-
-
 private int index(int x, int y)
 {
         return cols * y + x;
@@ -229,10 +237,6 @@ public void createBorders()
                 }
         }
 }
-private void setBorder(int idx, byte border)
-{
-        area[idx] |= border;
-}
 
 @Override
 public String toString()
@@ -246,19 +250,19 @@ public String toString()
                         byte location = get(x, y, STATE);
 
                         if (location == GRAPH) {
-                                m += '*';
+                                m += '.';
                         } else if (location == WAVE) {
                                 m += 'o';
                         } else if (location == EMPTY) {
-                                m += '.';
+                                m += ' ';
                         } else {
                                 m += '?';
                         }
 
-                        location = get(x, y, BORDER);
+                        location = getBorder(x, y);
 
                         if(RIGHT == (location & RIGHT))
-                                m += ' ';
+                                m += '.';
                         else
                                 m += '|';
                 }
@@ -266,10 +270,10 @@ public String toString()
                 m += "\n    ";
 
                 for (int x = 0; x < cols; ++x) {
-                        byte location = get(x, y, BORDER);
+                        byte location = getBorder(x, y);
 
                         if(FLOOR == (location & FLOOR))
-                                m += " +";
+                                m += ".+";
                         else
                                 m += "-+";
                 }
