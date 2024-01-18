@@ -5,8 +5,8 @@ public class Maze2D {
 private int rows;
 private int cols;
 private byte[] area;
-static private Random rnd = new Random(31);
-//static private Random rnd = new Random(System.currentTimeMillis());
+//static private Random rnd = new Random(31);
+static private Random rnd = new Random(System.currentTimeMillis());
 
 private List<Edge> wave;
 private List<Edge> graph;
@@ -71,12 +71,13 @@ public int size()
         return rows * cols;
 }
 
+public byte get(int idx, byte mask)
+{
+        return (byte) (mask & area[idx]);
+}
 public byte get(int x, int y, byte mask)
 {
-        return valid(x, y) ? (byte) (mask & area[index(x, y)]) : INVALID;
-}
-private void set(int idx, byte state, byte mask)
-{
+        return valid(x, y) ? get(index(x, y), mask) : INVALID;
 }
 private void setState(int idx, byte state)
 {
@@ -92,11 +93,11 @@ private void setBorder(int idx, byte border)
 }
 private byte getBorder(int idx)
 {
-        return (byte)(area[idx] & BORDER);
+        return get(idx, BORDER);
 }
 private byte getBorder(int x, int y)
 {
-        return getBorder(index(x, y));
+        return get(index(x, y), BORDER);
 }
 public boolean valid(int x, int y)
 {

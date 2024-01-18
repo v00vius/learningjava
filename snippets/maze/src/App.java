@@ -4,14 +4,14 @@ public class App {
 public static void main(String[] args)
 {
         Scanner console = new Scanner(System.in);
-        Maze2D maze = new Maze2D(1000, 1000);
-        int totalIterations = 300;
+        Maze2D maze = new Maze2D(10, 40);
+        int totalIterations = 1;
         long avg = 0;
 
         for (int i = 0; i < totalIterations; ++i)
         {
                 maze.init();
-//        System.out.println("Initial graph\n" + maze);
+        System.out.println("Initial graph\n" + maze);
 
                 long start = System.currentTimeMillis();
 
@@ -25,8 +25,8 @@ public static void main(String[] args)
 
                 avg += end;
 
-//        maze.createBorders();
-//        System.out.println("Final graph\n" + maze);
+        maze.createBorders();
+        System.out.println("Final graph\n" + maze);
                 System.out.println(String.format("%03d) Delta time %s ms, %d edges", i, end, maze.getGraph().size()));
         }
 
