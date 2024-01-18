@@ -6,8 +6,8 @@ public class Maze2D {
 private int rows;
 private int cols;
 private byte[] area;
-//static private Random rnd = new Random(31);
-static private Random rnd = new Random(System.currentTimeMillis());
+static private Random rnd = new Random(31);
+//static private Random rnd = new Random(System.currentTimeMillis());
 
 private List<Edge> wave;
 private List<Edge> graph;
@@ -165,7 +165,7 @@ private int wave(boolean lastAdded)
                 int x0 = getX(idx);
                 int y0 = getY(idx);
 
-                return wave(x0, y0);
+                return wave2(x0, y0);
         }
 
         Iterator<Edge> begin = graph.iterator();
@@ -203,6 +203,49 @@ private int wave(int x0, int y0)
 
                 int p1 = index(x, y);
                 Edge e = new Edge(p1, p0);
+
+                waveAdd(e);
+                ++count;
+        }
+
+        return count;
+}
+
+private int wave2(int x0, int y0)
+{
+        int count = 0;
+        int p0 = index(x0, y0);
+        byte state = get(p0 - 1, STATE);
+
+        if (state == EMPTY) {
+                Edge e = new Edge(p0 - 1, p0);
+
+                waveAdd(e);
+                ++count;
+        }
+
+        state = get(p0 + 1, STATE);
+
+        if (state == EMPTY) {
+                Edge e = new Edge(p0 + 1, p0);
+
+                waveAdd(e);
+                ++count;
+        }
+
+        state = get(p0 - cols - 2, STATE);
+
+        if (state == EMPTY) {
+                Edge e = new Edge(p0 - cols - 2, p0);
+
+                waveAdd(e);
+                ++count;
+        }
+
+        state = get(p0 + cols + 2, STATE);
+
+        if (state == EMPTY) {
+                Edge e = new Edge(p0 + cols + 2, p0);
 
                 waveAdd(e);
                 ++count;
