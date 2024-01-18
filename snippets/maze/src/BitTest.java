@@ -20,8 +20,7 @@ public static void main(String[] args)
                 System.out.println(BitsManip.prints(bits));
         }
 
-        bits[0] = (byte) 0xFF;
-        System.out.println(BitsManip.prints(bits));
+        bits[0] = (byte) 0xFF;        System.out.println(BitsManip.prints(bits));
         BitsManip.set(bits, (byte)5, (byte) 0x0F);
         System.out.println(BitsManip.prints(bits));
 }

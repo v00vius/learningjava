@@ -1,4 +1,5 @@
-import javax.xml.stream.events.EndDocument;
+package maze2;
+
 import java.util.*;
 
 public class Maze2D {
@@ -91,10 +92,10 @@ private void setBorder(int idx, byte border)
 {
         area[idx] |= border;
 }
-private byte getBorder(int idx)
-{
-        return get(idx, BORDER);
-}
+//private byte getBorder(int idx)
+//{
+//        return get(idx, BORDER);
+//}
 private byte getBorder(int x, int y)
 {
         return get(index(x, y), BORDER);
