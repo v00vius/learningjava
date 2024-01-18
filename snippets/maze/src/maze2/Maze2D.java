@@ -15,13 +15,10 @@ static public final byte EMPTY = 0;
 static public final byte GRAPH = 1;
 static public final byte WAVE = 2;
 static public final byte OUTER = 3;
-static public final byte INVALID = (byte)0xFF;
 static public final byte FLOOR = (1 << 4);
 static public final byte RIGHT = (2 << 4);
 static public final byte STATE = 0x0F;
 static public final byte PASS = (byte)0xF0;
-static private int[] dx = {-1, 0, 0, 1};
-static private int[] dy = {0, -1, 1, 0};
 
 public class Edge {
         private int from;
@@ -32,12 +29,10 @@ public class Edge {
                 this.from = from;
                 this.to = to;
         }
-
         public int getFrom()
         {
                 return from;
         }
-
         public int getTo()
         {
                 return to;
@@ -57,16 +52,6 @@ public List<Edge> getGraph()
         return graph;
 }
 
-public int getRows()
-{
-        return rows;
-}
-
-public int getCols()
-{
-        return cols;
-}
-
 public int size()
 {
         return rows * cols;
@@ -79,32 +64,21 @@ public byte get(int idx, byte mask)
 public byte get(int x, int y, byte mask)
 {
         return get(index(x, y), mask);
-//        return valid(x, y) ? get(index(x, y), mask) : INVALID;
 }
 private void setState(int idx, byte state)
 {
         area[idx] = (byte)(state | (area[idx] & ~STATE));
 }
-private void setState(int x, int y, byte state)
-{
-        setState(index(x, y), state);
-}
+
 private void setBorder(int idx, byte border)
 {
         area[idx] |= border;
 }
-//private byte getBorder(int idx)
-//{
-//        return get(idx, BORDER);
-//}
 private byte getBorder(int x, int y)
 {
         return get(index(x, y), PASS);
 }
-public boolean valid(int x, int y)
-{
-        return x >= 0 && x < cols && y >= 0 && y < rows;
-}
+
 private int index(int x, int y)
 {
         return (2 + cols) * (1 + y) + x + 1;
@@ -121,17 +95,16 @@ private int getY(int idx)
 
 public void init()
 {
-        int x = rnd.nextInt(0, cols);
-        int y = rnd.nextInt(0, rows);
-
         fill();
         graph.clear();
         wave.clear();
+
+        int x = rnd.nextInt(0, cols);
+        int y = rnd.nextInt(0, rows);
         int idx = index(x, y);
 
         graphAdd(new Edge(idx, idx));
 }
-
 private void graphAdd(Edge e)
 {
         graph.add(e);
@@ -139,7 +112,12 @@ private void graphAdd(Edge e)
 }
 public boolean step()
 {
-        wave(true);
+        int p0 = graph.getLast().getFrom();
+
+        addFront(p0 - 1, p0);
+        addFront(p0 + 1, p0);
+        addFront(p0 - cols - 2, p0);
+        addFront(p0 + cols + 2, p0);
 
         Edge e;
 
@@ -157,60 +135,6 @@ public boolean step()
 
         return true;
 }
-
-private int wave(boolean lastAdded)
-{
-        if (lastAdded) {
-                int idx = graph.getLast().getFrom();
-                int x0 = getX(idx);
-                int y0 = getY(idx);
-
-                return wave2(x0, y0);
-        }
-
-        Iterator<Edge> begin = graph.iterator();
-        int counter = 0;
-
-        while (begin.hasNext()) {
-                int idx = begin.next().getFrom();
-                int x0 = getX(idx);
-                int y0 = getY(idx);
-
-                counter += wave(x0, y0);
-        }
-
-        return counter;
-}
-
-private int wave(int x0, int y0)
-{
-        int count = 0;
-        byte state = get(x0, y0, STATE);
-
-        if (state != GRAPH)
-                return count;
-
-        int p0 = index(x0, y0);
-
-        for (int i = 0; i < dx.length; ++i) {
-                int x = x0 + dx[i];
-                int y = y0 + dy[i];
-
-                state = get(x, y, STATE);
-
-                if (state != EMPTY)
-                        continue;
-
-                int p1 = index(x, y);
-                Edge e = new Edge(p1, p0);
-
-                waveAdd(e);
-                ++count;
-        }
-
-        return count;
-}
-
 private int addFront(int p, int p0)
 {
         int count = 0;
@@ -219,45 +143,13 @@ private int addFront(int p, int p0)
         if (state == EMPTY) {
                 Edge e = new Edge(p, p0);
 
-                waveAdd(e);
+                wave.add(e);
+//                setState(e.getFrom(), WAVE);
                 ++count;
         }
 
         return count;
 }
-private int wave2(int x0, int y0)
-{
-        int count;
-        int p0 = index(x0, y0);
-
-        count  = addFront(p0 - 1, p0);
-        count += addFront(p0 + 1, p0);
-        count += addFront(p0 - cols - 2, p0);
-        count += addFront(p0 + cols + 2, p0);
-
-        return count;
-}
-
-private int addWave(int p0, int count)
-{
-        byte state;
-        state = get(p0 + 1, STATE);
-
-        if (state == EMPTY) {
-                Edge e = new Edge(p0 + 1, p0);
-
-                waveAdd(e);
-                ++count;
-        }
-        return count;
-}
-
-private void waveAdd(Edge e)
-{
-        wave.add(e);
-        setState(e.getFrom(), WAVE);
-}
-
 private void fill()
 {
         Arrays.fill(area, 0, cols + 2, OUTER);
@@ -270,8 +162,6 @@ private void fill()
 
         Arrays.fill(area, index(-1, rows), index(cols, rows ), OUTER);
 }
-
-
 public void createBorders()
 {
         for(Edge e : graph) {

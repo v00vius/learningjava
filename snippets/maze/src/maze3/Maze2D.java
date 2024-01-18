@@ -38,8 +38,6 @@ public int init()
                 area.set(index(cols, y));
         }
 
-//        System.out.println(area);
-
         wave.clear();
         graph.clear();
 
@@ -69,35 +67,26 @@ private void addWave(int p, int p1)
         if(area.isSet(p))
                 return;
 
-//        int x = getX(p);
-//        int y = getY(p);
         wave.add(new Edge(p, p1));
 }
-private int wave(int p1)
+public int step(int p1)
 {
         addWave(p1 -    1, p1);
         addWave(p1 +    1, p1);
         addWave(p1 - cols - 2, p1);
         addWave(p1 + cols + 2, p1);
 
-        return wave.size();
-}
-public int step(int p)
-{
-        if(0 == wave(p))
-                return -1;
-
         Edge edge;
 
         do {
+                if(wave.isEmpty())
+                        return -1;
+
                 int i = rnd.nextInt(wave.size());
 
                 edge = wave.remove(i);
         }
-        while (!wave.isEmpty() && area.isSet(edge.getFrom()));
-
-        if(wave.isEmpty())
-                return -1;
+        while (area.isSet(edge.getFrom()));
 
         graph.add(edge);
         area.set(edge.getFrom());
