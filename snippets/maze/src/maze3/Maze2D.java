@@ -14,7 +14,7 @@ public Maze2D(int rows, int cols)
 {
         this.rows = rows;
         this.cols = cols;
-        area = new Bits((2 + rows) * (2 + cols));
+        area = new Bits(2 + cols, 2 + rows);
         wave = new ArrayList<>();
         graph = new LinkedList<>();
 }
@@ -28,15 +28,16 @@ public int init()
 {
         area.clear();
 
-        for (int x = -1; x < cols + 1; ++x) {
-                area.set(index(x, -1));
-                area.set(index(x, rows));
+        for (int x = 0; x < area.getSize_x(); ++x) {
+                area.set(x, 0);
+                area.set(x, area.getSize_y() - 1);
         }
 
-        for (int y = 0; y < rows; ++y) {
-                area.set(index(-1, y));
-                area.set(index(cols, y));
+        for (int y = 1; y < area.getSize_y() - 1; ++y) {
+                area.set(0, y);
+                area.set(area.getSize_x() - 1, y);
         }
+
 
         wave.clear();
         graph.clear();
@@ -46,6 +47,8 @@ public int init()
 
         graph.add(e);
         area.set(idx);
+
+        System.out.println(area);
 
         return e.getFrom();
 }
@@ -64,15 +67,15 @@ private int getY(int idx)
 
 private void addWave(int p, int p1)
 {
-        if(area.isSet(p))
+        if(area.get(p))
                 return;
 
         wave.add(new Edge(p, p1));
 }
 public int step(int p1)
 {
-        addWave(p1 -    1, p1);
-        addWave(p1 +    1, p1);
+        addWave(p1 - 1, p1);
+        addWave(p1 + 1, p1);
         addWave(p1 - cols - 2, p1);
         addWave(p1 + cols + 2, p1);
 
@@ -86,7 +89,7 @@ public int step(int p1)
 
                 edge = wave.remove(i);
         }
-        while (area.isSet(edge.getFrom()));
+        while (area.get(edge.getFrom()));
 
         graph.add(edge);
         area.set(edge.getFrom());
@@ -97,13 +100,14 @@ public int step(int p1)
 @Override
 public String toString()
 {
-        String s = "Graph:";
+        StringBuilder s = new StringBuilder(String.format("Graph: %d edges\n", graph.size()));
+        int i = 0;
 
         for (Edge e : graph) {
-                s += " [" + e.getFrom() + "->" + e.getTo() + "]";
+                s.append(i++).append(": ").append(e.getFrom()).append(" -> ").append(e.getTo()).append("\n");
         }
 
-        return s;
+        return s.toString();
 }
 
 public class Edge {
@@ -139,9 +143,22 @@ public class Edge {
         }
 }
 private class Bits {
+private final int size_x;
+private final int size_y;
 private long[] bits;
 static private final int MIN_BITS = 64;
         public Bits(int size)
+        {
+                size_x = size_y = 0;
+                init(size);
+        }
+        public Bits(int size_x, int size_y)
+        {
+                this.size_x = size_x;
+                this.size_y = size_y;
+                init(size_x * size_y);
+        }
+        private void init(int size)
         {
                 int sz = size / MIN_BITS;
 
@@ -150,12 +167,29 @@ static private final int MIN_BITS = 64;
 
                 bits = new long[sz];
         }
-        public boolean isSet(int i)
+        public int getSize_x()
+        {
+                return size_x;
+        }
+
+        public int getSize_y()
+        {
+                return size_y;
+        }
+        public boolean get(int i)
         {
                 int theWord = i / MIN_BITS;
                 int theBit = i % MIN_BITS;
 
                 return (bits[theWord] & (1L << theBit)) != 0;
+        }
+        public boolean get(int x, int y)
+        {
+                return get(index(x, y));
+        }
+        private int index(int x, int y)
+        {
+                return size_x * y + x;
         }
         public void set(int i)
         {
@@ -164,12 +198,20 @@ static private final int MIN_BITS = 64;
 
                 bits[theWord] |= 1L << theBit;
         }
+        public void set(int x, int y)
+        {
+                set(index(x, y));
+        }
         public void clr(int i)
         {
                 int theWord = i / MIN_BITS;
                 int theBit = i % MIN_BITS;
 
                 bits[theWord] &= ~(1L << theBit);
+        }
+        public void clr(int x, int y)
+        {
+                clr(index(x, y));
         }
         public void clear()
         {
@@ -179,19 +221,19 @@ static private final int MIN_BITS = 64;
         @Override
         public String toString()
         {
-                String s = String.format("Bits: %d long int's\n", bits.length);
+                StringBuilder s = new StringBuilder(String.format("Bits: %d long int's\n", bits.length));
 
-                for (int y = 0; y < rows + 2; y++) {
-                        s += String.format("%03d:", y);
+                for (int y = 0; y < size_y; ++y) {
+                        s.append(String.format("%03d:", y));
 
-                        for (int x = 0; x < cols + 2; x++) {
-                                s += isSet(y * (cols + 2) + x) ? '1' : '0';
+                        for (int x = 0; x < size_x; ++x) {
+                                s.append(get(x, y) ? '1' : '0');
                         }
 
-                        s += '\n';
+                        s.append('\n');
                 }
 
-                return s;
+                return s.toString();
         }
 }
 }
