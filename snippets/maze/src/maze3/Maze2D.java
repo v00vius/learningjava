@@ -31,6 +31,10 @@ public List<Edge> getWave()
 
 public int init()
 {
+        return init(-1, -1);
+}
+public int init(int x0, int y0)
+{
         area.clear();
 
         for (int x = 0; x < area.getSize_x(); ++x) {
@@ -47,7 +51,10 @@ public int init()
         wave.clear();
         graph.clear();
 
-        int idx = index(rnd.nextInt(cols), rnd.nextInt(rows));
+        int idx = (x0 == -1 && y0 == -1) ?
+                  index(rnd.nextInt(cols), rnd.nextInt(rows)) :
+                  index(x0, y0);
+
         Edge e = new Edge(idx, idx);
 
         graph.add(e);
