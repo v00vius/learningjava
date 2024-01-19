@@ -3,8 +3,8 @@ package maze3;
 public class App {
 public static void main(String[] args)
 {
-        Maze2D maze = new Maze2D(64, 120);
-        int totalIterations = 31;
+        Maze2D maze = new Maze2D(2_000, 10_000);
+        int totalIterations = 300;
         long avg = 0;
 
         for (int i = 0; i < totalIterations; ++i) {
