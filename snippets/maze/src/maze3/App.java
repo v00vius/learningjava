@@ -3,8 +3,8 @@ package maze3;
 public class App {
 public static void main(String[] args)
 {
-        Maze2D maze = new Maze2D(50, 50);
-        int totalIterations = 11;
+        Maze2D maze = new Maze2D(64, 120);
+        int totalIterations = 31;
         long avg = 0;
 
         for (int i = 0; i < totalIterations; ++i) {
@@ -17,7 +17,7 @@ public static void main(String[] args)
 
                 long end = System.currentTimeMillis() - start;
 
-                System.out.println(maze);
+//                System.out.println(maze);
 
                 avg += end;
                 System.out.println(String.format("%03d) Delta time %s ms, %d edges", i, end, maze.getGraph().size()));

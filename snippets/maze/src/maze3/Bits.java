@@ -6,7 +6,9 @@ public class Bits {
 private final int size_x;
 private final int size_y;
 private long[] bits;
-static private final int MIN_BITS = 64;
+//private byte[] bits;
+static private final int MIN_BITS = 8 * Long.BYTES;
+//static private final int MIN_BITS = 8 * Byte.BYTES;
 public Bits(int size)
 {
         size_x = size_y = 0;
@@ -26,6 +28,7 @@ private void init(int size)
                 ++sz;
 
         bits = new long[sz];
+//        bits = new byte[sz];
 }
 public int getSize_x()
 {
@@ -75,7 +78,8 @@ public void clr(int x, int y)
 }
 public void clear()
 {
-        Arrays.fill(bits, 0);
+        for (int i = 0, len = bits.length; i < len; ++i)
+                bits[i] = 0;
 }
 
 @Override
