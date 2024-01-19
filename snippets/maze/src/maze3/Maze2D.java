@@ -53,8 +53,6 @@ public int init()
         graph.add(e);
         area.set(idx);
 
-        System.out.println(area);
-
         return e.getFrom();
 }
 private int index(int x, int y)

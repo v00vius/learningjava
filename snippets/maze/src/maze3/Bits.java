@@ -81,16 +81,31 @@ public void clear()
 @Override
 public String toString()
 {
-        StringBuilder s = new StringBuilder(String.format("Bits: %d long int's\n", bits.length));
+        StringBuilder s = new StringBuilder(String.format("Bits size %d (%d-bit word(s))\n", bits.length, MIN_BITS));
 
-        for (int y = 0; y < size_y; ++y) {
-                s.append(String.format("%03d:", y));
+        if(size_x == 0 && size_y == 0) {
+                for (int i = 0; i < bits.length; ++i) {
+                        s.append(String.format("%03d:", i));
 
-                for (int x = 0; x < size_x; ++x) {
-                        s.append(get(x, y) ? '1' : '0');
+                        for (int x = 0; x < MIN_BITS; ++x) {
+                                s.append(get(i * MIN_BITS + x) ? '1' : '0');
+                        }
+
+                        s.append('\n');
                 }
+        }
+        else {
+                s.append(String.format("size_x: %d, size_y: %d\n", size_x, size_y));
 
-                s.append('\n');
+                for (int y = 0; y < size_y; ++y) {
+                        s.append(String.format("%03d:", y));
+
+                        for (int x = 0; x < size_x; ++x) {
+                                s.append(get(x, y) ? '1' : '0');
+                        }
+
+                        s.append('\n');
+                }
         }
 
         return s.toString();
