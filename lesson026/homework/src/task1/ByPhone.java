@@ -1,6 +1,6 @@
 package task1;
 
-public class ByPhone implements Comparator{
+public class ByPhone implements Comparator {
 private final String name;
 
 public ByPhone(String name)

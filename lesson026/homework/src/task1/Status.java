@@ -13,7 +13,6 @@ public Status(int rc, Object data, String message)
         this.data = data;
         this.message = message;
 }
-
 public boolean isOk()
 {
         return rc == OK;
@@ -22,10 +21,13 @@ public boolean isError()
 {
         return rc == ERROR;
 }
-
 public String getMessage()
 {
         return message;
+}
+public Object getData()
+{
+        return data;
 }
 
 @Override

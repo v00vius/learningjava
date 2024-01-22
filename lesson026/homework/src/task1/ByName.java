@@ -7,13 +7,11 @@ public ByName(String name)
 {
         this.name = name;
 }
-
 @Override
 public boolean match(Contact c1)
 {
         return c1.getName().contains(name);
 }
-
 @Override
 public String getName()
 {

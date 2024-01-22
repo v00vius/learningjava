@@ -3,7 +3,7 @@ package task1;
 public class App {
 public static void main(String[] args)
 {
-        ContactManager contacts = ContactManager.create();
+        PhoneBook contacts = ContactManager.create();
         Contact contact1;
         Contact contact2;
         Status status;
@@ -37,10 +37,5 @@ public static void main(String[] args)
         status = contacts.removeContact(contact1);
         System.out.println(status);
         System.out.println(contacts);
-
-
-
-//        contacts.addContact(contact2);
-//        contacts.addContact(new Contact("Oscar", "100-13-68"));
 }
 }
