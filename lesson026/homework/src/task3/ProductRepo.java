@@ -10,7 +10,7 @@ private Set<Product> products;
 
 public ProductRepo()
 {
-        products = new TreeSet<>();
+        products = new HashSet<>();
 }
 public Product insert(String name, double price)
 {
