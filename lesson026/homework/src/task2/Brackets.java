@@ -31,6 +31,6 @@ public boolean isClosing(int baracketID)
 }
 public boolean isMatching(int id1, int id2)
 {
-        return isOpening(id1) && isClosing(id2) && id1 == (brackets.length() -1 - id2);
+        return isOpening(id1) && isClosing(id2) && id1 == (brackets.length() - 1 - id2);
 }
 }

@@ -18,7 +18,7 @@ public static void main(String[] args)
                 if (rc == 0)
                         System.out.println("\"" + s + "\": Ok");
                 else {
-                        System.out.println(String.format("\"%s\":\nError - unmatched bracket at position %d",
+                        System.out.println(String.format("\"%s\":\nError: the unmatched bracket at the position %d",
                                 s, Math.abs(rc))
                         );
                 }
