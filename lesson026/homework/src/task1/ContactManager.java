@@ -1,37 +1,83 @@
 package task1;
 
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 public class ContactManager implements PhoneBook {
 private Set<Contact> phoneBook;
 
+static public ContactManager create()
+{
+        return new ContactManager();
+}
+
+@Override
+public String toString()
+{
+        return "ContactManager{" +
+               "phoneBook=" + phoneBook +
+               '}';
+}
+
+private ContactManager()
+{
+        phoneBook = new HashSet<>();
+}
+
 @Override
 public Status addContact(Contact contact)
 {
-        return null;
+        boolean rc = phoneBook.add(contact);
+
+        if(rc)
+                return new Status(Status.OK, contact, "OK");
+
+        return new Status(Status.ERROR, contact, "Contact or phone \""
+                                         + contact.getName() + "\" already exists"
+        );
 }
 
 @Override
 public Status removeContact(Contact contact)
 {
-        return null;
+        boolean rc = phoneBook.remove(contact);
+
+        if(rc)
+                return new Status(Status.OK, contact, "OK");
+
+        return new Status(Status.ERROR, contact, "Contact \"" + contact.getName() + "\" is unknown");
 }
 
 @Override
 public Set<Contact> getContacts()
 {
-        return null;
+        return phoneBook;
 }
 
 @Override
-public Contact getContactByName(String name)
+public Status getContactByName(String name)
 {
-        return null;
+        return select(new ByName(name));
 }
-
 @Override
-public Contact getContactByPhoneNumber(String phoneNumber)
+public Status getContactByPhoneNumber(String phoneNumber)
 {
-        return null;
+        return select(new ByPhone(phoneNumber));
+}
+private Status select(Comparator cmp)
+{
+        List<Contact> matches = new LinkedList<>();
+
+        for(Contact e : phoneBook) {
+                if(cmp.match(e))
+                        matches.add(e);
+        }
+
+        if(matches.isEmpty())
+                return new Status(Status.ERROR, cmp.getName(), "\"" + cmp.getName() + "\" not found");
+
+        return new Status(Status.OK, matches, "OK");
 }
 }

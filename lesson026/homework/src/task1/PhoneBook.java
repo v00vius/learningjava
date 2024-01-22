@@ -6,7 +6,6 @@ public interface PhoneBook {
 public Status addContact(Contact contact);
 public Status removeContact(Contact contact);
 public Set<Contact> getContacts();
-public Contact getContactByName(String name);
-public Contact getContactByPhoneNumber(String phoneNumber);
-
+public Status getContactByName(String name);
+public Status getContactByPhoneNumber(String phoneNumber);
 }
