@@ -72,17 +72,16 @@ public ResponseForClientDeleteById deleteById(Integer id){
     Product productById = productRepository.delete(id);
 
     List<ErrorDto> errors = new ArrayList<>();
-    ProductForClient productForClient = new ProductForClient("","");
+    ProductForClient productForClient;
 
     if (productById != null) {
         productForClient = new ProductForClient(productById.getProductName(), productById.getDescription());
     }
     else {
+        productForClient = new ProductForClient("-","-");
         errors.add(new ErrorDto(ErrorCode.IE_400,"Product: delete by ID: " + id + " not found"));
     }
 
     return new ResponseForClientDeleteById(productForClient, errors);
-
 }
-
 }
