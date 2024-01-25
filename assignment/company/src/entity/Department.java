@@ -40,7 +40,7 @@ public boolean equals(Object o)
 @Override
 public int hashCode()
 {
-        return getName().toUpperCase().hashCode();
+        return getName().toLowerCase().hashCode();
 }
 
 @Override

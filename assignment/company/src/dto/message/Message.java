@@ -38,7 +38,7 @@ public MessageItem addItem(Subsystem subsystem, Severity severity, String messag
 }
 public boolean hasErrors()
 {
-        return numErrors == 0;
+        return numErrors > 0;
 }
 @Override
 public String toString()
