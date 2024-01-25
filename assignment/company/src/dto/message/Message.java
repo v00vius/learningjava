@@ -17,7 +17,7 @@ public Message(DTO data)
         items = new ArrayList<>();
 }
 
-public DTO getData()
+public DTO getDTO()
 {
         return data;
 }

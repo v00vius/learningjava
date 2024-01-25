@@ -26,7 +26,11 @@ public String getProperty(String name)
 
         return value == null ? "" : value;
 }
-
+@Override
+public boolean isEmpty()
+{
+        return properties.isEmpty();
+}
 @Override
 public String toString()
 {
