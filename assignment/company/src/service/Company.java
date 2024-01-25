@@ -32,7 +32,11 @@ public Response deleteDepartment(String name)
 {
         return null;
 }
-public Response setDepartment(Integer employeeId, String department)
+public Response setDepartmentForEmployee(Integer employeeId, String department)
+{
+        return null;
+}
+public Response getEmployeesOfDepartment(String name)
 {
         return null;
 }

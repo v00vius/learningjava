@@ -42,4 +42,13 @@ public int hashCode()
 {
         return getName().toUpperCase().hashCode();
 }
+
+@Override
+public String toString()
+{
+        return "Department{" +
+               "name='" + name + '\'' +
+               ", employees=" + employees +
+               '}';
+}
 }

@@ -63,4 +63,15 @@ public int hashCode()
 {
         return getId();
 }
+
+@Override
+public String toString()
+{
+        return "Employee{" + super.getId() +
+               ", firstName='" + firstName + '\'' +
+               ", lastName='" + lastName + '\'' +
+               ", jobPosition='" + jobPosition + '\'' +
+               ", department='" + department + '\'' +
+               '}';
+}
 }
