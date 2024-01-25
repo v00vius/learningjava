@@ -15,7 +15,7 @@ public Employee(int id, String firstName, String lastName, String jobPosition)
         this.firstName = firstName;
         this.lastName = lastName;
         this.jobPosition = jobPosition;
-        this.department = "";
+        setNoDepartment();
 }
 
 public String getFirstName()
@@ -41,6 +41,10 @@ public String getDepartment()
 public void setDepartment(String department)
 {
         this.department = department;
+}
+public void setNoDepartment()
+{
+        setDepartment("");
 }
 
 @Override
