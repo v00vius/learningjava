@@ -1,12 +1,8 @@
 package service;
 
 import dto.message.Message;
-import entity.Department;
-import entity.Employee;
 import repo.DepartmentManager;
 import repo.EmployeeManager;
-
-import java.util.Map;
 
 public class ABCompany implements Company {
 private String name;
@@ -17,6 +13,11 @@ public ABCompany(String name, DepartmentManager departments, EmployeeManager emp
         this.name = name;
         this.departments = departments;
         this.employees = employees;
+}
+
+public String getName()
+{
+        return name;
 }
 
 @Override
