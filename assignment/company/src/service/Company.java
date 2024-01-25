@@ -3,7 +3,6 @@ package service;
 import dto.message.Message;
 import entity.Department;
 import entity.Employee;
-
 import java.util.Map;
 
 public class Company {

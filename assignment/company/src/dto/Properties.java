@@ -41,10 +41,11 @@ public static void main(String[] args)
 {
         Properties dto = new Properties();
 
-        dto.setProperty("firstName", "John");
-        dto.setProperty("lastName", "Reed");
-        dto.setProperty("department", "R&");
-        dto.setProperty("department", "Sales");
+        dto.setProperty("type", "Employee");
+        dto.setProperty("firstName 1", "John");
+        dto.setProperty("lastName 1", "Reed");
+        dto.setProperty("department 1", "R&");
+        dto.setProperty("department 1", "Sales");
 
         Message msg = new Message(dto);
 
