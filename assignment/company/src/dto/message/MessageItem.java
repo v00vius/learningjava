@@ -1,23 +1,23 @@
 package dto.message;
 
 public  class MessageItem {
-private final int subsystem;
-private final int severity;
+private final Subsystem subsystem;
+private final Severity severity;
 private final String message;
 
-public MessageItem(int subsystem, int severity, String message)
+public MessageItem(Subsystem subsystem, Severity severity, String message)
 {
         this.subsystem = subsystem;
         this.severity = severity;
         this.message = message;
 }
 
-public int getSubsystem()
+public Subsystem getSubsystem()
 {
         return subsystem;
 }
 
-public int getSeverity()
+public Severity getSeverity()
 {
         return severity;
 }

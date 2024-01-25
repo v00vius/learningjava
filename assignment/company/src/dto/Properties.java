@@ -1,6 +1,8 @@
 package dto;
 
 import dto.message.Message;
+import dto.message.Severity;
+import dto.message.Subsystem;
 
 import java.util.Hashtable;
 import java.util.Map;
@@ -28,9 +30,7 @@ public String getProperty(String name)
 @Override
 public String toString()
 {
-        return "Properties{" +
-               "properties=" + properties +
-               '}';
+        return "Properties" + properties;
 }
 
 public static void main(String[] args)
@@ -40,12 +40,12 @@ public static void main(String[] args)
         dto.setProperty("firstName", "John");
         dto.setProperty("lastName", "Reed");
         dto.setProperty("department", "R&");
-        dto.setProperty("department", "R&D");
+        dto.setProperty("department", "Sales");
 
         Message msg = new Message(dto);
 
-        msg.addItem(Message.VERIFICATION, Message.WARNING, "Name too long");
-        msg.addItem(Message.SERVICE, Message.INFORMATION, "Employee accepted");
+        msg.addItem(Subsystem.VERIFICATION, Severity.WARNING, "Name too long");
+        msg.addItem(Subsystem.SERVICE, Severity.INFORMATION, "Employee accepted");
 
         System.out.println(msg);
 }

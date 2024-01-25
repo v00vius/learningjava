@@ -1,30 +1,23 @@
 package dto.message;
 
+import dto.DTO;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Message {
-//
-// Subsystems
-static public final int VERIFICATION = 1;
-static public final int REPOSITORY = 2;
-static public final int SERVICE = 3;
-//
-// Severity
-static public final int ERROR = 1;
-static public final int WARNING = 2;
-static public final int INFORMATION = 3;
-
-private Object data;
+private int numErrors;
+private DTO data;
 private List<MessageItem> items;
 
-public Message(Object data)
+public Message(DTO data)
 {
+        numErrors = 0;
         this.data = data;
         items = new ArrayList<>();
 }
 
-public Object getData()
+public DTO getData()
 {
         return data;
 }
@@ -32,15 +25,21 @@ public List<MessageItem> getItems()
 {
         return items;
 }
-public MessageItem addItem(int subsystem, int severity, String message)
+public MessageItem addItem(Subsystem subsystem, Severity severity, String message)
 {
         MessageItem msg = new MessageItem(subsystem, severity, message);
 
         items.add(msg);
 
+        if(severity == Severity.ERROR)
+                ++numErrors;
+
         return msg;
 }
-
+public boolean hasErrors()
+{
+        return numErrors == 0;
+}
 @Override
 public String toString()
 {
