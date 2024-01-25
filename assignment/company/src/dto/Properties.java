@@ -31,6 +31,15 @@ public boolean isEmpty()
 {
         return properties.isEmpty();
 }
+
+public int getPropertyInt(String name)
+{
+        return Integer.parseInt(getProperty(name));
+}
+public double getPropertyDouble(String name)
+{
+        return Double.parseDouble(getProperty(name));
+}
 @Override
 public String toString()
 {
@@ -41,11 +50,14 @@ public static void main(String[] args)
 {
         Properties dto = new Properties();
 
-        dto.setProperty("type", "Employee");
+        dto.setProperty("size", "2");
         dto.setProperty("firstName 1", "John");
         dto.setProperty("lastName 1", "Reed");
-        dto.setProperty("department 1", "R&");
         dto.setProperty("department 1", "Sales");
+
+        dto.setProperty("firstName 2", "John");
+        dto.setProperty("lastName 2", "Reed");
+        dto.setProperty("department 2", "R&D");
 
         Message msg = new Message(dto);
 
@@ -53,5 +65,8 @@ public static void main(String[] args)
         msg.addItem(Subsystem.SERVICE, Severity.INFORMATION, "Employee accepted");
 
         System.out.println(msg);
+        String value = dto.getProperty("size");
+        double v = dto.getPropertyDouble("size");
+        System.out.println(v);
 }
 }
