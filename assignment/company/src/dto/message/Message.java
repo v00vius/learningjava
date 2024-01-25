@@ -1,4 +1,4 @@
-package dto;
+package dto.message;
 
 public class Message {
 private Object data;

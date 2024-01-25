@@ -1,4 +1,4 @@
-package dto;
+package dto.message;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +31,7 @@ public String toString()
 
 public static void main(String[] args)
 {
+//        test
         Integer data = 20;
 
         Message message = new Message(data);

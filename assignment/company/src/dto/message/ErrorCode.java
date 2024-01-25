@@ -1,4 +1,4 @@
-package dto;
+package dto.message;
 
 public enum ErrorCode {
 OK(200, "OK"),

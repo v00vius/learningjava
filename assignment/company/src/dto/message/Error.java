@@ -1,4 +1,4 @@
-package dto;
+package dto.message;
 
 public class Error {
 private final ErrorCode ec;
