@@ -1,5 +1,6 @@
 package entity;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -7,12 +8,12 @@ public class Department extends Entity {
 private String name;
 private List<Employee> employees;
 
-public Department(int id, String name, List<Employee> employees)
+public Department(int id, String name)
 {
         super(id);
 
         this.name = name;
-        this.employees = employees;
+        this.employees = new LinkedList<>();
 }
 
 public String getName()
@@ -33,12 +34,12 @@ public boolean equals(Object o)
 
         Department that = (Department) o;
 
-        return getName().equals(that.getName());
+        return 0 == getName().compareToIgnoreCase(that.getName());
 }
 
 @Override
 public int hashCode()
 {
-        return getName().hashCode();
+        return getName().toUpperCase().hashCode();
 }
 }

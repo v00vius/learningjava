@@ -1,19 +1,34 @@
 package repo;
 
 import entity.Employee;
+import entity.Entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EmployeeManager {
-private List<Employee> employees;
+private Map<Integer, Employee> employees;
 
 public EmployeeManager()
 {
-        this.employees = new ArrayList<>();
+        this.employees = new HashMap<>();
 }
-public Employee insert()
+public Employee insert(String firstName, String lastName, String jobPosition)
 {
+        Employee emp = new Employee(Entity.newId(), firstName, lastName, jobPosition);
 
+        employees.put(emp.getId(), emp);
+
+        return emp;
+}
+public Employee delete(Integer id)
+{
+        Employee emp = employees.remove(id);
+
+        return emp;
+}
+public Employee select(Integer id)
+{
+        return employees.get(id);
 }
 }

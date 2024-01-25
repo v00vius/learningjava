@@ -8,14 +8,14 @@ private final String lastName;
 private String jobPosition;
 private String department;
 
-public Employee(int id, String firstName, String lastName, String jobPosition, String department)
+public Employee(int id, String firstName, String lastName, String jobPosition)
 {
         super(id);
 
         this.firstName = firstName;
         this.lastName = lastName;
         this.jobPosition = jobPosition;
-        this.department = department;
+        this.department = "";
 }
 
 public String getFirstName()
@@ -36,6 +36,11 @@ public String getJobPosition()
 public String getDepartment()
 {
         return department;
+}
+
+public void setDepartment(String department)
+{
+        this.department = department;
 }
 
 @Override

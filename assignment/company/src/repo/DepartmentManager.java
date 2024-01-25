@@ -1,6 +1,7 @@
 package repo;
 
 import entity.Department;
+import entity.Entity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,15 +13,21 @@ public DepartmentManager()
 {
         departments = new HashMap<>();
 }
-public boolean insert(Department dep)
+public boolean insert(String name)
 {
-        Department previousDep = departments.putIfAbsent(dep.getName(), dep);
+        Department dep = departments.get(name);
 
-        return previousDep == null;
+        if(dep != null)
+                return false;
+
+        dep = new Department(Entity.newId(), name);
+        departments.put(dep.getName(), dep);
+
+        return true;
 }
-public boolean delete(Department dep)
+public Department delete(String name)
 {
-        return null != departments.remove(dep);
+        return departments.remove(name);
 }
 
 public Department select(String name)
