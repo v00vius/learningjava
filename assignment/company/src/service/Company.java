@@ -1,6 +1,6 @@
 package service;
 
-import dto.message.Response;
+import dto.message.Message;
 import entity.Department;
 import entity.Employee;
 
@@ -16,27 +16,27 @@ public Company(Map<String, Department> departments, Map<Integer, Employee> emplo
         this.employees = employees;
 }
 
-public Response newEmployee(String firstName, String lastName, String jobPosition, String department)
+public Message newEmployee(String firstName, String lastName, String jobPosition, String department)
 {
         return null;
 }
-public Response dismissEmployee(Integer id)
+public Message dismissEmployee(Integer id)
 {
         return null;
 }
-public Response newDepartment(String name)
+public Message newDepartment(String name)
 {
         return null;
 }
-public Response deleteDepartment(String name)
+public Message deleteDepartment(String name)
 {
         return null;
 }
-public Response setDepartmentForEmployee(Integer employeeId, String department)
+public Message setDepartmentForEmployee(Integer employeeId, String department)
 {
         return null;
 }
-public Response getEmployeesOfDepartment(String name)
+public Message getEmployeesOfDepartment(String name)
 {
         return null;
 }
