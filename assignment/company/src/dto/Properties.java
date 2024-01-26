@@ -8,10 +8,12 @@ import java.util.Hashtable;
 import java.util.Map;
 
 public class Properties implements DTO {
+private final String tag;
 private Map<String, String> properties;
 
-public Properties()
+public Properties(String tag)
 {
+        this.tag = tag;
         properties = new Hashtable<>();
 }
 @Override
@@ -43,12 +45,12 @@ public double getPropertyDouble(String name)
 @Override
 public String toString()
 {
-        return "Properties" + properties;
+        return "Properties \"" + tag + "\" " +  properties;
 }
 
 public static void main(String[] args)
 {
-        Properties dto = new Properties();
+        Properties dto = new Properties("test props");
 
         dto.setProperty("size", "2");
         dto.setProperty("firstName 1", "John");

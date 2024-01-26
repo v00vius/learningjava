@@ -63,6 +63,7 @@ public static void main(String[] args)
 
         menu.menuItem(new ItemTest());
         menu.menuItem(new ItemExit());
+        menu.menuItem(new NewEmployee());
         menu.menu();
 
 }
