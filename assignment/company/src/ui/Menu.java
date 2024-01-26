@@ -3,6 +3,7 @@ package ui;
 import repo.DepartmentManager;
 import repo.EmployeeManager;
 import service.ABCompany;
+import service.Company;
 import util.ConsoleIO;
 
 import java.util.LinkedList;
@@ -62,12 +63,17 @@ public void menu()
 
 public static void main(String[] args)
 {
+        DepartmentManager departments = new DepartmentManager();
+        EmployeeManager employees = new EmployeeManager();
+        Company company = new ABCompany("test", departments, employees);
+
         Menu menu = new Menu("test");
 
         menu.menuItem(new ItemTest());
         menu.menuItem(new ItemExit());
-        menu.menuItem(new NewEmployee(new ABCompany("test", new DepartmentManager(), new EmployeeManager())));
-        menu.menu();
+        menu.menuItem(new NewEmployee(company));
+        menu.menuItem(new EmployeeToDepartment(company));
 
+        menu.menu();
 }
 }

@@ -17,6 +17,10 @@ public Error setError(int id, String description)
 
         return this;
 }
+public boolean hasErrors()
+{
+        return !key(1).isEmpty();
+}
 private String key(int id)
 {
         return Keys.key(Keys.ERROR, id);
@@ -24,7 +28,7 @@ private String key(int id)
 @Override
 public String toString()
 {
-        StringBuilder sb = new StringBuilder(">>> Errors <<<\n");
+        StringBuilder sb = new StringBuilder("\n>>> Errors <<<\n");
 
         for(int i = 1;; ++i) {
                 String errorDescription = properties.getProperty(key(i));
