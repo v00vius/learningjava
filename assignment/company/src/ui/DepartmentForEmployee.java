@@ -6,10 +6,10 @@ import dto.Properties;
 import service.Company;
 import util.ConsoleIO;
 
-public class EmployeeToDepartment implements MenuItem {
+public class DepartmentForEmployee implements MenuItem {
 private Company company;
 
-public EmployeeToDepartment(Company company)
+public DepartmentForEmployee(Company company)
 {
         this.company = company;
 }
@@ -17,7 +17,7 @@ public EmployeeToDepartment(Company company)
 @Override
 public String getName()
 {
-        return "Set a department fon an employee";
+        return "Set a department for an employee";
 }
 
 @Override
@@ -40,7 +40,7 @@ public boolean command()
 
         Message response = company.setDepartmentForEmployee(command);
 
-        io.puts("Got response: " + response);
+        io.puts("Got response: " + response + '\n');
 
         if(response.getErrorCode() != 0)
                 io.puts("" + new Error(response) + '\n');

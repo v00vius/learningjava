@@ -72,7 +72,9 @@ public static void main(String[] args)
         menu.menuItem(new ItemTest());
         menu.menuItem(new ItemExit());
         menu.menuItem(new NewEmployee(company));
-        menu.menuItem(new EmployeeToDepartment(company));
+        menu.menuItem(new DepartmentForEmployee(company));
+        menu.menuItem(new EmployeesOfDepartment(company));
+        menu.menuItem(new NewDepartment(company));
 
         menu.menu();
 }

@@ -9,6 +9,7 @@ import entity.Employee;
 import repo.DepartmentManager;
 import repo.EmployeeManager;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class ABCompany implements Company {
@@ -60,7 +61,26 @@ public Message dismissEmployee(Message message)
 @Override
 public Message newDepartment(Message message)
 {
-        return null;
+        Message response = new Properties ("newDepartment:response");
+        Error errors = new Error(response);
+        int errorCount = 0;
+
+        String departmentName = message.getProperty("department");
+
+        if(!departments.insert(departmentName))
+                errors.setError(++errorCount, "Department '" + departmentName + "' already exists");
+
+        if (errorCount == 0) {
+                Department dep = departments.select(departmentName);
+
+                response.setProperty(Keys.key(Keys.INFO, 1),"Created: " + dep.getName());
+                response.setProperty("department", dep.getName());
+                response.setProperty("id", Integer.toString(dep.getId()));
+        }
+
+        response.setErrorCode(errorCount);
+
+        return response;
 }
 @Override
 public Message deleteDepartment(Message message)
@@ -92,6 +112,7 @@ public Message setDepartmentForEmployee(Message message)
                 List<Employee> employeesInDepartment = department.getEmployees();
 
                 employeesInDepartment.add(emp);
+                emp.setDepartment(department.getName());
                 response.setProperty(Keys.key(Keys.INFO, 1),
                         "The employee ID=" + id + " has been added to the department '" +
                         department.getName() + "'"
@@ -105,6 +126,42 @@ public Message setDepartmentForEmployee(Message message)
 @Override
 public Message getEmployeesOfDepartment(Message message)
 {
-        return null;
+        Message response = new Properties ("getEmployeesOfDepartment:response");
+        Error errors = new Error(response);
+        int errorCount = 0;
+
+        String departmentName = message.getProperty("department");
+        Department department = departments.select(departmentName);
+
+        if(department == null)
+                errors.setError(++errorCount, "Department '" + departmentName + "' isn't known");
+
+        if (errorCount == 0)
+                fillResponse(department, response);
+
+        response.setErrorCode(errorCount);
+
+        return response;
+}
+
+private static void fillResponse(Department department, Message response)
+{
+        List<Employee> employeesInDepartment = department.getEmployees();
+        int count = 0;
+
+        response.setProperty("size", Integer.toString(employeesInDepartment.size()));
+        response.setProperty("department", department.getName());
+        Iterator<Employee> cursor = employeesInDepartment.iterator();
+
+        while (cursor.hasNext()) {
+                Employee emp = cursor.next();
+
+                response.setProperty("emp/" + count + "/FirstName", emp.getFirstName());
+                response.setProperty("emp/" + count + "/LastName", emp.getLastName());
+                response.setProperty("emp/" + count + "/JobPosition", emp.getJobPosition());
+                response.setProperty("emp/" + count + "/Department", emp.getDepartment());
+
+                ++count;
+        }
 }
 }
