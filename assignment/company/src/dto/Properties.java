@@ -1,13 +1,9 @@
 package dto;
 
-import dto.message.Message;
-import dto.message.Severity;
-import dto.message.Subsystem;
-
 import java.util.Hashtable;
 import java.util.Map;
 
-public class Properties implements DTO {
+public class Properties implements Message {
 private final String tag;
 private Map<String, String> properties;
 
@@ -29,9 +25,23 @@ public String getProperty(String name)
         return value == null ? "" : value;
 }
 @Override
-public boolean isEmpty()
+public String getTag()
 {
-        return properties.isEmpty();
+        return tag;
+}
+@Override
+public int getErrorCode()
+{
+        String returnCode = getProperty(Keys.ERROR_CODE);
+
+        return returnCode.isEmpty() ? 0 : Integer.parseInt(returnCode);
+}
+
+@Override
+public void setErrorCode(int ec)
+{
+        String errorCode = Integer.toString(ec);
+        setProperty(Keys.ERROR_CODE, errorCode);
 }
 
 public int getPropertyInt(String name)
@@ -48,27 +58,22 @@ public String toString()
         return "Properties \"" + tag + "\" " +  properties;
 }
 
+// test
 public static void main(String[] args)
 {
-        Properties dto = new Properties("test props");
+        Properties message = new Properties("test props");
 
-        dto.setProperty("size", "2");
-        dto.setProperty("firstName 1", "John");
-        dto.setProperty("lastName 1", "Reed");
-        dto.setProperty("department 1", "Sales");
+        message.setProperty("size", "2");
+        message.setProperty("firstName 1", "John");
+        message.setProperty("lastName 1", "Reed");
+        message.setProperty("department 1", "Sales");
 
-        dto.setProperty("firstName 2", "John");
-        dto.setProperty("lastName 2", "Reed");
-        dto.setProperty("department 2", "R&D");
+        message.setProperty("firstName 2", "John");
+        message.setProperty("lastName 2", "Reed");
+        message.setProperty("department 2", "R&D");
 
-        Message msg = new Message(dto);
-
-        msg.addItem(Subsystem.VERIFICATION, Severity.WARNING, "Name too long");
-        msg.addItem(Subsystem.SERVICE, Severity.INFORMATION, "Employee accepted");
-
-        System.out.println(msg);
-        String value = dto.getProperty("size");
-        double v = dto.getPropertyDouble("size");
-        System.out.println(v);
+        message.setErrorCode(200);
+        System.out.println(message);
+        System.out.println(message.getTag() + ": rc=" + message.getErrorCode());
 }
 }

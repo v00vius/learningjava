@@ -1,7 +1,9 @@
 package dto;
 
-public interface DTO {
+public interface Message {
 boolean setProperty(String name, String value);
 String getProperty(String name);
-boolean isEmpty();
+String getTag();
+int getErrorCode();
+void setErrorCode(int ec);
 }

@@ -1,10 +1,20 @@
 package ui;
 
+import dto.Error;
+import dto.Message;
 import dto.Properties;
-import dto.message.Message;
+
+import service.Company;
 import util.ConsoleIO;
 
 public class NewEmployee implements MenuItem {
+private Company company;
+
+public NewEmployee(Company company)
+{
+        this.company = company;
+}
+
 @Override
 public String getName()
 {
@@ -25,15 +35,24 @@ public boolean command()
         String lastName = io.gets("Last Name: ");
         String jobPosition = io.gets("Job Position: ");
 
-        Properties props = new Properties("New Employee");
+        Message props = new Properties("newEmployee");
 
         props.setProperty("firstName", firstName);
         props.setProperty("lastName", lastName);
         props.setProperty("jobPosition", jobPosition);
 
         io.puts(props.toString() + '\n');
-        Message msg = new Message(props);
 
+        Message response = company.newEmployee(props);
+        io.puts("Got: " + response + "\n");
+
+        if(response.getErrorCode() == 0) {
+                String id = response.getProperty("id");
+
+                io.puts("New Employee ID=" + id);
+        } else {
+                io.puts(new Error(response).toString() + '\n');
+        }
 
         return false;
 }

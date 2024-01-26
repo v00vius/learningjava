@@ -1,5 +1,8 @@
 package ui;
 
+import repo.DepartmentManager;
+import repo.EmployeeManager;
+import service.ABCompany;
 import util.ConsoleIO;
 
 import java.util.LinkedList;
@@ -63,7 +66,7 @@ public static void main(String[] args)
 
         menu.menuItem(new ItemTest());
         menu.menuItem(new ItemExit());
-        menu.menuItem(new NewEmployee());
+        menu.menuItem(new NewEmployee(new ABCompany("test", new DepartmentManager(), new EmployeeManager())));
         menu.menu();
 
 }
