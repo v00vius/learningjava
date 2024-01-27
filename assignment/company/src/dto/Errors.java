@@ -12,31 +12,31 @@ public int getErrorCount()
 {
         return properties.exists("/errors") ? properties.getInt("/errors") : 0;
 }
-private void updateErrorCount()
-{
-        int ec = getErrorCount();
-
-        properties.set("/errors", ++ec);
-}
 public String getError(int id)
 {
         return properties.get("/errors", id);
 }
-public Errors addError(int id, String description)
+public int addError(int id, String description)
 {
-        properties.set("/errors", id, description);
-        updateErrorCount();
-
-        return this;
+        return addError(description);
 }
-public boolean hasErrors()
+public int addError(String description)
+{
+        int ec = getErrorCount();
+
+        properties.set("/errors", ec, description);
+        properties.set("/errors", ++ec);
+
+        return ec;
+}
+public boolean isEmpty()
 {
         return 0 == getErrorCount();
 }
 @Override
 public String toString()
 {
-        StringBuilder sb = new StringBuilder("\n### Errors\n");
+        StringBuilder sb = new StringBuilder("Errors\n");
 
         for(int i = 1, n = getErrorCount(); i <= n; ++i) {
                 String errorDescription = getError(i);

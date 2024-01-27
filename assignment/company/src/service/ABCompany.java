@@ -32,23 +32,25 @@ public String getName()
 public Registry newEmployee(Registry request)
 {
         Registry response = new Properties ();
-        Validator validator = new EmployeeValidator(request, response);
+        Errors errors = new Errors(response);
+        Validator validator = new EmployeeValidator(request, errors);
 
-        if(0 != validator.check()) {
-                response.setErrorCode(1);
+        validator.check();
 
-                return response;
+        if(errors.isEmpty()) {
+                request.setTag("/employee");
+
+                Employee emp = employees.insert(request.get("firstName"),
+                                        request.get("lastName"),
+                                        request.get("jobPosition")
+                );
+
+                response.setTag("/employee");
+                response.set("id", emp.getId());
+                response.set("firstName", emp.getFirstName());
+                response.set("lastName", emp.getLastName());
+                response.set("jobPosition", emp.getJobPosition());
         }
-
-        String firstName = request.get("firstName");
-        String lastName = request.get("lastName");
-        String jobPosition = request.get("jobPosition");
-
-        Employee emp = employees.insert(firstName, lastName, jobPosition);
-
-        response.set(Keys.key(Keys.INFO, 1),"Created: " + emp);
-        response.set("id", Integer.toString(emp.getId()));
-        response.setErrorCode(0);
 
         return response;
 }
@@ -63,22 +65,19 @@ public Registry newDepartment(Registry registry)
 {
         Registry response = new Properties ();
         Errors errors = new Errors(response);
-        int errorCount = 0;
 
-        String departmentName = registry.get("department");
+        String departmentName = registry.get("/department/name");
 
         if(!departments.insert(departmentName))
-                errors.addError(++errorCount, "Department '" + departmentName + "' already exists");
+                errors.addError("Department '" + departmentName + "' already exists");
 
-        if (errorCount == 0) {
+        if (errors.isEmpty()) {
                 Department dep = departments.select(departmentName);
 
-                response.set(Keys.key(Keys.INFO, 1),"Created: " + dep.getName());
-                response.set("department", dep.getName());
-                response.set("id", Integer.toString(dep.getId()));
+                response.setTag("/department");
+                response.set("id", dep.getId());
+                response.set("name", dep.getName());
         }
-
-        response.setErrorCode(errorCount);
 
         return response;
 }
@@ -93,33 +92,29 @@ public Registry setDepartmentForEmployee(Registry registry)
 {
         Registry response = new Properties ();
         Errors errors = new Errors(response);
-        int errorCount = 0;
 
-        String departmentName = registry.get("department");
-        int id = Integer.parseInt(registry.get("id"));
+        String departmentName = registry.get("/department/name");
+        int id = registry.getInt("/employee/id");
 
         Employee emp = employees.select(id);
 
         if(emp == null)
-                errors.addError(++errorCount, "Employee id=" + id + " isn't known");
+                errors.addError("Employee id=" + id + " isn't known");
 
         Department department = departments.select(departmentName);
 
         if(department == null)
-                errors.addError(++errorCount, "Department '" + departmentName + "' isn't known");
+                errors.addError("Department '" + departmentName + "' isn't known");
 
-        if(errorCount == 0) {
+        if(errors.isEmpty()) {
                 List<Employee> employeesInDepartment = department.getEmployees();
 
                 employeesInDepartment.add(emp);
                 emp.setDepartment(department.getName());
-                response.set(Keys.key(Keys.INFO, 1),
-                        "The employee ID=" + id + " has been added to the department '" +
-                        department.getName() + "'"
-                );
-        }
 
-        response.setErrorCode(errorCount);
+                response.set("/department/name", department.getName());
+                response.set("/employee/id", emp.getId());
+        }
 
         return response;
 }

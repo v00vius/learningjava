@@ -31,27 +31,30 @@ public boolean isEnabled()
 public boolean command()
 {
         ConsoleIO io = new ConsoleIO();
-        String firstName = io.gets("First Name: ");
-        String lastName = io.gets("Last Name: ");
-        String jobPosition = io.gets("Job Position: ");
+        Registry command = new Properties();
 
-        Registry props = new Properties();
+        command.setTag("/employee");
+        command.set("firstName", io.gets("First Name: "));
+        command.set("lastName", io.gets("Last Name: "));
+        command.set("jobPosition", io.gets("Job Position: "));
 
-        props.set("firstName", firstName);
-        props.set("lastName", lastName);
-        props.set("jobPosition", jobPosition);
+        io.puts("<<<" + command + '\n');
 
-        io.puts(props.toString() + '\n');
+        Registry response = company.newEmployee(command);
+        Errors errors = new Errors(response);
 
-        Registry response = company.newEmployee(props);
-        io.puts("Got: " + response + "\n");
+        io.puts(">>> " + response + "\n");
 
-        if(response.getErrorCode() == 0) {
-                String id = response.get("id");
+        if(errors.isEmpty()) {
+                response.setTag("/employee");
 
-                io.puts("New Employee ID=" + id);
+                io.puts("The Employee has been created\n");
+                io.puts("            ID: " + response.getInt("id") + '\n');
+                io.puts("    First Name: " + response.get("firstName") + '\n');
+                io.puts("     Last Name: " + response.get("lastName") + '\n');
+                io.puts("  Job Position: " + response.get("jobPosition") + '\n');
         } else {
-                io.puts(new Errors(response).toString() + '\n');
+                io.puts("### " + errors + '\n');
         }
 
         return false;

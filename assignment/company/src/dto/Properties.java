@@ -123,13 +123,13 @@ public boolean exists(String key, int index)
 @Override
 public int getErrorCode()
 {
-        return exists("/errorCode") ? getInt("/errorCode") : 0;
+        return exists("/errors/code") ? getInt("/errors/code") : 0;
 }
 
 @Override
 public void setErrorCode(int ec)
 {
-        set("/errorCode", ec);
+        set("/errors/code", ec);
 }
 
 @Override
@@ -137,10 +137,10 @@ public String toString()
 {
         StringBuilder builder = new StringBuilder("Properties\n");
 
-        builder.append("tag=").append(tag).append('\n');
+        builder.append("  tag=").append(tag).append('\n');
 
         for (Map.Entry<String, String> e : properties.entrySet())
-                builder.append(e.getKey()).append("=").append(e.getValue()).append('\n');
+                builder.append("  ").append(e.getKey()).append("=").append(e.getValue()).append('\n');
 
         return builder.toString();
 }

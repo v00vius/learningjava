@@ -5,37 +5,38 @@ import dto.Registry;
 
 public class EmployeeValidator implements Validator {
 private final Registry request;
-private int errorCounter;
-private Errors error;
+private Errors errors;
 
-public EmployeeValidator(Registry request, Registry response)
+public EmployeeValidator(Registry request, Errors errors)
 {
         this.request = request;
-        errorCounter = 0;
-        error = new Errors(response);
+        this.errors = errors;
 }
+@Override
+public boolean check()
+{
+        request.setTag("/employee");
+        checkString("First name", request.get("firstName"));
+        checkString("Last name", request.get("lastName"));
+        checkString("Job Position", request.get("jobPosition"));
 
+        return errors.isEmpty();
+}
 private void checkString(String tag, String name)
 {
+        String prefix = tag + ": '" + name + "': ";
+
         name.trim();
 
         if(name.isEmpty())
-                error.addError(++errorCounter, tag + ": must not be empty");
+                errors.addError( prefix + "must not be empty");
 
         if(name.length() < 3 || name.length() > 16)
-                error.addError(++errorCounter, tag + ": '" + name + "': length should be 3 .. 16");
-}
-@Override
-public int check()
-{
-        String firstName = request.get("firstName");
-        String lastName = request.get("lastName");
-        String jobPosition = request.get("jobPosition");
+                errors.addError( prefix + "the length should be 3 .. 16");
 
-        checkString("First name", firstName);
-        checkString("Last name", lastName);
-        checkString("Job Position", jobPosition);
+        String  ch = name.substring(0, 1);
 
-        return errorCounter;
+        if(!ch.equals(ch.toUpperCase()))
+                errors.addError( prefix + "the first letter must be a Capital one");
 }
 }
