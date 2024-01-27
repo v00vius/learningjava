@@ -68,7 +68,7 @@ public Registry newDepartment(Registry registry)
         String departmentName = registry.get("department");
 
         if(!departments.insert(departmentName))
-                errors.setError(++errorCount, "Department '" + departmentName + "' already exists");
+                errors.addError(++errorCount, "Department '" + departmentName + "' already exists");
 
         if (errorCount == 0) {
                 Department dep = departments.select(departmentName);
@@ -101,12 +101,12 @@ public Registry setDepartmentForEmployee(Registry registry)
         Employee emp = employees.select(id);
 
         if(emp == null)
-                errors.setError(++errorCount, "Employee id=" + id + " isn't known");
+                errors.addError(++errorCount, "Employee id=" + id + " isn't known");
 
         Department department = departments.select(departmentName);
 
         if(department == null)
-                errors.setError(++errorCount, "Department '" + departmentName + "' isn't known");
+                errors.addError(++errorCount, "Department '" + departmentName + "' isn't known");
 
         if(errorCount == 0) {
                 List<Employee> employeesInDepartment = department.getEmployees();
@@ -134,7 +134,7 @@ public Registry getEmployeesOfDepartment(Registry registry)
         Department department = departments.select(departmentName);
 
         if(department == null)
-                errors.setError(++errorCount, "Department '" + departmentName + "' isn't known");
+                errors.addError(++errorCount, "Department '" + departmentName + "' isn't known");
 
         if (errorCount == 0)
                 fillResponse(department, response);

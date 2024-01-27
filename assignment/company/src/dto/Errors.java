@@ -22,7 +22,7 @@ public String getError(int id)
 {
         return properties.get("/errors", id);
 }
-public Errors setError(int id, String description)
+public Errors addError(int id, String description)
 {
         properties.set("/errors", id, description);
         updateErrorCount();

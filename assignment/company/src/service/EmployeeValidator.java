@@ -20,10 +20,10 @@ private void checkString(String tag, String name)
         name.trim();
 
         if(name.isEmpty())
-                error.setError(++errorCounter, tag + ": must not be empty");
+                error.addError(++errorCounter, tag + ": must not be empty");
 
         if(name.length() < 3 || name.length() > 16)
-                error.setError(++errorCounter, tag + ": '" + name + "': length should be 3 .. 16");
+                error.addError(++errorCounter, tag + ": '" + name + "': length should be 3 .. 16");
 }
 @Override
 public int check()
