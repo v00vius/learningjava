@@ -30,20 +30,25 @@ public boolean isEnabled()
 public boolean command()
 {
         ConsoleIO io = new ConsoleIO();
-        String id = io.gets("Employee id: ");
-        String department = io.gets("department: ");
-
         Registry command = new Properties();
 
-        command.set("id", id);
-        command.set("department", department);
+        command.set("/employee/id", io.gets("Employee id: "));
+        command.set("/department/name", io.gets("Department: "));
+
+        io.puts("<<< " + command + '\n');
 
         Registry response = company.setDepartmentForEmployee(command);
 
-        io.puts("Got response: " + response + '\n');
+        Errors errors = new Errors(response);
 
-        if(response.getErrorCode() != 0)
-                io.puts("" + new Errors(response) + '\n');
+        io.puts(">>> " + response + "\n");
+
+        if (errors.isEmpty()) {
+                io.puts("The Department for the Employee has been changed\n");
+                io.puts("  Employee ID: " + response.get("/employee/id") + '\n');
+                io.puts("   Department: " + response.get("/department/name") + '\n');
+        } else
+                io.puts("### " + errors + '\n');
 
         return false;
 }

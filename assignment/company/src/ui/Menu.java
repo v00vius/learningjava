@@ -6,6 +6,7 @@ import service.ABCompany;
 import service.Company;
 import util.ConsoleIO;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ private ConsoleIO io;
 public Menu(String name)
 {
         this.name = name;
-        this.items = new LinkedList<>();
+        this.items = new ArrayList<>();
         io = new ConsoleIO();
 }
 
@@ -65,11 +66,12 @@ public static void main(String[] args)
 {
         DepartmentManager departments = new DepartmentManager();
         EmployeeManager employees = new EmployeeManager();
-        Company company = new ABCompany("test", departments, employees);
+        Company company = new ABCompany("ABC test", departments, employees);
 
         Menu menu = new Menu("test");
 
         menu.menuItem(new ItemTest());
+
         menu.menuItem(new ItemExit());
         menu.menuItem(new NewEmployee(company));
         menu.menuItem(new DepartmentForEmployee(company));

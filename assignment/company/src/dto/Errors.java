@@ -38,7 +38,7 @@ public String toString()
 {
         StringBuilder sb = new StringBuilder("Errors\n");
 
-        for(int i = 1, n = getErrorCount(); i <= n; ++i) {
+        for(int i = 0, n = getErrorCount(); i < n; ++i) {
                 String errorDescription = getError(i);
 
                 sb.append("  ").append(i).append(") ").append(errorDescription).append('\n');

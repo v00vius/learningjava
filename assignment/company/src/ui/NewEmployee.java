@@ -38,7 +38,7 @@ public boolean command()
         command.set("lastName", io.gets("Last Name: "));
         command.set("jobPosition", io.gets("Job Position: "));
 
-        io.puts("<<<" + command + '\n');
+        io.puts("<<< " + command + '\n');
 
         Registry response = company.newEmployee(command);
         Errors errors = new Errors(response);

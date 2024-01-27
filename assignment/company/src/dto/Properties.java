@@ -3,7 +3,8 @@ package dto;
 import java.util.*;
 
 public class Properties implements Registry {
-static public final String DEFAULT_VALUE = "";
+static public final String DEFAULT_STRING = "";
+static public final int DEFAULT_INT = 0;
 private String tag;
 private Map<String, String> properties;
 
@@ -11,6 +12,32 @@ public Properties()
 {
         properties = new Hashtable<>();
         setTag();
+}
+@Override
+public String getTag()
+{
+        return tag;
+}
+@Override
+public void setTag()
+{
+        this.tag = "";
+}
+@Override
+public void setTag(String name)
+{
+        this.tag = name.charAt(0) == '/' ? name : this.tag + '/' + name;
+}
+@Override
+public boolean exists(String key)
+{
+        return null != properties.get(key(key));
+}
+
+@Override
+public boolean exists(String key, int index)
+{
+        return exists(key + '/' + index);
 }
 
 private String key(String key)
@@ -58,7 +85,7 @@ public String get(String name)
 {
         String value = properties.get(key(name));
 
-        return value == null ? DEFAULT_VALUE : value;
+        return value == null ? DEFAULT_STRING : value;
 }
 
 @Override
@@ -70,7 +97,9 @@ public String get(String key, int index)
 @Override
 public int getInt(String key)
 {
-        return Integer.parseInt(get(key));
+        String value = properties.get(key(key));
+
+        return value == null ? DEFAULT_INT : Integer.parseInt(value);
 }
 
 @Override
@@ -91,34 +120,6 @@ public double getDouble(String key, int index)
         return getDouble(key + '/' + index);
 }
 
-@Override
-public String getTag()
-{
-        return tag;
-}
-
-@Override
-public void setTag(String name)
-{
-        this.tag = name.charAt(0) == '/' ? name : this.tag + '/' + name;
-}
-@Override
-public void setTag()
-{
-        this.tag = "";
-}
-
-@Override
-public boolean exists(String key)
-{
-        return null != properties.get(key(key));
-}
-
-@Override
-public boolean exists(String key, int index)
-{
-        return exists(key + '/' + index);
-}
 
 @Override
 public int getErrorCode()

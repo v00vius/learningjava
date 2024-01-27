@@ -1,7 +1,6 @@
 package service;
 
 import dto.Errors;
-import dto.Keys;
 import dto.Registry;
 import dto.Properties;
 import entity.Department;
