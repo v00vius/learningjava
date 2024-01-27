@@ -1,7 +1,7 @@
 package ui;
 
-import dto.Error;
-import dto.Message;
+import dto.Errors;
+import dto.Registry;
 import dto.Properties;
 
 import service.Company;
@@ -35,23 +35,23 @@ public boolean command()
         String lastName = io.gets("Last Name: ");
         String jobPosition = io.gets("Job Position: ");
 
-        Message props = new Properties("newEmployee");
+        Registry props = new Properties();
 
-        props.setProperty("firstName", firstName);
-        props.setProperty("lastName", lastName);
-        props.setProperty("jobPosition", jobPosition);
+        props.set("firstName", firstName);
+        props.set("lastName", lastName);
+        props.set("jobPosition", jobPosition);
 
         io.puts(props.toString() + '\n');
 
-        Message response = company.newEmployee(props);
+        Registry response = company.newEmployee(props);
         io.puts("Got: " + response + "\n");
 
         if(response.getErrorCode() == 0) {
-                String id = response.getProperty("id");
+                String id = response.get("id");
 
                 io.puts("New Employee ID=" + id);
         } else {
-                io.puts(new Error(response).toString() + '\n');
+                io.puts(new Errors(response).toString() + '\n');
         }
 
         return false;

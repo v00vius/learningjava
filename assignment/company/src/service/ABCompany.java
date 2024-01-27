@@ -1,8 +1,8 @@
 package service;
 
-import dto.Error;
+import dto.Errors;
 import dto.Keys;
-import dto.Message;
+import dto.Registry;
 import dto.Properties;
 import entity.Department;
 import entity.Employee;
@@ -29,9 +29,9 @@ public String getName()
 }
 
 @Override
-public Message newEmployee(Message request)
+public Registry newEmployee(Registry request)
 {
-        Message response = new Properties ("newEmployee:response");
+        Registry response = new Properties ();
         Validator validator = new EmployeeValidator(request, response);
 
         if(0 != validator.check()) {
@@ -40,32 +40,32 @@ public Message newEmployee(Message request)
                 return response;
         }
 
-        String firstName = request.getProperty("firstName");
-        String lastName = request.getProperty("lastName");
-        String jobPosition = request.getProperty("jobPosition");
+        String firstName = request.get("firstName");
+        String lastName = request.get("lastName");
+        String jobPosition = request.get("jobPosition");
 
         Employee emp = employees.insert(firstName, lastName, jobPosition);
 
-        response.setProperty(Keys.key(Keys.INFO, 1),"Created: " + emp);
-        response.setProperty("id", Integer.toString(emp.getId()));
+        response.set(Keys.key(Keys.INFO, 1),"Created: " + emp);
+        response.set("id", Integer.toString(emp.getId()));
         response.setErrorCode(0);
 
         return response;
 }
 
 @Override
-public Message dismissEmployee(Message message)
+public Registry dismissEmployee(Registry registry)
 {
         return null;
 }
 @Override
-public Message newDepartment(Message message)
+public Registry newDepartment(Registry registry)
 {
-        Message response = new Properties ("newDepartment:response");
-        Error errors = new Error(response);
+        Registry response = new Properties ();
+        Errors errors = new Errors(response);
         int errorCount = 0;
 
-        String departmentName = message.getProperty("department");
+        String departmentName = registry.get("department");
 
         if(!departments.insert(departmentName))
                 errors.setError(++errorCount, "Department '" + departmentName + "' already exists");
@@ -73,9 +73,9 @@ public Message newDepartment(Message message)
         if (errorCount == 0) {
                 Department dep = departments.select(departmentName);
 
-                response.setProperty(Keys.key(Keys.INFO, 1),"Created: " + dep.getName());
-                response.setProperty("department", dep.getName());
-                response.setProperty("id", Integer.toString(dep.getId()));
+                response.set(Keys.key(Keys.INFO, 1),"Created: " + dep.getName());
+                response.set("department", dep.getName());
+                response.set("id", Integer.toString(dep.getId()));
         }
 
         response.setErrorCode(errorCount);
@@ -83,20 +83,20 @@ public Message newDepartment(Message message)
         return response;
 }
 @Override
-public Message deleteDepartment(Message message)
+public Registry deleteDepartment(Registry registry)
 {
         return null;
 }
 
 @Override
-public Message setDepartmentForEmployee(Message message)
+public Registry setDepartmentForEmployee(Registry registry)
 {
-        Message response = new Properties ("setDepartmentForEmployee:response");
-        Error errors = new Error(response);
+        Registry response = new Properties ();
+        Errors errors = new Errors(response);
         int errorCount = 0;
 
-        String departmentName = message.getProperty("department");
-        int id = Integer.parseInt(message.getProperty("id"));
+        String departmentName = registry.get("department");
+        int id = Integer.parseInt(registry.get("id"));
 
         Employee emp = employees.select(id);
 
@@ -113,7 +113,7 @@ public Message setDepartmentForEmployee(Message message)
 
                 employeesInDepartment.add(emp);
                 emp.setDepartment(department.getName());
-                response.setProperty(Keys.key(Keys.INFO, 1),
+                response.set(Keys.key(Keys.INFO, 1),
                         "The employee ID=" + id + " has been added to the department '" +
                         department.getName() + "'"
                 );
@@ -124,13 +124,13 @@ public Message setDepartmentForEmployee(Message message)
         return response;
 }
 @Override
-public Message getEmployeesOfDepartment(Message message)
+public Registry getEmployeesOfDepartment(Registry registry)
 {
-        Message response = new Properties ("getEmployeesOfDepartment:response");
-        Error errors = new Error(response);
+        Registry response = new Properties ();
+        Errors errors = new Errors(response);
         int errorCount = 0;
 
-        String departmentName = message.getProperty("department");
+        String departmentName = registry.get("department");
         Department department = departments.select(departmentName);
 
         if(department == null)
@@ -144,22 +144,22 @@ public Message getEmployeesOfDepartment(Message message)
         return response;
 }
 
-private static void fillResponse(Department department, Message response)
+private static void fillResponse(Department department, Registry response)
 {
         List<Employee> employeesInDepartment = department.getEmployees();
         int count = 0;
 
-        response.setProperty("size", Integer.toString(employeesInDepartment.size()));
-        response.setProperty("department", department.getName());
+        response.set("size", Integer.toString(employeesInDepartment.size()));
+        response.set("department", department.getName());
         Iterator<Employee> cursor = employeesInDepartment.iterator();
 
         while (cursor.hasNext()) {
                 Employee emp = cursor.next();
 
-                response.setProperty("emp/" + count + "/FirstName", emp.getFirstName());
-                response.setProperty("emp/" + count + "/LastName", emp.getLastName());
-                response.setProperty("emp/" + count + "/JobPosition", emp.getJobPosition());
-                response.setProperty("emp/" + count + "/Department", emp.getDepartment());
+                response.set("emp/" + count + "/FirstName", emp.getFirstName());
+                response.set("emp/" + count + "/LastName", emp.getLastName());
+                response.set("emp/" + count + "/JobPosition", emp.getJobPosition());
+                response.set("emp/" + count + "/Department", emp.getDepartment());
 
                 ++count;
         }

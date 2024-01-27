@@ -1,7 +1,7 @@
 package ui;
 
-import dto.Error;
-import dto.Message;
+import dto.Errors;
+import dto.Registry;
 import dto.Properties;
 import service.Company;
 import util.ConsoleIO;
@@ -32,16 +32,16 @@ public boolean command()
         ConsoleIO io = new ConsoleIO();
         String department = io.gets("The name of the new department: ");
 
-        Message command = new Properties("newDepartment");
+        Registry command = new Properties();
 
-        command.setProperty("department", department);
+        command.set("department", department);
 
-        Message response = company.newDepartment(command);
+        Registry response = company.newDepartment(command);
 
         io.puts("Got response: " + response + '\n');
 
         if(response.getErrorCode() != 0)
-                io.puts("" + new Error(response) + '\n');
+                io.puts("" + new Errors(response) + '\n');
 
         return false;
 }

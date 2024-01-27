@@ -1,19 +1,19 @@
 package service;
 
-import dto.Message;
-import dto.Properties;
+import dto.Registry;
+
 public interface Company {
 String getName();
 // massage: String firstName, String lastName, String jobPosition, String department
-Message newEmployee(Message message);
+Registry newEmployee(Registry registry);
 // message: id
-Message dismissEmployee(Message message);
+Registry dismissEmployee(Registry registry);
 // message: String name
-Message newDepartment(Message message);
+Registry newDepartment(Registry registry);
 // message: String name
-Message deleteDepartment(Message message);
+Registry deleteDepartment(Registry registry);
 // message: Integer employeeId, String department
-Message setDepartmentForEmployee(Message message);
+Registry setDepartmentForEmployee(Registry registry);
 // message: String name
-Message getEmployeesOfDepartment(Message message);
+Registry getEmployeesOfDepartment(Registry registry);
 }

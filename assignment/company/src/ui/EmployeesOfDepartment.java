@@ -1,7 +1,7 @@
 package ui;
 
-import dto.Error;
-import dto.Message;
+import dto.Errors;
+import dto.Registry;
 import dto.Properties;
 import service.Company;
 import util.ConsoleIO;
@@ -32,16 +32,16 @@ public boolean command()
         ConsoleIO io = new ConsoleIO();
         String department = io.gets("The existing department: ");
 
-        Message command = new Properties("getEmployeesOfDepartment");
+        Registry command = new Properties();
 
-        command.setProperty("department", department);
+        command.set("department", department);
 
-        Message response = company.getEmployeesOfDepartment(command);
+        Registry response = company.getEmployeesOfDepartment(command);
 
         io.puts("Got response: " + response + '\n');
 
         if(response.getErrorCode() != 0)
-                io.puts("" + new Error(response) + '\n');
+                io.puts("" + new Errors(response) + '\n');
         else {
                 printDepartment(response, io);
         }
@@ -49,15 +49,31 @@ public boolean command()
         return false;
 }
 
-private static void printDepartment(Message response, ConsoleIO io)
+private static void printDepartment(Registry response, ConsoleIO io)
 {
-        int sz = Integer.parseInt(response.getProperty("size"));
+        int sz = Integer.parseInt(response.get("size"));
+
+        io.puts(String.format("%20s %20s %20s %20s\n",
+                        "First Name",
+                        "Last Name",
+                        "Job Position",
+                        "Department"
+                )
+        );
+
+        io.puts(String.format("%20s %20s %20s %20s\n",
+                        "----------",
+                        "---------",
+                        "------------",
+                        "----------"
+                )
+        );
 
         for (int i = 0; i < sz; ++i) {
-                String firstName = response.getProperty("emp/" + i + "/FirstName");
-                String lastName = response.getProperty("emp/" + i + "/LastName");
-                String jobPosition = response.getProperty("emp/" + i + "/JobPosition");
-                String dep = response.getProperty("emp/" + i + "/Department");
+                String firstName = response.get("emp/" + i + "/FirstName");
+                String lastName = response.get("emp/" + i + "/LastName");
+                String jobPosition = response.get("emp/" + i + "/JobPosition");
+                String dep = response.get("emp/" + i + "/Department");
 
                 io.puts(String.format("%20s %20s %20s %20s\n",
                                 firstName,

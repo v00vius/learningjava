@@ -1,18 +1,18 @@
 package service;
 
-import dto.Error;
-import dto.Message;
+import dto.Errors;
+import dto.Registry;
 
 public class EmployeeValidator implements Validator {
-private final Message request;
+private final Registry request;
 private int errorCounter;
-private Error error;
+private Errors error;
 
-public EmployeeValidator(Message request, Message response)
+public EmployeeValidator(Registry request, Registry response)
 {
         this.request = request;
         errorCounter = 0;
-        error = new Error(response);
+        error = new Errors(response);
 }
 
 private void checkString(String tag, String name)
@@ -28,9 +28,9 @@ private void checkString(String tag, String name)
 @Override
 public int check()
 {
-        String firstName = request.getProperty("firstName");
-        String lastName = request.getProperty("lastName");
-        String jobPosition = request.getProperty("jobPosition");
+        String firstName = request.get("firstName");
+        String lastName = request.get("lastName");
+        String jobPosition = request.get("jobPosition");
 
         checkString("First name", firstName);
         checkString("Last name", lastName);
