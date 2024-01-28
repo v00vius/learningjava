@@ -50,6 +50,15 @@ public Department delete(String name)
 {
         return departments.remove(name);
 }
+public boolean delete(String departmentName, Employee employee)
+{
+        Department dep = departments.get(departmentName);
+
+        if(dep == null)
+                return false;
+
+        return dep.getEmployees().remove(employee);
+}
 
 public Department select(String name)
 {

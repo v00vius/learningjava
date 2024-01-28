@@ -49,11 +49,7 @@ public Registry newEmployee(Registry request)
                                         request.get("jobPosition")
                 );
 
-                response.setTag("/employee");
-                response.set("id", emp.getId());
-                response.set("firstName", emp.getFirstName());
-                response.set("lastName", emp.getLastName());
-                response.set("jobPosition", emp.getJobPosition());
+                set(response, emp);
         }
 
         return response;
@@ -62,8 +58,43 @@ public Registry newEmployee(Registry request)
 @Override
 public Registry dismissEmployee(Registry registry)
 {
-        return null;
+        Registry response = new Properties ();
+        Errors errors = new Errors(response);
+        int id = registry.getInt("/employee/id");
+        Employee emp = employees.select(id);
+
+        if(emp == null) {
+                errors.addError("Employee id=" + id + " isn't known");
+
+                return response;
+        }
+
+        String departmentName = emp.getDepartment();
+
+        if(!departmentName.isEmpty()) {
+               if (!departments.delete(departmentName, emp)) {
+                       errors.addError("Department '" + departmentName + "' isn't known");
+                       errors.addError("Employee '" + emp.getId() + "' has the unknown department");
+               }
+        }
+
+        if (errors.isEmpty()) {
+                employees.delete(id);
+                set(response, emp);
+        }
+
+        return response;
 }
+
+public static void set(Registry response, Employee emp)
+{
+        response.setTag("/employee");
+        response.set("id", emp.getId());
+        response.set("firstName", emp.getFirstName());
+        response.set("lastName", emp.getLastName());
+        response.set("jobPosition", emp.getJobPosition());
+}
+
 @Override
 public Registry newDepartment(Registry registry)
 {
@@ -88,7 +119,26 @@ public Registry newDepartment(Registry registry)
 @Override
 public Registry deleteDepartment(Registry registry)
 {
-        return null;
+        Registry response = new Properties ();
+        Errors errors = new Errors(response);
+
+        String departmentName = registry.get("/department/name");
+        Department dep = departments.delete(departmentName);
+
+        if(dep == null)
+                errors.addError("Department '" + departmentName + "' doesn't exist");
+
+        if (errors.isEmpty()) {
+
+                response.setTag("/department");
+                response.set("id", dep.getId());
+                response.set("name", dep.getName());
+
+                for (Employee employee : dep.getEmployees())
+                        employee.setDepartment("");
+        }
+
+        return response;
 }
 
 @Override
@@ -104,7 +154,7 @@ public Registry setDepartmentForEmployee(Registry registry)
 
         String departmentName = registry.get("/department/name");
 
-        if(!departments.insert(registry.get(departmentName), emp))
+        if(!departments.insert(departmentName, emp))
                 errors.addError("Department '" + departmentName + "' isn't known");
 
         if(errors.isEmpty()) {
@@ -149,6 +199,7 @@ private static void fillResponse(Department department, Registry data)
 
 static public void set(Registry data, Employee emp, int count)
 {
+        data.set("id", count, emp.getId());
         data.set("firstName", count, emp.getFirstName());
         data.set("lastName", count, emp.getLastName());
         data.set("jobPosition", count, emp.getJobPosition());

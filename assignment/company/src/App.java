@@ -34,9 +34,11 @@ void exec()
         menu.menuItem(new ItemTest());
         menu.menuItem(new ItemExit());
         menu.menuItem(new NewEmployee(company));
+        menu.menuItem(new DismissEmployee(company));
         menu.menuItem(new DepartmentForEmployee(company));
         menu.menuItem(new EmployeesOfDepartment(company));
         menu.menuItem(new NewDepartment(company));
+        menu.menuItem(new DeleteDepartment(company));
         menu.menuItem(new Departments(reportManager));
         menu.menuItem(new Employees(reportManager));
         menu.menuItem(new FindAny(reportManager));

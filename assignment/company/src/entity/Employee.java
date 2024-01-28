@@ -15,7 +15,7 @@ public Employee(int id, String firstName, String lastName, String jobPosition)
         this.firstName = firstName;
         this.lastName = lastName;
         this.jobPosition = jobPosition;
-        setNoDepartment();
+        setDepartment();
 }
 
 public String getFirstName()
@@ -42,7 +42,7 @@ public void setDepartment(String department)
 {
         this.department = department;
 }
-public void setNoDepartment()
+public void setDepartment()
 {
         setDepartment("");
 }

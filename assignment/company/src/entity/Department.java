@@ -3,7 +3,7 @@ package entity;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Department extends Entity implements  Comparable<Department>{
+public class Department extends Entity implements  Comparable<Department> {
 private String name;
 private List<Employee> employees;
 
@@ -33,7 +33,7 @@ public boolean equals(Object o)
 
         Department that = (Department) o;
 
-        return 0 == compareTo(that);
+        return 0 == this.compareTo(that);
 }
 
 @Override

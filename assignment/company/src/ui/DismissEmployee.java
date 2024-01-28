@@ -1,16 +1,15 @@
 package ui;
 
 import dto.Errors;
-import dto.Registry;
 import dto.Properties;
-
+import dto.Registry;
 import service.Company;
 import util.ConsoleIO;
 
-public class NewEmployee implements MenuItem {
+public class DismissEmployee implements MenuItem {
 private Company company;
 
-public NewEmployee(Company company)
+public DismissEmployee(Company company)
 {
         this.company = company;
 }
@@ -18,7 +17,7 @@ public NewEmployee(Company company)
 @Override
 public String getName()
 {
-        return "Add a new employee to the Company";
+        return "Dismiss a employee from the Company";
 }
 
 @Override
@@ -33,25 +32,21 @@ public boolean command()
         ConsoleIO io = new ConsoleIO();
         Registry command = new Properties();
 
-        command.setTag("/employee");
-        command.set("firstName", io.gets("First Name: "));
-        command.set("lastName", io.gets("Last Name: "));
-        command.set("jobPosition", io.gets("Job Position: "));
-
+        command.set("/employee/id", io.gets("Employee id: "));
         io.puts("<<< " + command + '\n');
 
-        Registry response = company.newEmployee(command);
+        Registry response = company.dismissEmployee(command);
         Errors errors = new Errors(response);
 
         io.puts(">>> " + response + "\n");
 
-        if(errors.isEmpty()) {
+        if (errors.isEmpty()) {
                 Printer.printEmployee(response, io);
-                io.puts("The Employee has been created\n");
-        } else {
+                io.puts("has been dismissed\n");
+        } else
                 io.puts("### " + errors + '\n');
-        }
 
         return false;
 }
+
 }
