@@ -24,7 +24,4 @@ int getInt(String key);
 int getInt(String key, int index);
 double getDouble(String key);
 double getDouble(String key, int index);
-
-int getErrorCode();
-void setErrorCode(int ec);
 }

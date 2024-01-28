@@ -3,6 +3,7 @@ package repo;
 import entity.Employee;
 import entity.Entity;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +22,12 @@ public Employee insert(String firstName, String lastName, String jobPosition)
 
         return emp;
 }
+
+public Collection<Employee> getEmployees()
+{
+        return employees.values();
+}
+
 public Employee delete(Integer id)
 {
         Employee emp = employees.remove(id);

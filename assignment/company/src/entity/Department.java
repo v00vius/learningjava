@@ -3,7 +3,7 @@ package entity;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Department extends Entity {
+public class Department extends Entity implements  Comparable<Department>{
 private String name;
 private List<Employee> employees;
 
@@ -33,7 +33,7 @@ public boolean equals(Object o)
 
         Department that = (Department) o;
 
-        return 0 == getName().compareToIgnoreCase(that.getName());
+        return 0 == compareTo(that);
 }
 
 @Override
@@ -43,11 +43,23 @@ public int hashCode()
 }
 
 @Override
+public String getText()
+{
+        return getName();
+}
+
+@Override
 public String toString()
 {
         return "Department{" +
                "name='" + name + '\'' +
                ", employees=" + employees +
                '}';
+}
+
+@Override
+public int compareTo(Department d)
+{
+        return getName().compareToIgnoreCase(d.getName());
 }
 }

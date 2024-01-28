@@ -41,44 +41,11 @@ public boolean command()
         io.puts(">>> " + response + '\n');
 
         if(errors.isEmpty())
-                printDepartment(response, io);
+                Printer.printEmployees(response, io);
         else {
                 io.puts("### " + errors + '\n');
         }
 
         return false;
-}
-private static void printDepartment(Registry response, ConsoleIO io)
-{
-        printHeader(io);
-        response.setTag("/employee");
-
-        for (int i = 0, size = response.getInt("size"); i < size; ++i) {
-                io.puts(String.format("%20s %20s %20s %20s\n",
-                                response.get("firstName", i),
-                                response.get("lastName", i),
-                                response.get("jobPosition", i),
-                                response.get("department", i)
-                        )
-                );
-        }
-}
-private static void printHeader(ConsoleIO io)
-{
-        io.puts(String.format("%20s %20s %20s %20s\n",
-                        "First Name",
-                        "Last Name",
-                        "Job Position",
-                        "Department"
-                )
-        );
-
-        io.puts(String.format("%20s %20s %20s %20s\n",
-                        "----------",
-                        "---------",
-                        "------------",
-                        "----------"
-                )
-        );
 }
 }

@@ -1,5 +1,7 @@
 package dto;
 
+import entity.Employee;
+
 import java.util.*;
 
 public class Properties implements Registry {
@@ -120,19 +122,6 @@ public double getDouble(String key, int index)
         return getDouble(key + '/' + index);
 }
 
-
-@Override
-public int getErrorCode()
-{
-        return exists("/errors/code") ? getInt("/errors/code") : 0;
-}
-
-@Override
-public void setErrorCode(int ec)
-{
-        set("/errors/code", ec);
-}
-
 @Override
 public String toString()
 {
@@ -146,15 +135,11 @@ public String toString()
         return builder.toString();
 }
 
+
 // test
 public static void main(String[] args)
 {
         Registry message = new Properties();
-
-        System.out.println("error code = " + message.getErrorCode());
-
-        message.setErrorCode(-1);
-        System.out.println("error code = " + message.getErrorCode());
 
         System.out.println("tag = '" + message.getTag() + '\'');
         message.setTag("/employee");

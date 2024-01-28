@@ -1,6 +1,6 @@
 package entity;
 
-public class Entity {
+public abstract class Entity {
 static private int idCounter = 0;
 static public int newId()
 {
@@ -18,6 +18,7 @@ public int getId()
         return id;
 }
 
+public abstract String getText();
 @Override
 public String toString()
 {

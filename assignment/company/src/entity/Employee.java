@@ -1,5 +1,7 @@
 package entity;
 
+import dto.Registry;
+
 public class Employee extends Entity {
 private final String firstName;
 private final String lastName;
@@ -62,6 +64,12 @@ public int hashCode()
         return getId();
 }
 
+@Override
+public String getText()
+{
+        return getFirstName() + ' ' + getLastName() + ' ' + getJobPosition()
+                + ' ' + getDepartment();
+}
 @Override
 public String toString()
 {

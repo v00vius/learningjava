@@ -5,11 +5,13 @@ import dto.Registry;
 import dto.Properties;
 import entity.Department;
 import entity.Employee;
+import entity.Entity;
 import repo.DepartmentManager;
 import repo.EmployeeManager;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class ABCompany implements Company {
 private String name;
@@ -27,6 +29,11 @@ public String getName()
         return name;
 }
 
+public DepartmentManager getDepartments()
+{
+        return departments;
+}
+
 @Override
 public Registry newEmployee(Registry request)
 {
@@ -34,9 +41,7 @@ public Registry newEmployee(Registry request)
         Errors errors = new Errors(response);
         Validator validator = new EmployeeValidator(request, errors);
 
-        validator.check();
-
-        if(errors.isEmpty()) {
+        if(validator.check()) {
                 request.setTag("/employee");
 
                 Employee emp = employees.insert(request.get("firstName"),
@@ -136,18 +141,18 @@ private static void fillResponse(Department department, Registry data)
         Iterator<Employee> cursor = employees.iterator();
         int count = 0;
 
-        while (cursor.hasNext()) {
-                Employee emp = cursor.next();
-
-                data.set("firstName", count, emp.getFirstName());
-                data.set("lastName", count, emp.getLastName());
-                data.set("jobPosition", count, emp.getJobPosition());
-                data.set("department", count, emp.getDepartment());
-
-                ++count;
-        }
+        while (cursor.hasNext())
+                set(data, cursor.next(), count++);
 
         data.set("size", count);
+}
+
+static public void set(Registry data, Employee emp, int count)
+{
+        data.set("firstName", count, emp.getFirstName());
+        data.set("lastName", count, emp.getLastName());
+        data.set("jobPosition", count, emp.getJobPosition());
+        data.set("department", count, emp.getDepartment());
 }
 @Override
 public void load(Registry data)

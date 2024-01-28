@@ -4,9 +4,7 @@ import entity.Department;
 import entity.Employee;
 import entity.Entity;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DepartmentManager {
 private Map<String, Department> departments;
@@ -15,6 +13,12 @@ public DepartmentManager()
 {
         departments = new HashMap<>();
 }
+
+public Collection<Department> getDepartments()
+{
+        return departments.values();
+}
+
 public boolean insert(String name)
 {
         Department dep = departments.get(name);

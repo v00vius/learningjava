@@ -16,10 +16,6 @@ public String getError(int id)
 {
         return properties.get("/errors", id);
 }
-public int addError(int id, String description)
-{
-        return addError(description);
-}
 public int addError(String description)
 {
         int ec = getErrorCount();
