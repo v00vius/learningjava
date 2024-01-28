@@ -7,12 +7,9 @@ import entity.Department;
 import entity.Employee;
 import repo.DepartmentManager;
 import repo.EmployeeManager;
-import util.ConsoleIO;
-
 import java.util.Collection;
 
 public class ReportManager {
-private ConsoleIO io;
 private DepartmentManager departments;
 private EmployeeManager employees;
 
@@ -20,7 +17,6 @@ public ReportManager(DepartmentManager departments, EmployeeManager employees)
 {
         this.departments = departments;
         this.employees = employees;
-        io = new ConsoleIO();
 }
 public Registry departments() {
         Registry data = new Properties();
@@ -57,28 +53,30 @@ public Registry findAny(Registry request) {
 
         response.set("/pattern", request.get("/pattern"));
 
-        if(validator.check()) {
-
-                String pattern = request.get("/pattern").toLowerCase();
-                Collection<Employee> list = employees.getEmployees();
-                int count = 0;
-
-                response.setTag("/employee");
-
-                for (Employee emp : list) {
-                        String text = emp.getText().toLowerCase();
-
-                        if (text.contains(pattern)) {
-                                ABCompany.set(response, emp, count);
-                                response.set("text", count, emp.getText());
-
-                                ++count;
-                        }
-                }
-
-                response.set("size", count);
-        }
+        if(validator.check())
+                findEmployees(request, response);
 
         return  response;
+}
+private void findEmployees(Registry request, Registry response)
+{
+        String pattern = request.get("/pattern").toLowerCase();
+        Collection<Employee> list = employees.getEmployees();
+        int count = 0;
+
+        response.setTag("/employee");
+
+        for (Employee emp : list) {
+                String text = emp.getText().toLowerCase();
+
+                if (text.contains(pattern)) {
+                        ABCompany.set(response, emp, count);
+                        response.set("text", count, emp.getText());
+
+                        ++count;
+                }
+        }
+
+        response.set("size", count);
 }
 }
