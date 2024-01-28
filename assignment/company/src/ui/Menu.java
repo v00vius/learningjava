@@ -1,9 +1,11 @@
 package ui;
 
+import dto.Registry;
 import repo.DepartmentManager;
 import repo.EmployeeManager;
 import service.ABCompany;
 import service.Company;
+import service.RandomCompany;
 import util.ConsoleIO;
 
 import java.util.ArrayList;
@@ -67,6 +69,13 @@ public static void main(String[] args)
         DepartmentManager departments = new DepartmentManager();
         EmployeeManager employees = new EmployeeManager();
         Company company = new ABCompany("ABC test", departments, employees);
+        RandomCompany random = new RandomCompany();
+        Registry data = random.nextCompany(10, 3);
+
+        company.load(data);
+//        System.out.println("<<< " + data + '\n');
+//        System.out.println(company);
+
 
         Menu menu = new Menu("test");
 

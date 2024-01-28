@@ -16,4 +16,5 @@ Registry deleteDepartment(Registry registry);
 Registry setDepartmentForEmployee(Registry registry);
 // message: String name
 Registry getEmployeesOfDepartment(Registry registry);
+void load(Registry data);
 }

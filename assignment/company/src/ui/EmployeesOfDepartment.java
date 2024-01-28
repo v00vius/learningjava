@@ -30,29 +30,41 @@ public boolean isEnabled()
 public boolean command()
 {
         ConsoleIO io = new ConsoleIO();
-        String department = io.gets("The existing department: ");
-
         Registry command = new Properties();
 
-        command.set("department", department);
+        command.set("/department/name", io.gets("Enter the name of the department, please: "));
+        io.puts("<<< " + command + '\n');
 
         Registry response = company.getEmployeesOfDepartment(command);
+        Errors errors = new Errors(response);
 
-        io.puts("Got response: " + response + '\n');
+        io.puts(">>> " + response + '\n');
 
-        if(response.getErrorCode() != 0)
-                io.puts("" + new Errors(response) + '\n');
-        else {
+        if(errors.isEmpty())
                 printDepartment(response, io);
+        else {
+                io.puts("### " + errors + '\n');
         }
 
         return false;
 }
-
 private static void printDepartment(Registry response, ConsoleIO io)
 {
-        int sz = Integer.parseInt(response.get("size"));
+        printHeader(io);
+        response.setTag("/employee");
 
+        for (int i = 0, size = response.getInt("size"); i < size; ++i) {
+                io.puts(String.format("%20s %20s %20s %20s\n",
+                                response.get("firstName", i),
+                                response.get("lastName", i),
+                                response.get("jobPosition", i),
+                                response.get("department", i)
+                        )
+                );
+        }
+}
+private static void printHeader(ConsoleIO io)
+{
         io.puts(String.format("%20s %20s %20s %20s\n",
                         "First Name",
                         "Last Name",
@@ -68,20 +80,5 @@ private static void printDepartment(Registry response, ConsoleIO io)
                         "----------"
                 )
         );
-
-        for (int i = 0; i < sz; ++i) {
-                String firstName = response.get("emp/" + i + "/FirstName");
-                String lastName = response.get("emp/" + i + "/LastName");
-                String jobPosition = response.get("emp/" + i + "/JobPosition");
-                String dep = response.get("emp/" + i + "/Department");
-
-                io.puts(String.format("%20s %20s %20s %20s\n",
-                                firstName,
-                                lastName,
-                                jobPosition,
-                                dep
-                                )
-                );
-        }
 }
 }

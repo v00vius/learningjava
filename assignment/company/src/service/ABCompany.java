@@ -91,25 +91,19 @@ public Registry setDepartmentForEmployee(Registry registry)
 {
         Registry response = new Properties ();
         Errors errors = new Errors(response);
-
-        String departmentName = registry.get("/department/name");
         int id = registry.getInt("/employee/id");
-
         Employee emp = employees.select(id);
 
         if(emp == null)
                 errors.addError("Employee id=" + id + " isn't known");
 
-        Department department = departments.select(departmentName);
+        String departmentName = registry.get("/department/name");
 
-        if(department == null)
+        if(!departments.insert(registry.get(departmentName), emp))
                 errors.addError("Department '" + departmentName + "' isn't known");
 
         if(errors.isEmpty()) {
-                List<Employee> employeesInDepartment = department.getEmployees();
-
-                employeesInDepartment.add(emp);
-                emp.setDepartment(department.getName());
+                Department department = departments.select(departmentName);
 
                 response.set("/department/name", department.getName());
                 response.set("/employee/id", emp.getId());
@@ -122,40 +116,65 @@ public Registry getEmployeesOfDepartment(Registry registry)
 {
         Registry response = new Properties ();
         Errors errors = new Errors(response);
-        int errorCount = 0;
 
-        String departmentName = registry.get("department");
+        String departmentName = registry.get("/department/name");
         Department department = departments.select(departmentName);
 
         if(department == null)
-                errors.addError(++errorCount, "Department '" + departmentName + "' isn't known");
+                errors.addError("Department '" + departmentName + "' isn't known");
 
-        if (errorCount == 0)
+        if (errors.isEmpty())
                 fillResponse(department, response);
-
-        response.setErrorCode(errorCount);
 
         return response;
 }
-
-private static void fillResponse(Department department, Registry response)
+private static void fillResponse(Department department, Registry data)
 {
-        List<Employee> employeesInDepartment = department.getEmployees();
-        int count = 0;
+        data.setTag("/employee");
 
-        response.set("size", Integer.toString(employeesInDepartment.size()));
-        response.set("department", department.getName());
-        Iterator<Employee> cursor = employeesInDepartment.iterator();
+        List<Employee> employees = department.getEmployees();
+        Iterator<Employee> cursor = employees.iterator();
+        int count = 0;
 
         while (cursor.hasNext()) {
                 Employee emp = cursor.next();
 
-                response.set("emp/" + count + "/FirstName", emp.getFirstName());
-                response.set("emp/" + count + "/LastName", emp.getLastName());
-                response.set("emp/" + count + "/JobPosition", emp.getJobPosition());
-                response.set("emp/" + count + "/Department", emp.getDepartment());
+                data.set("firstName", count, emp.getFirstName());
+                data.set("lastName", count, emp.getLastName());
+                data.set("jobPosition", count, emp.getJobPosition());
+                data.set("department", count, emp.getDepartment());
 
                 ++count;
         }
+
+        data.set("size", count);
+}
+@Override
+public void load(Registry data)
+{
+        data.setTag("/employee");
+
+        for (int i = 0, size = data.getInt("size"); i < size; ++i) {
+                Employee emp = employees.insert(data.get("firstName", i),
+                        data.get("lastName", i),
+                        data.get("jobPosition", i)
+                );
+
+                String depName = data.get("department", i);
+
+                departments.insert(depName);
+                departments.insert(depName, emp);
+        }
+
+}
+
+@Override
+public String toString()
+{
+        return "ABCompany{" +
+                "name='" + name + '\'' +
+                ", departments=" + departments +
+                ", employees=" + employees +
+                '}';
 }
 }

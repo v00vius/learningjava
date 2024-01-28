@@ -167,6 +167,8 @@ public static void main(String[] args)
         message.setTag();
         message.setTag("department");
         System.out.println("tag = '" + message.getTag() + '\'');
+        message.set("int value", 22);
+        message.set("double value", 1.5679);
 
         message.setTag("R&D");
         System.out.println("tag = '" + message.getTag() + '\'');

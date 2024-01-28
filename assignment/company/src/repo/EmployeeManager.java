@@ -31,4 +31,12 @@ public Employee select(Integer id)
 {
         return employees.get(id);
 }
+
+@Override
+public String toString()
+{
+        return "EmployeeManager{" +
+                "employees=" + employees +
+                '}';
+}
 }
