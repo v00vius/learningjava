@@ -177,7 +177,7 @@ public static void main(String[] args)
         System.out.println("Last Name = '" + message.get("lastName") + '\'');
         System.out.println(message);
 
-        message.set("size", 10);
+        message.set("size", 7);
 
         for (int i = 0; i < message.getInt("size"); ++i) {
                 message.set("test", i, 10 + i);
