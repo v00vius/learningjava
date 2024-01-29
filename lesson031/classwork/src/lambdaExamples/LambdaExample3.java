@@ -31,5 +31,6 @@ public class LambdaExample3 {
         List<String> list12 = merger.merge(list1, list2);
 
         System.out.println(list12);
+
     }
 }
