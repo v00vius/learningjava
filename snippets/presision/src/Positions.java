@@ -33,7 +33,11 @@ public Positions()
 }
 public int addPosition(Vec2 position)
 {
-        return positions.computeIfAbsent(position, k -> positions.size());
+        Integer value = positions.computeIfAbsent(position, k -> 0);
+
+        positions.put(position, ++value);
+
+        return value;
 }
 
 public int size()
@@ -48,6 +52,7 @@ public float[] getPositions()
         for (Vec2 v : positions.keySet()) {
                 result[i] = v.x();
                 result[i + 1] = v.y();
+                positions.put(v, i / 2);
 
                 i += 2;
         }
@@ -88,14 +93,14 @@ public static void main(String[] args)
                 positions.addPosition(position);
         }
 
-        System.out.println(positions.size());
-        System.out.println(positions);
-
         float[] pts = positions.getPositions();
 
         for (int i = 0; i < pts.length; i += 2) {
                 System.out.println( i / 2 + " - (" + pts[i] + "," + pts[i + 1] + ")");
         }
+
+        System.out.println("size=" + positions.size());
+        System.out.println(positions);
 }
 
 private static Vec2 nextVec2(Random rnd)
