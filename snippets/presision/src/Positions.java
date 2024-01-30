@@ -1,11 +1,9 @@
-import java.util.Comparator;
-import java.util.Map;
-import java.util.Random;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Positions {
 static public final float EPSILON = 1e-3f;
-private Map<Vec2, Integer> positions;
+private Map<Vec2, Vec2> positions;
+private List<Triangle> triangles;
 
 public Positions()
 {
@@ -30,14 +28,19 @@ public Positions()
         };
 
         positions = new TreeMap<>(cmpVec2);
+        triangles = new ArrayList<>();
 }
-public int addPosition(Vec2 position)
+public Vec2 add(Vec2 position)
 {
-        Integer value = positions.computeIfAbsent(position, k -> 0);
+        return positions.computeIfAbsent(position, k -> position);
+}
+public void add(Triangle triangle)
+{
+        triangle.setP0(add(triangle.getP0()));
+        triangle.setP1(add(triangle.getP1()));
+        triangle.setP2(add(triangle.getP2()));
 
-        positions.put(position, ++value);
-
-        return value;
+        triangles.add(triangle);
 }
 
 public int size()
@@ -46,18 +49,38 @@ public int size()
 }
 public float[] getPositions()
 {
-        float[] result = new float[2 * positions.size()];
+        float[] positionsArray = new float[2 * positions.size()];
         int i = 0;
 
         for (Vec2 v : positions.keySet()) {
-                result[i] = v.x();
-                result[i + 1] = v.y();
-                positions.put(v, i / 2);
-
-                i += 2;
+                positionsArray[i++] = v.x();
+                positionsArray[i++] = v.y();
         }
 
-        return result;
+        return positionsArray;
+}
+public int[] getTriangles()
+{
+        int[] vertices = new int[3 * triangles.size()];
+        Map<Vec2, Integer> indices = new HashMap<>();
+
+        for (Vec2 v : positions.keySet())
+                indices.computeIfAbsent(v, k -> indices.size());
+
+        int i = 0;
+
+        for (Triangle triangle : triangles) {
+                int idx = indices.get(triangle.getP0());
+                vertices[i++] = idx;
+
+                idx = indices.get(triangle.getP1());
+                vertices[i++] = idx;
+
+                idx = indices.get(triangle.getP2());
+                vertices[i++] = idx;
+        }
+
+        return vertices;
 }
 
 @Override
@@ -73,9 +96,19 @@ public String toString()
                         .append(v.x())
                         .append(',')
                         .append(v.y())
-                        .append(")=")
-                        .append(positions.get(v))
-                        .append('\n');
+                        .append(")\n");
+
+                ++i;
+        }
+
+        builder.append("Triangles\n");
+        i = 0;
+
+        for (Triangle triangle : triangles) {
+                builder.append("  ")
+                        .append(i)
+                        .append(" - ")
+                        .append(triangle).append('\n');
 
                 ++i;
         }
@@ -88,9 +121,13 @@ public static void main(String[] args)
         Random rnd = new Random(System.currentTimeMillis());
         Positions positions = new Positions();
 
-        for (int i = 0; i < 10_000_000; ++i) {
-                Vec2 position = nextVec2(rnd);
-                positions.addPosition(position);
+        for (int i = 0; i < 100; ++i) {
+                Vec2 p0 = nextVec2(rnd);
+                Vec2 p1 = nextVec2(rnd);
+                Vec2 p2 = nextVec2(rnd);
+                Triangle triangle = new Triangle(p0, p1, p2);
+
+                positions.add(triangle);
         }
 
         float[] pts = positions.getPositions();
@@ -101,6 +138,12 @@ public static void main(String[] args)
 
         System.out.println("size=" + positions.size());
         System.out.println(positions);
+
+        int[] vertices = positions.getTriangles();
+
+        for (int i = 0; i < vertices.length; i += 3) {
+                System.out.printf("%d) {%d, %d, %d}\n", i / 3, vertices[i], vertices[i + 1], vertices[i + 2]);
+        }
 }
 
 private static Vec2 nextVec2(Random rnd)
