@@ -38,7 +38,7 @@ public double test()
 
                 deltaTime = currentTimeSecs() - deltaTime;
 
-                System.out.printf("%03d) %5.2f seconds, %s\n",
+                System.out.printf("%03d) %5.3f seconds, %s\n",
                         i, deltaTime, (read - written == 0) ? "OK" : "FAIL");
 
                 avg += deltaTime;
@@ -92,18 +92,18 @@ private String makeValue(int i)
 
 public static void main(String[] args)
 {
-        MapTester mapTester = new MapTester(10_000_000, 5);
+        MapTester mapTester = new MapTester(100_000, 10);
         mapTester.setMap(new HashMap<>());
 
         double avg = mapTester.test();
-        System.out.printf("HashMap: %5.2f seconds average\n", avg);
+        System.out.printf("HashMap: %5.3f seconds average\n", avg);
 
         mapTester.setMap(new Hashtable<>());
         avg = mapTester.test();
-        System.out.printf("Hashtable: %5.2f seconds average\n", avg);
+        System.out.printf("Hashtable: %5.3f seconds average\n", avg);
 
         mapTester.setMap(new TreeMap<>());
         avg = mapTester.test();
-        System.out.printf("TreeMap: %5.2f seconds average\n", avg);
+        System.out.printf("TreeMap: %5.3f seconds average\n", avg);
 }
 }
