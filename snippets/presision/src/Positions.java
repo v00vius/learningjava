@@ -1,12 +1,13 @@
 import java.util.*;
 
 public class Positions {
-static public final float EPSILON = 1e-3f;
+static public final float EPSILON = 1e-4f;
 private Map<Vec2, Vec2> positions;
 private List<Triangle> triangles;
+public Comparator<Vec2> compareVec2;
 public Positions()
 {
-        Comparator<Vec2> compareVec2 = (v1, v2) ->
+        compareVec2 = (v1, v2) ->
         {
                 int cmp = compareFloat(v1.x(), v2.x());
 
@@ -68,6 +69,9 @@ public int[] getTriangles()
         int i = 0;
 
         for (Triangle triangle : triangles) {
+                System.out.print("triangle " + i / 3 + ": ");
+                triangle.counterClock();
+
                 int idx = indices.get(triangle.getP0());
                 vertices[i++] = idx;
 
@@ -119,13 +123,25 @@ public static void main(String[] args)
         Random rnd = new Random(System.currentTimeMillis());
         Positions positions = new Positions();
 
-        for (int i = 0; i < 100; ++i) {
-                Vec2 p0 = nextVec2(rnd);
-                Vec2 p1 = nextVec2(rnd);
-                Vec2 p2 = nextVec2(rnd);
+        for (int i = 0; i < 50; ) {
+                Vec2 p0, p1, p2;
+
+                p0 = nextVec2(rnd);
+
+                for(p1 = nextVec2(rnd); 0 == positions.compareVec2.compare(p1, p0);)
+                        p1 = nextVec2(rnd);
+
+                for(p2 = nextVec2(rnd);
+                    0 == positions.compareVec2.compare(p2, p1) ||
+                    0 == positions.compareVec2.compare(p2, p0);) {
+
+                        p2 = nextVec2(rnd);
+                }
+
                 Triangle triangle = new Triangle(p0, p1, p2);
 
                 positions.add(triangle);
+                ++i;
         }
 
         float[] pts = positions.getPositions();
