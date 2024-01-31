@@ -1,13 +1,20 @@
-import java.util.function.Function;
-
 public class Test {
 public static void main(String[] args)
 {
-        Function<String, String > func = String::toUpperCase;
+        WeatherData[] weatherData = {
+                new WeatherData(-60, "солнечно"),
+                new WeatherData(25, "солнечно"),
+                new WeatherData(30, "облачно"),
+                new WeatherData(0, "дождь"),
+                new WeatherData(-10, "снег")
+        };
 
-        String s = func.apply("sssss");
+        WeatherHandler  weatherHandler = new WeatherHandler();
 
-        System.out.println(s);
+        for (WeatherData wd : weatherData) {
+                String prompt = weatherHandler.apply(wd);
+                System.out.println(wd);
+                System.out.println(prompt);
+        }
 }
 }
-
