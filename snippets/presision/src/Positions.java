@@ -4,31 +4,29 @@ public class Positions {
 static public final float EPSILON = 1e-3f;
 private Map<Vec2, Vec2> positions;
 private List<Triangle> triangles;
-
 public Positions()
 {
-        Comparator<Float> cmpFloat = (f1, f2) ->
+        Comparator<Vec2> compareVec2 = (v1, v2) ->
         {
-                float difference = Math.abs(f1 - f2);
-
-                if(difference <= EPSILON)
-                        return 0;
-
-                return f1 < f2 ? -1 : +1;
-        };
-
-        Comparator<Vec2> cmpVec2 = (v1, v2) ->
-        {
-                int cmp = cmpFloat.compare(v1.x(), v2.x());
+                int cmp = compareFloat(v1.x(), v2.x());
 
                 if(cmp == 0)
-                        cmp = cmpFloat.compare(v1.y(), v2.y());
+                        cmp = compareFloat(v1.y(), v2.y());
 
                 return cmp;
         };
 
-        positions = new TreeMap<>(cmpVec2);
+        positions = new TreeMap<>(compareVec2);
         triangles = new ArrayList<>();
+}
+static public int compareFloat(float f1, float f2)
+{
+        float difference = Math.abs(f1 - f2);
+
+        if(difference <= EPSILON)
+                return 0;
+
+        return f1 < f2 ? -1 : +1;
 }
 public Vec2 add(Vec2 position)
 {
