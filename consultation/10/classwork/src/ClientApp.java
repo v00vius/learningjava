@@ -15,11 +15,13 @@ public class ClientApp {
         FindByIdClientMenu findByIdClientMenu = new FindByIdClientMenu(service);
         FindClientByNameMenu findClientByNameMenu = new FindClientByNameMenu(service);
         DeleteClientMenu deleteClientMenu = new DeleteClientMenu(service);
+        FindAny findAny = new FindAny(service);
         ExitMenu exitMenu = new ExitMenu();
 
         List<MenuCommand> menuCommands = new ArrayList<>();
         menuCommands.add(addClientMenu);
         menuCommands.add(findAllClientMenu);
+        menuCommands.add(findAny);
         menuCommands.add(findByIdClientMenu);
         menuCommands.add(findClientByNameMenu);
         menuCommands.add(deleteClientMenu);

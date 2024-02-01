@@ -16,7 +16,7 @@ public interface ClientRepository {
 
     Optional<Client> findById(int id);
 
-    Optional<Client> findByName(Predicate<Client> pred);
+    Optional<Client> find(Predicate<Client> condition);
 
     boolean update(Client client);
 

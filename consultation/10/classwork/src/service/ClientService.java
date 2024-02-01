@@ -9,6 +9,7 @@ import util.ConsoleIO;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
 import java.util.function.Supplier;
 
 public class ClientService {
@@ -57,7 +58,23 @@ public Response<Client> findById(int id)
 
 public Response<Client> findByName(String name)
 {
-        Optional<Client> clientOptional = database.findByName(client -> client.getName().equals(name));
+        Optional<Client> clientOptional = database.find(client -> client.getName().equals(name));
+
+        return clientOptional.map(client -> new Response<>(client, "Ok"))
+                .orElseGet(() -> new Response<>(null, "Client not found"));
+}
+public Response<Client> findAny(String name)
+{
+        String aName = name.toLowerCase();
+
+        Optional<Client> clientOptional = database.find(
+                client ->
+                {
+                        String text = client.getName() + client.getDescription();
+
+                        return text.toLowerCase().contains(aName);
+                }
+        );
 
         return clientOptional.map(client -> new Response<>(client, "Ok"))
                 .orElseGet(() -> new Response<>(null, "Client not found"));

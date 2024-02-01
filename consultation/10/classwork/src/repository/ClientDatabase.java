@@ -57,12 +57,12 @@ public Optional<Client> findById(int id)
 //    }
 
 @Override
-public Optional<Client> findByName(Predicate<Client> pred)
+public Optional<Client> find(Predicate<Client> condition)
 {
 //        Predicate<Client> namePredicate = client -> client.getName().contains(name);
 
         for (Client client : database) {
-                if (pred.test(client)) {
+                if (condition.test(client)) {
                         return Optional.of(client);
                 }
         }
