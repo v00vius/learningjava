@@ -1,27 +1,38 @@
 package dto;
 
-public class Response <T>{
-    private T data;
-    private String message;
+public class Response <T> {
+private boolean success;
+private T data;
+private String message;
 
-    public Response(T data, String message) {
-        this.data = data;
-        this.message = message;
-    }
+public Response(boolean success, T data, String message)
+{
+    this.success = success;
+    this.data = data;
+    this.message = this.success ? "Ok" : message;
+}
 
-    public T getData() {
-        return data;
-    }
+public T getData()
+{
+    return data;
+}
 
-    public String getMessage() {
-        return message;
-    }
+public String getMessage()
+{
+    return message;
+}
+public boolean isSuccess()
+{
+    return success;
+}
 
-    @Override
-    public String toString() {
-        return "Response{" +
-                "data=" + data +
-                ", message='" + message + '\'' +
-                '}';
-    }
+@Override
+public String toString()
+{
+    return "Response{" +
+            "success=" + success +
+            ", data=" + data +
+            ", message='" + message + '\'' +
+            '}';
+}
 }

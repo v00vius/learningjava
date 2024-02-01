@@ -42,26 +42,22 @@ public Client createClient()
 public Response<Client> add(Client client)
 {
         Client newClient = database.add(client);
-        return new Response<>(newClient, "Ok");
+
+        return new Response<>(true, newClient, "Ok");
 }
 
 public Response<Client> findById(int id)
 {
         Optional<Client> clientOptional = database.findById(id);
 
-        if (clientOptional.isPresent()) {
-                return new Response<>(clientOptional.get(), "Ok");
-        } else {
-                return new Response<>(null, "Client not found");
-        }
+        return new Response<>(clientOptional.isPresent(), clientOptional.get(), "Client not found");
 }
 
 public Response<Client> findByName(String name)
 {
         Optional<Client> clientOptional = database.find(client -> client.getName().equals(name));
 
-        return clientOptional.map(client -> new Response<>(client, "Ok"))
-                .orElseGet(() -> new Response<>(null, "Client not found"));
+        return new Response<>(clientOptional.isPresent(), clientOptional.get(), "Client not found");
 }
 public Response<Client> findAny(String name)
 {
@@ -76,15 +72,14 @@ public Response<Client> findAny(String name)
                 }
         );
 
-        return clientOptional.map(client -> new Response<>(client, "Ok"))
-                .orElseGet(() -> new Response<>(null, "Client not found"));
+        return new Response<>(clientOptional.isPresent(), clientOptional.get(), "Client not found");
 }
 
 public Response<Boolean> update(Client client)
 {
         boolean updateResult = database.update(client);
 
-        return new Response<>(updateResult, updateResult ? "Ok" : "Update failed");
+        return new Response<>(updateResult, true, "Update failed");
 }
 
 public Response<Boolean> delete(int idForDelete)
@@ -92,20 +87,20 @@ public Response<Boolean> delete(int idForDelete)
         Optional<Client> clientOptional = database.findById(idForDelete);
 
         if (clientOptional.isEmpty()) {
-                return new Response<>(false, "Client not found");
+                return new Response<>(false, false, "Client not found");
         }
 
         Client clientForDelete = clientOptional.get();
 
         boolean deleteResult = database.delete(clientForDelete);
 
-        return new Response<>(deleteResult, deleteResult ? "Ok" : "Delete failed");
+        return new Response<>(deleteResult, true, "Delete failed");
 }
 
 public Response<List<Client>> findAll()
 {
         List<Client> findAllList = database.findAll();
 
-        return new Response<>(findAllList, findAllList.isEmpty() ? "Database is empty" : "Ok");
+        return new Response<>(!findAllList.isEmpty(), findAllList, "Database is empty");
 }
 }

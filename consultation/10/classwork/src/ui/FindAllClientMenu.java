@@ -18,7 +18,8 @@ public class FindAllClientMenu implements MenuCommand {
     public void executeCommand() {
 
         Response<List<Client>> response = service.findAll();
-        if (response.getMessage().equals("Ok")) {
+
+        if (response.isSuccess()) {
             System.out.println(response.getData());
         } else {
             System.out.println(response.getMessage());

@@ -22,7 +22,7 @@ public class FindAny implements MenuCommand {
 
         Response<Client> response = service.findAny(toSearch);
 
-        if (response.getMessage().equals("Ok")) {
+        if (response.isSuccess()) {
             System.out.println(response.getData());
         } else {
             System.out.println(response.getMessage());
