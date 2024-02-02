@@ -100,6 +100,23 @@ public void trace()
                 raster[i] = distance;
         }
 }
+public void traceMT()
+{
+        double length = Math.sqrt(direction.x() * direction.x() + direction.y() * direction.y());
+        float angle0 = (float) Math.acos(direction.x() / length);
+        float angle = angle0 - 0.5f * fov;
+        float angle_end = angle + fov;
+        float angle_step = (angle_end - angle) / (float)RESOLUTION;
+
+        int numThreads = Runtime.getRuntime().availableProcessors();
+        System.out.println("max threads = " + numThreads);
+
+        for(int i = 0; i < RESOLUTION; ++i, angle += angle_step) {
+                float distance = trace(angle);
+
+                raster[i] = distance;
+        }
+}
 private float trace(float angle)
 {
 //        float step = 0.5f * cellSize;
@@ -120,7 +137,7 @@ private float trace(float angle)
                         float dx = x - position.x();
                         float dy = y - position.y();
 
-                        return (float) Math.sqrt(dx * dx + dy * dy);
+                        return dx * dx + dy * dy;
                 }
 
                 x += step_x;
@@ -138,7 +155,8 @@ public void printRaster()
 
 public static void main(String[] args)
 {
-        RayTracer test = new RayTracer(1366, 768);
+//        RayTracer test = new RayTracer(1366, 768);
+        RayTracer test = new RayTracer(1920, 1080);
 
         test.setCellSize(1.f);
         test.setPosition(0.5f * test.getWidth(), 0.5f * test.getHeight());
@@ -147,8 +165,14 @@ public static void main(String[] args)
 
         int loops = 11;
         float avg_fps = 0.f;
+        double angle = 0.;
 
         for (int i = 0; i < loops; ++i) {
+                angle += Math.toRadians(360./ (double) loops);
+                float dx = (float) Math.cos(angle);
+                float dy = (float) Math.sin(angle);
+
+                test.setDirection(dx, dy);
                 test.makeObstacles((int)(test.getHeight() + test.getWidth()));
 
                 final int n = 1_000;
