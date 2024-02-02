@@ -109,12 +109,38 @@ public void traceMT()
         float angle_step = (angle_end - angle) / (float)RESOLUTION;
 
         int numThreads = Runtime.getRuntime().availableProcessors();
-        System.out.println("max threads = " + numThreads);
+//        System.out.println("max threads = " + numThreads);
 
-        for(int i = 0; i < RESOLUTION; ++i, angle += angle_step) {
-                float distance = trace(angle);
+        Thread[] workers = new Thread[numThreads];
+        int workSize = RESOLUTION / workers.length;
 
-                raster[i] = distance;
+        for (int j = 0, len = workers.length; j < len; ++j) {
+                int start = j * workSize;
+                int end = (j == len - 1) ? len : start + workSize;
+
+                workers[j] = new Thread(() ->
+                        {
+                                float angle_start = angle + (float) start * angle_step;
+
+                                for(int i = start; i < end; ++i, angle_start += angle_step) {
+                                        float distance = trace(angle_start);
+
+                                        raster[i] = distance;
+                                }
+                        }
+
+                );
+
+                workers[j].start();
+        }
+
+        for (int j = 0, len = workers.length; j < len; ++j) {
+                try {
+                        workers[j].join();
+                }
+                catch (InterruptedException ignored) {
+
+                }
         }
 }
 private float trace(float angle)
@@ -156,14 +182,15 @@ public void printRaster()
 public static void main(String[] args)
 {
 //        RayTracer test = new RayTracer(1366, 768);
-        RayTracer test = new RayTracer(1920, 1080);
+//        RayTracer test = new RayTracer(1920, 1080);
+        RayTracer test = new RayTracer(30_000, 1_000);
 
         test.setCellSize(1.f);
         test.setPosition(0.5f * test.getWidth(), 0.5f * test.getHeight());
         test.setDirection(2.f, 0.f);
         test.setFov(60.f);
 
-        int loops = 11;
+        int loops = 19;
         float avg_fps = 0.f;
         double angle = 0.;
 
@@ -179,12 +206,12 @@ public static void main(String[] args)
                 long delta = System.currentTimeMillis();
 
                 for (int j = 0; j < n; ++j)
-                        test.trace();
+                        test.traceMT();
 
                 delta = System.currentTimeMillis() - delta;
                 float fps = 1000.f * (float)n / (float)delta;
                 avg_fps += fps;
-                System.out.println("delta = " + delta + " ms, fps = " + fps);
+                System.out.println(i + ") delta = " + delta + " ms, fps = " + fps);
         }
 
         test.printRaster();
