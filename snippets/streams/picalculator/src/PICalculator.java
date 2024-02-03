@@ -28,24 +28,21 @@ public double getPiOldSchool()
 
         return 4. * sum;
 }
-private class Long2Double implements LongToDoubleFunction {
-private double sign = -1.;
-
-@Override
-public double applyAsDouble(long value)
-{
-        sign = 0. - sign;
-
-        return sign / (double) value;
-}
-}
 public double getPiStreams()
 {
-        LongToDoubleFunction calc = new Long2Double();
-
         double sum = LongStream.range(1, taskSize)
                 .filter(i -> (i & 0x01) == 1)
-                .mapToDouble(calc)
+                .mapToDouble(new LongToDoubleFunction() {
+                        private double sign = -1.;
+
+                        @Override
+                        public double applyAsDouble(long value)
+                        {
+                                sign = 0. - sign;
+
+                                return sign / (double) value;
+                        }
+                })
                 .sum();
 
         return 4. * sum;
