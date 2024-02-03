@@ -54,5 +54,4 @@ public long getTaskSize()
 {
         return taskSize;
 }
-
 }

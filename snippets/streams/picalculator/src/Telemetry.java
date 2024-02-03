@@ -1,9 +1,11 @@
 public class Telemetry {
 private final int loopCount;
+private double baseOps;
 
 public Telemetry(int loopCount)
 {
         this.loopCount = loopCount;
+        baseOps = 0.0;
 }
 
 static public double currentTimeSeconds()
@@ -21,9 +23,15 @@ public void test(String testName,  TelemetryAction task)
         delta = currentTimeSeconds() - delta;
         double ops = (double) loopCount / delta;
 
+        if(baseOps == 0.0)
+                baseOps = ops;
+
+        double difference = 100.0 * (ops - baseOps) / baseOps;
 
         System.out.println("Test: " + testName + ", " + loopCount
                                 + " operations total, elapsed time = " + delta
-                                + " (" + ops + " operations/sec");
+                                + " (" + ops + " operations/sec, "
+                                + difference + "% difference"
+        );
 }
 }
