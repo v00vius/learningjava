@@ -2,6 +2,7 @@ import java.util.function.LongToDoubleFunction;
 import java.util.stream.LongStream;
 
 //
+// The Leibniz formula for π:
 // https://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80
 //
 public class PICalculator {
