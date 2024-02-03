@@ -18,7 +18,7 @@ public double getPiOldSchool()
         double sign = -1.;
 
         for (long i = 1; i < taskSize; ++i) {
-                if( (i & 0x01) == 0)
+                if(0 == (i & 0x01))
                         continue;
 
                 sign = 0. - sign;
