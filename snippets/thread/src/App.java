@@ -8,10 +8,12 @@ public static void main(String[] args)
 {
         int maxThreads = Runtime.getRuntime().availableProcessors();
         Printer out = new Printer();
-        CyclicBarrier barrier = new CyclicBarrier(maxThreads);
+        CyclicBarrier barrier = new CyclicBarrier(maxThreads, () ->{
+                System.out.println("\n# CyclicBarrier: " + maxThreads + " thread(s) all they done");
+        });
 
 
-        System.out.println("availableProcessors: " + maxThreads);
+        System.out.println("# AvailableProcessors: " + maxThreads);
 
         List<Thread> threads = IntStream.range(0, maxThreads)
                 .peek(System.out::println)
@@ -23,7 +25,8 @@ public static void main(String[] args)
                                 String aName = t.getName();
 
                                 out.begin()
-                                        .print("\n" + aName + ": ID " + t.threadId())
+                                        .print("\n" + aName + ": " + t.getClass())
+                                        .print(aName + ": ID " + t.threadId())
                                         .print(aName + ": priority " + t.getPriority());
 
                                 for (int j = 0; j < 5; j++) {
@@ -32,7 +35,7 @@ public static void main(String[] args)
                                         try {
                                                 Thread.sleep(100);
                                         } catch (InterruptedException e) {
-                                                out.print("Got: " + e);
+                                                out.print("#Got: " + e);
                                         }
                                 }
 
@@ -43,7 +46,7 @@ public static void main(String[] args)
                                         barrier.await();
                                 } catch (InterruptedException |
                                          BrokenBarrierException e) {
-                                        System.out.println("Got: " + e);
+                                        System.out.println("# Got: " + e);
                                 }
 
                                 System.out.println(t.getName() + ": exiting ...");
@@ -57,9 +60,9 @@ public static void main(String[] args)
 
 
         for (Thread th : threads) {
-                System.out.println("The thread is about to start: \n  name " + th.getName()
-                                        + "\n  priority " + th.getPriority()
-                                        + "\n  id " + th.threadId());
+                System.out.println("# The thread is about to start: \n#  name " + th.getName()
+                                        + "\n#  priority " + th.getPriority()
+                                        + "\n#  id " + th.threadId());
                 th.start();
         }
 
@@ -67,11 +70,11 @@ public static void main(String[] args)
                 try {
                         th.join();
                 } catch (InterruptedException e) {
-                        System.out.println("Got: " + e);
+                        System.out.println("# Got: " + e);
                 }
         }
 
-        System.out.println("Done.");
+        System.out.println("\n# Test: Done.");
 
 //        long n = threads.stream()
 //                .peek(thread ->

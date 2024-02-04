@@ -18,8 +18,8 @@ public Printer begin()
                         tryAgain = false;
                 }
                 catch (InterruptedException e) {
-                        System.out.println("Got interrupted: " + e);
-                        System.out.println("Retrying.");
+                        System.out.println("# " + this.getClass() + " Got interrupted: " + e);
+                        System.out.println("# Retrying.");
                 }
         }
 
