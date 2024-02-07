@@ -2,7 +2,6 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
-import java.util.function.IntFunction;
 import java.util.stream.IntStream;
 
 public class User {
