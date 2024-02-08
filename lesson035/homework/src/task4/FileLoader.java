@@ -1,9 +1,9 @@
+package task4;
+
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
-import java.util.function.Function;
 
 public class FileLoader implements MatchLoader {
 private String fileName;

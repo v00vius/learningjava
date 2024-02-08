@@ -1,4 +1,5 @@
-import java.io.FileNotFoundException;
+package task4;
+
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -60,5 +61,16 @@ public static void main(String[] args) throws IOException
 
         System.out.println("# Guest matches by a team");
         System.out.println(guestMatches);
+
+
+        Optional<Map.Entry<Integer, Long>> byDay = matches.stream()
+                .collect(Collectors.groupingBy((Match m) -> m.getDate().get(Calendar.DAY_OF_MONTH),
+                        TreeMap::new, Collectors.counting()))
+                .entrySet()
+                .stream().max(Map.Entry.comparingByValue());
+
+
+        System.out.println("# The most popular day");
+        System.out.println(byDay.get());
 }
 }
