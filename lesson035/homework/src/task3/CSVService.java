@@ -6,7 +6,7 @@ public class CSVService implements CSV {
 private List<List<Cell>> data;
 private List<String> header;
 private Map<String, Integer> index;
-private String delimiter;
+private final String delimiter;
 
 public CSVService(String delimiter)
 {
@@ -15,7 +15,7 @@ public CSVService(String delimiter)
 public void initData(List<String> lines)
 {
         data = lines.stream()
-                .skip(1)
+                .skip(1)        // skip header
                 .map(line ->
                         Arrays.stream(line.split(delimiter))
                                 .map(Cell::new)
