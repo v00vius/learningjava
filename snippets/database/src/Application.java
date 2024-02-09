@@ -34,7 +34,7 @@ public static void main(String[] args) throws SQLException {
                 now();
                 getVersion();
 
-//                importData(100);
+                importData(10_000);
                 List<ProgrammingLanguage> languages = readAll();
                 System.out.println(languages);
 
@@ -138,7 +138,7 @@ private static int importData(int n) throws SQLException {
 				""")) {
 
                 for (int i = 0; i < n; i++) {
-                        String name = "Name - " + random.nextInt(1_000);
+                        String name = "Name - " + n + i;
                         int rating = random.nextInt(1, 11);
 
                         statement.setString(1, name);
