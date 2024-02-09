@@ -3,7 +3,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.Random;
+import java.util.stream.IntStream;
 
 public class Application {
 
@@ -30,11 +34,18 @@ public static void main(String[] args) throws SQLException {
                 now();
                 getVersion();
 
+//                importData(100);
+                List<ProgrammingLanguage> languages = readAll();
+                System.out.println(languages);
+
                 deleteData("%");
                 readData();
                 createData("Java", 10);
                 createData("JavaScript", 9);
                 createData("C++", 8);
+
+
+
                 readData();
                 updateData("C++", 7);
                 readData();
@@ -44,6 +55,27 @@ public static void main(String[] args) throws SQLException {
                 closeDatabaseConnection();
         }
 
+}
+
+static private List<ProgrammingLanguage> readAll() throws SQLException
+{
+        List<ProgrammingLanguage> languages = new ArrayList<>();
+
+        try (PreparedStatement statement = connection.prepareStatement("""
+				    select * from programming_language
+				""")) {
+                try (ResultSet resultSet = statement.executeQuery()) {
+                        while (resultSet.next()) {
+                                ProgrammingLanguage pl = new ProgrammingLanguage(resultSet.getInt(1),
+                                        resultSet.getString(2),
+                                        resultSet.getInt(3));
+
+                                languages.add(pl);
+                        }
+                }
+        }
+
+        return languages;
 }
 
 static private Optional<String> now() throws SQLException
@@ -96,6 +128,29 @@ static private Optional<String> getVersion() throws SQLException
         }
 
 }
+private static int importData(int n) throws SQLException {
+        Random random = new Random(System.currentTimeMillis());
+        int rowsInserted = 0;
+
+        try (PreparedStatement statement = connection.prepareStatement("""
+				    INSERT INTO programming_language(pl_name, pl_rating)
+				    VALUES (?, ?)
+				""")) {
+
+                for (int i = 0; i < n; i++) {
+                        String name = "Name - " + random.nextInt(1_000);
+                        int rating = random.nextInt(1, 11);
+
+                        statement.setString(1, name);
+                        statement.setInt(2, rating);
+
+                        rowsInserted += statement.executeUpdate();
+                }
+        }
+
+        return rowsInserted;
+}
+
 private static void createData(String name, int rating) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement("""
 				    INSERT INTO programming_language(pl_name, pl_rating)
