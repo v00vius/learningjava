@@ -3,6 +3,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class Application {
 
@@ -26,6 +27,9 @@ private static Connection connection;
 public static void main(String[] args) throws SQLException {
         try {
                 initDatabaseConnection();
+                now();
+                getVersion();
+
                 deleteData("%");
                 readData();
                 createData("Java", 10);
@@ -39,8 +43,59 @@ public static void main(String[] args) throws SQLException {
         } finally {
                 closeDatabaseConnection();
         }
+
 }
 
+static private Optional<String> now() throws SQLException
+{
+        try (PreparedStatement statement = connection.prepareStatement("""
+				    select now()
+				""")) {
+                try (ResultSet resultSet = statement.executeQuery()) {
+                        System.out.println("Time:");
+
+                        if (resultSet.next()) {
+                                String name = resultSet.getString(1);
+
+                                System.out.println("\t> " + name);
+
+                                return Optional.of(name);
+                        }
+                        else{
+                                System.out.println("\t (no data)");
+
+                                return Optional.empty();
+                        }
+                }
+        }
+
+}
+
+
+static private Optional<String> getVersion() throws SQLException
+{
+        try (PreparedStatement statement = connection.prepareStatement("""
+				    select version()
+				""")) {
+                try (ResultSet resultSet = statement.executeQuery()) {
+                        System.out.println("Version:");
+
+                        if (resultSet.next()) {
+                                String name = resultSet.getString(1);
+
+                                System.out.println("\t> " + name);
+
+                                return Optional.of(name);
+                        }
+                        else{
+                                System.out.println("\t (no data)");
+
+                                return Optional.empty();
+                        }
+                }
+        }
+
+}
 private static void createData(String name, int rating) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement("""
 				    INSERT INTO programming_language(pl_name, pl_rating)
