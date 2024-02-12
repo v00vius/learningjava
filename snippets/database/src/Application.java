@@ -1,14 +1,7 @@
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+
+import java.sql.*;
+import java.util.*;
 
 
 public class Application {
@@ -30,15 +23,22 @@ private static Connection connection;
  * @param args (not used)
  * @throws SQLException if an error occurs when interacting with the database
  */
-public static void main(String[] args) throws SQLException {
+public static void main(String[] args) throws SQLException
+{
         try {
                 initDatabaseConnection();
                 now();
                 getVersion();
 
-                importData(10);
+                int count = 1_000_000;
+                long delta = System.currentTimeMillis();
+
+                insertData(count);
+                delta = System.currentTimeMillis() - delta;
+
                 List<ProgrammingLanguage> languages = readAll();
-                System.out.println(languages);
+                System.out.printf("Imported %d records, %5.1f op/s\n", languages.size(),
+                        (double)count * 1000. / delta);
 
                 deleteData("%");
                 readData();
@@ -53,7 +53,10 @@ public static void main(String[] args) throws SQLException {
                 readData();
                 deleteData("C++");
                 readData();
-        } finally {
+        } catch (SQLException e) {
+                System.out.println(e.getMessage());
+        }
+        finally {
                 closeDatabaseConnection();
         }
 
@@ -130,16 +133,18 @@ static private Optional<String> getVersion() throws SQLException
         }
 
 }
-private static int importData(int n) throws SQLException, IOException
+private static int insertData(int n) throws SQLException
 {
         Random random = new Random(System.currentTimeMillis());
         int rowsInserted = 0;
-        try (var query = new SqlString(connection, """
-				    INSERT INTO programming_language(pl_name, pl_rating)
-				    VALUES ({pl_name}, {pl_rating})
-				""")) {
+        var query = new Query("""
+                            INSERT INTO programming_language(pl_name, pl_rating)
+                            VALUES ({pl_name}, {pl_rating})
+                        """);
 
-                for (int i = 0; i < n; i++) {
+        System.out.println("# Inserting " + n + " rows ...");
+        try (var statement = query.parse(connection)) {
+                for (int i = 0; i < n; ++i) {
                         String name = "Name - " + n + i;
                         int rating = random.nextInt(1, 11);
 
@@ -148,8 +153,11 @@ private static int importData(int n) throws SQLException, IOException
 
                         rowsInserted += query.executeUpdate();
                 }
+
+                connection.commit();
         }
 
+        System.out.println("# " + rowsInserted + " inserted.");
         return rowsInserted;
 }
 
@@ -161,6 +169,7 @@ private static void createData(String name, int rating) throws SQLException {
                 statement.setString(1, name);
                 statement.setInt(2, rating);
                 int rowsInserted = statement.executeUpdate();
+                connection.commit();
                 System.out.println("Rows inserted: " + rowsInserted);
         }
 }
@@ -195,6 +204,7 @@ private static void updateData(String name, int newRating) throws SQLException {
                 statement.setInt(1, newRating);
                 statement.setString(2, name);
                 int rowsUpdated = statement.executeUpdate();
+                connection.commit();
                 System.out.println("Rows updated: " + rowsUpdated);
         }
 }
@@ -206,6 +216,7 @@ private static void deleteData(String nameExpression) throws SQLException {
 				""")) {
                 statement.setString(1, nameExpression);
                 int rowsDeleted = statement.executeUpdate();
+                connection.commit();
                 System.out.println("Rows deleted: " + rowsDeleted);
         }
 }
@@ -213,8 +224,12 @@ private static void deleteData(String nameExpression) throws SQLException {
 private static void initDatabaseConnection() throws SQLException {
         System.out.println("Connecting to the database...");
         connection = DriverManager.getConnection(
-                "jdbc:mariadb://localhost:60543/demo",
-                "user", "password");
+                "jdbc:mariadb://127.0.0.1:60543/demo",
+                "user",
+                "password"
+        );
+
+        connection.setAutoCommit(false);
         System.out.println("Connection valid: " + connection.isValid(5));
 }
 
