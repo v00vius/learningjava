@@ -142,14 +142,17 @@ private static int insertData(int n) throws SQLException
                             VALUES ({pl_name}, {pl_rating})
                         """);
 
+        System.out.println(query.getFormat());
+        System.out.println(query.getSql());
         System.out.println("# Inserting " + n + " rows ...");
+
         try (var statement = query.parse(connection)) {
                 for (int i = 0; i < n; ++i) {
                         String name = "Name - " + n + i;
                         int rating = random.nextInt(1, 11);
 
-                        query.set("pl_name", name);
-                        query.set("pl_rating", rating);
+                        query.set("pl_name", name)
+                                .set("pl_rating", rating);
 
                         rowsInserted += query.executeUpdate();
                 }

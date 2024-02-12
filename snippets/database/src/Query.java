@@ -48,13 +48,17 @@ public PreparedStatement parse(Connection connection) throws SQLException
         sql = sb.toString();
         return statement = connection.prepareStatement(sql);
 }
-public void set(String parameterName, String x) throws SQLException
+public Query set(String parameterName, String x) throws SQLException
 {
         statement.setString(indexOf(parameterName), x);
+
+        return this;
 }
-public void set(String parameterName, int x) throws SQLException
+public Query set(String parameterName, int x) throws SQLException
 {
         statement.setInt(indexOf(parameterName), x);
+
+        return  this;
 }
 public int executeUpdate() throws SQLException
 {
