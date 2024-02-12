@@ -3,11 +3,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-import java.util.stream.IntStream;
+
 
 public class Application {
 
@@ -34,7 +35,7 @@ public static void main(String[] args) throws SQLException {
                 now();
                 getVersion();
 
-                importData(10_000);
+                importData(10);
                 List<ProgrammingLanguage> languages = readAll();
                 System.out.println(languages);
 
@@ -67,8 +68,8 @@ static private List<ProgrammingLanguage> readAll() throws SQLException
                 try (ResultSet resultSet = statement.executeQuery()) {
                         while (resultSet.next()) {
                                 ProgrammingLanguage pl = new ProgrammingLanguage(resultSet.getInt(1),
-                                        resultSet.getString(2),
-                                        resultSet.getInt(3));
+                                        resultSet.getString("pl_name"),
+                                        resultSet.getInt("pl_rating"));
 
                                 languages.add(pl);
                         }
@@ -131,18 +132,20 @@ static private Optional<String> getVersion() throws SQLException
 private static int importData(int n) throws SQLException {
         Random random = new Random(System.currentTimeMillis());
         int rowsInserted = 0;
-
-        try (PreparedStatement statement = connection.prepareStatement("""
+        var query = new SqlString("""
 				    INSERT INTO programming_language(pl_name, pl_rating)
-				    VALUES (?, ?)
-				""")) {
+				    VALUES ({pl_name}, {pl_rating})
+				""");
+        try (
+
+                PreparedStatement statement = connection.prepareStatement(query.init())) {
 
                 for (int i = 0; i < n; i++) {
                         String name = "Name - " + n + i;
                         int rating = random.nextInt(1, 11);
 
-                        statement.setString(1, name);
-                        statement.setInt(2, rating);
+                        statement.setString(query.getIndex("pl_name"), name);
+                        statement.setInt(query.getIndex("pl_rating"), rating);
 
                         rowsInserted += statement.executeUpdate();
                 }
