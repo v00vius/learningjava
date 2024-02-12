@@ -1,22 +1,32 @@
+import java.io.Closeable;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SqlString {
+public class SqlString implements Closeable {
+private Connection connection;
 private String sql;
 private String sql2;
 private Map<String, Integer> indexes;
+private PreparedStatement statement;
 
-public SqlString(String sql)
+public SqlString(Connection connection, String sql) throws SQLException
 {
+        this.connection = connection;
         this.sql = sql;
         indexes = new HashMap<>();
+        init();
 }
+
 /*
  * INSERT INTO programming_language(pl_name, pl_rating)
  * VALUES ({pl_name}, {pl_rating})
  *
  */
-public String init()
+public void init() throws SQLException
 {
         int start = 0;
         int idx;
@@ -40,9 +50,21 @@ public String init()
         }
 
         sb.append(sql.substring(start));
-        return  sql2 = sb.toString();
+        sql2 = sb.toString();
+        statement = connection.prepareStatement(sql2);
 }
-
+public void set(String parameterName, String x) throws SQLException
+{
+        statement.setString(getIndex(parameterName), x);
+}
+public void set(String parameterName, int x) throws SQLException
+{
+        statement.setInt(getIndex(parameterName), x);
+}
+public int executeUpdate() throws SQLException
+{
+        return statement.executeUpdate();
+}
 public int getIndex(String parameterName)
 {
         return indexes.getOrDefault(parameterName, 0);
@@ -62,17 +84,13 @@ public Map<String, Integer> getIndexes()
         return indexes;
 }
 
-public static void main(String[] args)
+@Override
+public void close() throws IOException
 {
-        var query = new SqlString("INSERT INTO programming_language(pl_name, pl_rating) VALUES ({pl_name}, {pl_rating})");
-
-        query.init();
-
-        System.out.println(query.getIndexes());
-        System.out.println(query.getSql());
-        System.out.println(query.getSql2());
-        System.out.println(query.getIndex("pl_name"));
-        System.out.println(query.getIndex("pl_rating"));
-        System.out.println(query.getIndex("eee"));
+        try {
+                statement.close();
+        } catch (SQLException e) {
+                throw new RuntimeException(e);
+        }
 }
 }

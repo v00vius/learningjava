@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -129,25 +130,23 @@ static private Optional<String> getVersion() throws SQLException
         }
 
 }
-private static int importData(int n) throws SQLException {
+private static int importData(int n) throws SQLException, IOException
+{
         Random random = new Random(System.currentTimeMillis());
         int rowsInserted = 0;
-        var query = new SqlString("""
+        try (var query = new SqlString(connection, """
 				    INSERT INTO programming_language(pl_name, pl_rating)
 				    VALUES ({pl_name}, {pl_rating})
-				""");
-        try (
-
-                PreparedStatement statement = connection.prepareStatement(query.init())) {
+				""")) {
 
                 for (int i = 0; i < n; i++) {
                         String name = "Name - " + n + i;
                         int rating = random.nextInt(1, 11);
 
-                        statement.setString(query.getIndex("pl_name"), name);
-                        statement.setInt(query.getIndex("pl_rating"), rating);
+                        query.set("pl_name", name);
+                        query.set("pl_rating", rating);
 
-                        rowsInserted += statement.executeUpdate();
+                        rowsInserted += query.executeUpdate();
                 }
         }
 
