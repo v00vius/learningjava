@@ -162,7 +162,7 @@ public static void main(String[] args) throws SQLException
 
         try {
                 connection = initDatabaseConnection();
-                var size = 1_000;
+                var size = 100;
                 var matrix = new DBMatrix(connection, "m01", size, size);
 
                 matrix.init();
