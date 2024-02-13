@@ -1,7 +1,6 @@
 package matrix;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DBMatrix implements Matrix {
@@ -135,4 +134,6 @@ public void mul(int i, int j, double amount)
                 System.out.println(e.getMessage());
         }
 }
+
+
 }
