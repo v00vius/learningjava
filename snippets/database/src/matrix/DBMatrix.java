@@ -141,7 +141,7 @@ private static Connection initDatabaseConnection() throws SQLException {
         var connection = DriverManager.getConnection(
                 "jdbc:mariadb://127.0.0.1:60543/demo",
                 "user",
-                "123456"
+                "123"
         );
 
         connection.setAutoCommit(false);
@@ -162,7 +162,7 @@ public static void main(String[] args) throws SQLException
 
         try {
                 connection = initDatabaseConnection();
-                var size = 100;
+                var size = 1000;
                 var matrix = new DBMatrix(connection, "m01", size, size);
 
                 matrix.init();
