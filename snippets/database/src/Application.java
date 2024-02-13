@@ -30,7 +30,7 @@ public static void main(String[] args) throws SQLException
                 now();
                 getVersion();
 
-                int count = 1_000_000;
+                int count = 10_000_000;
                 long delta = System.currentTimeMillis();
 
                 insertData(count);
@@ -229,7 +229,7 @@ private static void initDatabaseConnection() throws SQLException {
         connection = DriverManager.getConnection(
                 "jdbc:mariadb://127.0.0.1:60543/demo",
                 "user",
-                "password"
+                "123456"
         );
 
         connection.setAutoCommit(false);
