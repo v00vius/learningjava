@@ -4,34 +4,29 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 public class App {
 static private Connection connection;
 
-public static void main(String[] args)
+public static void main(String[] args) throws SQLException
 {
         var person = new Person("Joe", "Peterson", 35, "Developer");
 
+        var pm = new PersonMapper();
+
         try {
                 connection = initDatabaseConnection();
-                var objMap = connection.getTypeMap();
 
-                objMap.put("person", Class.forName("Person"));
-                connection.setTypeMap(objMap);
+                var rows = connection.prepareStatement("SELECT * FROM person").executeQuery();
+                List<Person> people = pm.load(rows);
 
-                var st = connection.prepareStatement("SELECT * FROM person");
-
-                var rows = st.executeQuery();
-
-                if(rows.next()) {
-                        rows.getObject();
-                }
+                System.out.println(people);
 
         } catch (SQLException e) {
                 System.out.println("# Error: " + e.getMessage());
-        } catch (ClassNotFoundException e) {
-                System.out.println("# Error: " + e.getMessage());
-                throw new RuntimeException(e);
+        } finally {
+                closeDatabaseConnection(connection);
         }
 }
 //---

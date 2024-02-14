@@ -14,6 +14,30 @@ public Person(String name, String last_name, int age, String occupation)
         this.occupation = occupation;
 }
 
+public Person()
+{
+}
+
+public void setName(String name)
+{
+        this.name = name;
+}
+
+public void setLast_name(String last_name)
+{
+        this.last_name = last_name;
+}
+
+public void setAge(int age)
+{
+        this.age = age;
+}
+
+public void setOccupation(String occupation)
+{
+        this.occupation = occupation;
+}
+
 @Override
 public String toString()
 {
