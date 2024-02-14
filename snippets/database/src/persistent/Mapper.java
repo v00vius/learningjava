@@ -22,7 +22,7 @@ public Optional<T> loadEntity(ResultSet rs) throws SQLException
         T entity;
 
         if (rs.next())
-                Optional.of(map(rs));
+                return Optional.of(map(rs));
 
         return Optional.empty();
 }
