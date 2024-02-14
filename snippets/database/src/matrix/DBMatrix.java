@@ -163,19 +163,24 @@ public static void main(String[] args) throws SQLException
 
         try {
                 connection = initDatabaseConnection();
-                var size = 1_000;
+                var size = 500;
                 var matrix = new DBMatrix(connection, "m01", size, size);
 
-//                matrix.init();
-//                connection.commit();
+                System.out.println("# Creating a matrix of " + size + "x" + size + " elements");
 
-//                for (int i = 0; i < size; i++) {
-//                        for (int j = 0; j < size; j++) {
-//                                matrix.set(i, j, (double) i * size + j);
-//                        }
-//
-//                        connection.commit();
-//                }
+                matrix.init();
+                connection.commit();
+
+                for (int i = 0; i < size; i++) {
+                        for (int j = 0; j < size; j++) {
+                                matrix.set(i, j, (double) i * size + j);
+                        }
+
+                        connection.commit();
+                }
+
+                System.out.println("# Done.");
+                System.out.println("# Benchmarking ...");
 
                 Random random = new Random(System.currentTimeMillis());
                 long delta = System.currentTimeMillis();
@@ -188,7 +193,7 @@ public static void main(String[] args) throws SQLException
                         matrix.set(y, x, matrix.get(x, y));
                         matrix.set(x, y, tmp);
 
-                        if (i % 50_000 == 0) {
+                        if (i % 1_000 == 0) {
                                 connection.commit();
                                 System.out.println(i);
                         }
