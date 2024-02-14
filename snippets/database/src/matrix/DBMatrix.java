@@ -1,21 +1,25 @@
 package matrix;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.Random;
 
 public class DBMatrix implements Matrix {
 private Connection connection;
 private String name;
 private int rows;
 private int cols;
+private PreparedStatement stUpdate;
+private PreparedStatement stSelect;
 
-public DBMatrix(Connection connection, String name, int rows, int cols)
+public DBMatrix(Connection connection, String name, int rows, int cols) throws SQLException
 {
         this.connection = connection;
         this.name = name;
         this.rows = rows;
         this.cols = cols;
+
+        stUpdate = connection.prepareStatement("UPDATE mt_" + name + " SET value = ? WHERE row_id = ?");
+        stSelect = connection.prepareStatement("SELECT value FROM mt_" + name  + " WHERE row_id = ?");
 }
 
 public void init()
@@ -67,41 +71,38 @@ private int initMatrix()
         return rowsInserted;
 }
 @Override
-public double get(int i, int j)
+public double get(int i, int j) throws SQLException
 {
-        var row_id = i * cols + j;
-        var sql = "SELECT value FROM mt_" + name  + " WHERE row_id=" + row_id;
         var value = 0.;
 
-        try(
-                var st = connection.prepareStatement(sql);
-                var result = st.executeQuery()
-        ) {
-                if(result.next()) {
-                        value = result.getDouble(1);
-                }
-        } catch (SQLException e) {
-                System.out.println(e.getMessage());
+        stSelect.setInt(1, index(i, j));
+
+        var result = stSelect.executeQuery();
+
+        if(result.next()) {
+                value = result.getDouble(1);
         }
+
+        result.close();
 
         return value;
 }
-
-@Override
-public void set(int i, int j, double value)
+private int index(int i, int j)
 {
-        var row_id = i * cols + j;
-        var sql = "UPDATE mt_" + name + " SET value = " + value + " WHERE row_id=" + row_id;
-
-        try(var st = connection.prepareStatement(sql)) {
-                var rowsUpdated  = st.executeUpdate();
-        } catch (SQLException e) {
-                System.out.println(e.getMessage());
-        }
+        return i * cols + j;
 }
 
 @Override
-public void set(double value)
+public void set(int i, int j, double value) throws SQLException
+{
+        stUpdate.setDouble(1, value);
+        stUpdate.setInt(2, index(i, j));
+
+        var rowsUpdated  = stUpdate.executeUpdate();
+}
+
+@Override
+public void set(double value) throws SQLException
 {
         for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < cols; j++) {
@@ -162,31 +163,42 @@ public static void main(String[] args) throws SQLException
 
         try {
                 connection = initDatabaseConnection();
-                var size = 1000;
+                var size = 1_000;
                 var matrix = new DBMatrix(connection, "m01", size, size);
 
-                matrix.init();
-                connection.commit();
-
-                for (int i = 0; i < size; i++) {
-                        for (int j = 0; j < size; j++) {
-                                matrix.set(i, j, (double) i * size + j);
-                        }
-
-                        connection.commit();
-                }
-
-                System.out.printf("(%d,%d) = %f\n", size-1, size-1, matrix.get(size-1, size-1));
+//                matrix.init();
+//                connection.commit();
 
 //                for (int i = 0; i < size; i++) {
 //                        for (int j = 0; j < size; j++) {
-//                                var value = matrix.get(i, j);
-//
-//                                System.out.printf("(%d,%d) = %f\n", i, j, value);
+//                                matrix.set(i, j, (double) i * size + j);
 //                        }
 //
-////                        connection.commit();
+//                        connection.commit();
 //                }
+
+                Random random = new Random(System.currentTimeMillis());
+                long delta = System.currentTimeMillis();
+
+                for (int i = 0, n = 10 * size * size; i < n; ++i) {
+                        int x = random.nextInt(size);
+                        int y = random.nextInt(size);
+                        var tmp = matrix.get(y, x);
+
+                        matrix.set(y, x, matrix.get(x, y));
+                        matrix.set(x, y, tmp);
+
+                        if (i % 50_000 == 0) {
+                                connection.commit();
+                                System.out.println(i);
+                        }
+                }
+
+                delta = System.currentTimeMillis() - delta;
+
+                System.out.printf("(%d,%d) = %f, %7.2f op/s\n",
+                        size-1, size-1, matrix.get(size-1, size-1),
+                        (double)size * size * 1000. / delta);
 
         } catch (SQLException e) {
                 System.out.println(e.getMessage());
