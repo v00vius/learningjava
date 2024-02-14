@@ -38,6 +38,26 @@ public void setOccupation(String occupation)
         this.occupation = occupation;
 }
 
+public String getName()
+{
+        return name;
+}
+
+public String getLast_name()
+{
+        return last_name;
+}
+
+public int getAge()
+{
+        return age;
+}
+
+public String getOccupation()
+{
+        return occupation;
+}
+
 @Override
 public String toString()
 {

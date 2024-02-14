@@ -94,7 +94,7 @@ public static void main(String[] args) throws SQLException
         try {
                 connection = initDatabaseConnection();
                 var size = 1_000;
-                var time = 100L * 1000L;
+                var time = 600L * 1000L;
                 var matrix = new Matrix2D(connection, "M1");
                 Random random = new Random(System.currentTimeMillis());
 
@@ -117,8 +117,9 @@ public static void main(String[] args) throws SQLException
 
                 if(true) {
                         System.out.println("# Benchmarking ...");
+                        long diff;
 
-                        while((System.currentTimeMillis() - delta) < time) {
+                        while((diff = (System.currentTimeMillis() - delta)) < time) {
                                 int x = random.nextInt(size);
                                 int y = random.nextInt(size);
                                 var tmp = matrix.get(y, x);
@@ -129,7 +130,8 @@ public static void main(String[] args) throws SQLException
 
                                 if (count % 1_000 == 0) {
                                         connection.commit();
-                                        System.out.println(4 * count + " IOPS");
+                                        System.out.printf("# %d operations, %7.2f IOPS\n", count,
+                                                (double) count * 4000. / diff);
                                 }
 
                                 ++count;
