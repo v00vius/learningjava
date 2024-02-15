@@ -3,6 +3,7 @@ package persistent;
 import javax.crypto.spec.PBEKeySpec;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Random;
@@ -15,6 +16,7 @@ public static void main(String[] args) throws SQLException
 {
         var aRow = new PersonMapper();
         var random = new Random(System.currentTimeMillis());
+        PreparedStatement st = null;
 
         try {
                 connection = initDatabaseConnection();
@@ -25,33 +27,39 @@ public static void main(String[] args) throws SQLException
                 System.out.println(people);
 
                 var insert = new Query();
-                var st = insert.prepareStatement(connection, """
+
+                st = insert.prepareStatement(connection, """
                         INSERT INTO person (name, last_name, age, occupation)
                         VALUES ({name}, {last_name}, {age}, {occupation})
                         """
                 );
-//                PBEKeySpec x = new PBEKeySpec("123", "1234567890ABCDEF", 31, 256);
 
-                people = IntStream.range(1, 1_000)
+                var  count = 0;
+
+                for (int k = 0; k < 1000; k++) {
+                        people = IntStream.range(1, 1_000)
                                 .mapToObj(i ->
                                 {
                                         var person = new Person();
 
-                                        person.setName(i + " - Name - " + random.nextInt(100));
-                                        person.setLastName(i + " - LastName - " + random.nextInt(100));
-                                        person.setAge(random.nextInt(18, 60));
-                                        person.setOccupation(i + "- Occupation - " + random.nextInt(100));
+                                        person.setName(i + " - Name - " + random.nextInt(1000));
+                                        person.setLastName(i + " - LastName - " + random.nextInt(1000));
+                                        person.setAge(random.nextInt(18, 80));
+                                        person.setOccupation(i + "- Occupation - " + random.nextInt(1000));
 
                                         return person;
                                 })
-                        .toList();
+                                .toList();
 
-                aRow.store(people, insert);
-                connection.commit();
-
+                        aRow.store(people, insert);
+                        connection.commit();
+                        count += people.size();
+                        System.out.println(count + " persons inserted");
+                }
         } catch (SQLException e) {
                 System.out.println("# Error: " + e.getMessage());
         } finally {
+                if(st != null) st.close();
                 closeDatabaseConnection(connection);
         }
 }

@@ -21,10 +21,10 @@ public Person map(ResultSet rs) throws SQLException
 @Override
 public void map(Person entity, Query q) throws SQLException
 {
-        q.set("id", entity.getId());
-        q.set("name", entity.getName());
-        q.set("last_name", entity.getLastName());
-        q.set("age", entity.getAge());
-        q.set("occupation", entity.getOccupation());
+        q.set("id", entity.getId())
+                .set("name", entity.getName())
+                .set("last_name", entity.getLastName())
+                .set("age", entity.getAge())
+                .set("occupation", entity.getOccupation());
 }
 }
