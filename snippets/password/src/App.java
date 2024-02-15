@@ -1,3 +1,4 @@
+import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.security.InvalidKeyException;
@@ -20,8 +21,6 @@ public static void main(String[] args) throws NoSuchAlgorithmException, InvalidK
 //        var key = factory.translateKey(hash);
         var factory2  = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
         var spec = (PBEKeySpec)factory2.getKeySpec(hash, keySpec.getClass());
-
-
 
         System.out.println("# Password (KeySpec) = " + Arrays.toString(password));
         System.out.println("# Salt = " + Arrays.toString(salt));
