@@ -1,27 +1,28 @@
 package entity;
 
-public abstract class LibraryItem {
-    private String title;
-    private int year;
+public class Article {
 
-    public LibraryItem(String title, int year) {
+    private String title;
+    private String author;
+
+    public Article(String title, String author) {
         this.title = title;
-        this.year = year;
+        this.author = author;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public int getYear() {
-        return year;
+    public String getAuthor() {
+        return author;
     }
 
     @Override
     public String toString() {
-        return "LibraryItem{" +
+        return "Article{" +
                 "title='" + title + '\'' +
-                ", year=" + year +
+                ", author='" + author + '\'' +
                 '}';
     }
 }
