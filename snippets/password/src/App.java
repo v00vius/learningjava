@@ -17,8 +17,9 @@ public static void main(String[] args) throws NoSuchAlgorithmException, InvalidK
         // https://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html#SecretKeyFactory
         var factory  = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
         var hash = factory.generateSecret(keySpec);
-        var key = factory.translateKey(hash);
-        var spec = (PBEKeySpec)factory.getKeySpec(hash, keySpec.getClass());
+//        var key = factory.translateKey(hash);
+        var factory2  = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
+        var spec = (PBEKeySpec)factory2.getKeySpec(hash, keySpec.getClass());
 
 
 
