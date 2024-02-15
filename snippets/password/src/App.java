@@ -1,25 +1,42 @@
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
+import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
 
 
 public class App {
-public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeySpecException
+public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException
 {
-        char[] password = "1".toCharArray();
-        byte[] salt = {'1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'A', 'B', 'C', 'D', 'E', 'F'};
+        char[] password = "The Password".toCharArray();
+        byte[] salt = "The Salt".getBytes();
 
-        PBEKeySpec keySpec = new PBEKeySpec(password, salt, 31, 128);
+        PBEKeySpec keySpec = new PBEKeySpec(password, salt, 2, 256);
         // https://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html#SecretKeyFactory
-        var factory  = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-        var key = factory.generateSecret(keySpec);
+        var factory  = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
+        var hash = factory.generateSecret(keySpec);
+        var key = factory.translateKey(hash);
+        var spec = (PBEKeySpec)factory.getKeySpec(hash, keySpec.getClass());
 
-        System.out.println("algorithm='" + key.getAlgorithm() + "'");
-        System.out.println("format='" + key.getFormat() + "'");
-        System.out.println("is destroyed='" + key.isDestroyed() + "'");
-        System.out.println("key=" + getEncoded(key.getEncoded()));
+
+
+        System.out.println("# Password (KeySpec) = " + Arrays.toString(password));
+        System.out.println("# Salt = " + Arrays.toString(salt));
+        System.out.println("algorithm = '" + hash.getAlgorithm() + "'");
+        System.out.println("format = '" + hash.getFormat() + "'");
+        System.out.println("is destroyed = '" + hash.isDestroyed() + "'");
+        System.out.println("hash =" + getEncoded(hash.getEncoded()));
+        System.out.println("key =" + getEncoded(key.getEncoded()));
+        System.out.println("Back to KeySpec =" + Arrays.toString(spec.getPassword()));
+
+        var random = SecureRandom.getInstance("SHA1PRNG");
+
+        byte[] salt2 = new byte[16];
+
+        random.nextBytes(salt2);
+        System.out.println("salt2 =" + getEncoded(salt2));
 }
 static private String getEncoded(byte[] bytes)
 {
