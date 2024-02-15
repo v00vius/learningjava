@@ -1,3 +1,5 @@
+package persistent;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -5,14 +7,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Query {
-private String format;
 private String sql;
 private Map<String, Integer> indexes;
 private PreparedStatement statement;
 
-public Query(String sql) throws SQLException
+public Query() throws SQLException
 {
-        this.format = sql;
         indexes = new HashMap<>();
 }
 
@@ -21,7 +21,7 @@ public Query(String sql) throws SQLException
  * VALUES ({pl_name}, {pl_rating})
  *
  */
-public PreparedStatement parse(Connection connection) throws SQLException
+public PreparedStatement prepareStatement(Connection connection, String format) throws SQLException
 {
         int start = 0;
         int idx;
@@ -46,38 +46,46 @@ public PreparedStatement parse(Connection connection) throws SQLException
 
         sb.append(format.substring(start));
         sql = sb.toString();
-        return statement = connection.prepareStatement(sql);
+        statement = connection.prepareStatement(sql);
+
+        return statement;
 }
 public Query set(String parameterName, String x) throws SQLException
 {
-        statement.setString(indexOf(parameterName), x);
+        int idx;
+
+        if(0 != (idx = indexOf(parameterName)))
+                statement.setString(idx, x);
 
         return this;
 }
 public Query set(String parameterName, int x) throws SQLException
 {
-        statement.setInt(indexOf(parameterName), x);
+        int idx;
+
+        if(0 != (idx = indexOf(parameterName)))
+                statement.setInt(idx, x);
 
         return  this;
 }
-public int executeUpdate() throws SQLException
+public Query set(String parameterName, double x) throws SQLException
 {
-        return statement.executeUpdate();
+        int idx;
+
+        if(0 != (idx = indexOf(parameterName)))
+                statement.setDouble(idx, x);
+
+        return  this;
+}
+
+public PreparedStatement getStatement()
+{
+        return statement;
 }
 public int indexOf(String parameterName)
 {
         return indexes.getOrDefault(parameterName, 0);
 }
-public Map<String, Integer> getIndexes()
-{
-        return indexes;
-}
-
-public String getFormat()
-{
-        return format;
-}
-
 public String getSql()
 {
         return sql;

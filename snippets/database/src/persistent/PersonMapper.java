@@ -1,27 +1,30 @@
 package persistent;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class PersonMapper extends Mapper<Person> {
+public class PersonMapper extends RowMapper<Person> {
 @Override
 public Person map(ResultSet rs) throws SQLException
 {
         var  person = new Person();
 
+        person.setId(rs.getInt("id"));
         person.setName(rs.getString("name"));
-        person.setLast_name(rs.getString("last_name"));
+        person.setLastName(rs.getString("last_name"));
         person.setAge(rs.getInt("age"));
+        person.setOccupation(rs.getString("occupation"));
 
         return person;
 }
 
 @Override
-public void map(Person entity, PreparedStatement statement) throws SQLException
+public void map(Person entity, Query q) throws SQLException
 {
-        statement.setString(1, entity.getName());
-        statement.setString(2, entity.getLast_name());
-        statement.setInt(3, entity.getAge());
+        q.set("id", entity.getId());
+        q.set("name", entity.getName());
+        q.set("last_name", entity.getLastName());
+        q.set("age", entity.getAge());
+        q.set("occupation", entity.getOccupation());
 }
 }

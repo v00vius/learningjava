@@ -1,5 +1,7 @@
 
 
+import persistent.Query;
+
 import java.sql.*;
 import java.util.*;
 
@@ -30,7 +32,7 @@ public static void main(String[] args) throws SQLException
                 now();
                 getVersion();
 
-                int count = 10_000_000;
+                int count = 1_000;
                 long delta = System.currentTimeMillis();
 
                 insertData(count);
@@ -137,16 +139,17 @@ private static int insertData(int n) throws SQLException
 {
         Random random = new Random(System.currentTimeMillis());
         int rowsInserted = 0;
-        var query = new Query("""
-                            INSERT INTO programming_language(pl_name, pl_rating)
-                            VALUES ({pl_name}, {pl_rating})
-                        """);
+        var sql = """
+                INSERT INTO programming_language(pl_name, pl_rating)
+                VALUES ({pl_name}, {pl_rating})
+        """;
+        var query = new Query();
 
-        System.out.println(query.getFormat());
+        System.out.println(sql);
         System.out.println(query.getSql());
         System.out.println("# Inserting " + n + " rows ...");
 
-        try (var statement = query.parse(connection)) {
+        try (var statement = query.prepareStatement(connection, sql)) {
                 for (int i = 0; i < n; ++i) {
                         String name = "Name - " + n + i;
                         int rating = random.nextInt(1, 11);
@@ -154,7 +157,7 @@ private static int insertData(int n) throws SQLException
                         query.set("pl_name", name)
                                 .set("pl_rating", rating);
 
-                        rowsInserted += query.executeUpdate();
+                        rowsInserted += statement.executeUpdate();
                 }
 
                 connection.commit();
@@ -229,7 +232,7 @@ private static void initDatabaseConnection() throws SQLException {
         connection = DriverManager.getConnection(
                 "jdbc:mariadb://127.0.0.1:60543/demo",
                 "user",
-                "123456"
+                "123"
         );
 
         connection.setAutoCommit(false);

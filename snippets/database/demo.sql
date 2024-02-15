@@ -19,6 +19,22 @@ CREATE TABLE demo.programming_language(
 	pl_rating INT
 );
 
+CREATE SEQUENCE demo.person_sq
+	MINVALUE = 10
+	START = 10
+	INCREMENT = 1
+	CACHE = 1000
+	NOCYCLE;
+
+CREATE TABLE demo.person (
+	id INT NOT NULL DEFAULT (NEXT VALUE FOR demo.person_sq),
+	name VARCHAR(24) NOT NULL,
+	last_name VARCHAR(32) NOT NULL,
+	occupation VARCHAR(24) NOT NULL,
+	age SMALLINT NOT NULL,
+	PRIMARY KEY (id)
+);
+
 CREATE TABLE demo.matrix2d (
 	name CHAR(8) NOT NULL,
 	row SMALLINT NOT NULL,

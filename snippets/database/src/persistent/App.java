@@ -2,26 +2,50 @@ package persistent;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.IntStream;
 
 public class App {
 static private Connection connection;
 
 public static void main(String[] args) throws SQLException
 {
-        var person = new Person("Joe", "Peterson", 35, "Developer");
-
-        var pm = new PersonMapper();
+        var aRow = new PersonMapper();
+        var random = new Random(System.currentTimeMillis());
 
         try {
                 connection = initDatabaseConnection();
 
-                var rows = connection.prepareStatement("SELECT * FROM person").executeQuery();
-                List<Person> people = pm.load(rows);
+                var rows = connection.prepareStatement("SELECT * FROM person LIMIT 10").executeQuery();
+                List<Person> people = aRow.load(rows);
 
                 System.out.println(people);
+
+                var insert = new Query();
+                var st = insert.prepareStatement(connection, """
+                        INSERT INTO person (name, last_name, age, occupation)
+                        VALUES ({name}, {last_name}, {age}, {occupation})
+                        """
+                );
+
+                people = IntStream.range(1, 1_000)
+                                .mapToObj(i ->
+                                {
+                                        var person = new Person();
+
+                                        person.setName(i + " - Name - " + random.nextInt(100));
+                                        person.setLastName(i + " - LastName - " + random.nextInt(100));
+                                        person.setAge(random.nextInt(18, 60));
+                                        person.setOccupation(i + "- Occupation - " + random.nextInt(100));
+
+                                        return person;
+                                })
+                        .toList();
+
+                aRow.store(people, insert);
+                connection.commit();
 
         } catch (SQLException e) {
                 System.out.println("# Error: " + e.getMessage());

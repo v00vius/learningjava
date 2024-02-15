@@ -1,15 +1,17 @@
 package persistent;
 
 public class Person {
+private int id;
 private String name;
-private String last_name;
+private String lastName;
 private int age;
 private String occupation;
 
-public Person(String name, String last_name, int age, String occupation)
+public Person(int id, String name, String lastName, int age, String occupation)
 {
+        this.id = id;
         this.name = name;
-        this.last_name = last_name;
+        this.lastName = lastName;
         this.age = age;
         this.occupation = occupation;
 }
@@ -23,9 +25,19 @@ public void setName(String name)
         this.name = name;
 }
 
-public void setLast_name(String last_name)
+public int getId()
 {
-        this.last_name = last_name;
+        return id;
+}
+
+public void setId(int id)
+{
+        this.id = id;
+}
+
+public void setLastName(String lastName)
+{
+        this.lastName = lastName;
 }
 
 public void setAge(int age)
@@ -43,9 +55,9 @@ public String getName()
         return name;
 }
 
-public String getLast_name()
+public String getLastName()
 {
-        return last_name;
+        return lastName;
 }
 
 public int getAge()
@@ -62,11 +74,11 @@ public String getOccupation()
 public String toString()
 {
         return "Person{" +
-               "name='" + name + '\'' +
-               ", last_name='" + last_name + '\'' +
+               "id=" + id +
+               ", name='" + name + '\'' +
+               ", last_name='" + lastName + '\'' +
                ", age=" + age +
                ", occupation='" + occupation + '\'' +
-               '}';
+               "}\n";
 }
-
 }
