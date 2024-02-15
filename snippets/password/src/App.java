@@ -13,7 +13,7 @@ public static void main(String[] args) throws NoSuchAlgorithmException, InvalidK
         char[] password = "The Password".toCharArray();
         byte[] salt = "The Salt".getBytes();
 
-        PBEKeySpec keySpec = new PBEKeySpec(password, salt, 2, 256);
+        PBEKeySpec keySpec = new PBEKeySpec(password, salt, 31, 256);
         // https://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html#SecretKeyFactory
         var factory  = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
         var hash = factory.generateSecret(keySpec);
@@ -28,8 +28,8 @@ public static void main(String[] args) throws NoSuchAlgorithmException, InvalidK
         System.out.println("format = '" + hash.getFormat() + "'");
         System.out.println("is destroyed = '" + hash.isDestroyed() + "'");
         System.out.println("hash =" + getEncoded(hash.getEncoded()));
-        System.out.println("key =" + getEncoded(key.getEncoded()));
-        System.out.println("Back to KeySpec =" + Arrays.toString(spec.getPassword()));
+//        System.out.println("key =" + getEncoded(key.getEncoded()));
+        System.out.println("Back to KeySpec (Password) = " + Arrays.toString(spec.getPassword()));
 
         var random = SecureRandom.getInstance("SHA1PRNG");
 
