@@ -14,7 +14,7 @@ public static void main(String[] args) throws NoSuchAlgorithmException, InvalidK
         char[] password = "The Password".toCharArray();
         byte[] salt = "The Salt".getBytes();
 
-        PBEKeySpec keySpec = new PBEKeySpec(password, salt, 31, 256);
+        PBEKeySpec keySpec = new PBEKeySpec(password, salt, 31, 64);
         // https://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html#SecretKeyFactory
         var factory  = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
         var hash = factory.generateSecret(keySpec);
