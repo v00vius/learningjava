@@ -1,5 +1,6 @@
 package persistent;
 
+import javax.crypto.spec.PBEKeySpec;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -29,6 +30,7 @@ public static void main(String[] args) throws SQLException
                         VALUES ({name}, {last_name}, {age}, {occupation})
                         """
                 );
+//                PBEKeySpec x = new PBEKeySpec("123", "1234567890ABCDEF", 31, 256);
 
                 people = IntStream.range(1, 1_000)
                                 .mapToObj(i ->
