@@ -5,6 +5,8 @@ static public boolean isPower2(int x)
 {
         int count = 0;
 
+        x = Math.abs(x);
+
         while(x > 0) {
                 if((x & 0x01) == 1)
                         ++count;

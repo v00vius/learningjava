@@ -6,8 +6,8 @@ import static org.junit.Assert.*;
 
 public class Power2Test {
 
-int[] test1 = {1,2,4,8,16};
-int[] test2 = {3,5,6,7};
+int[] test1 = {1, 2, 4, 8, 16, -16, 0};
+int[] test2 = {3, 5, 6, 7, -7};
 @Test
 public void isPower2test1()
 {
