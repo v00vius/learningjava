@@ -13,6 +13,7 @@ public void isPower2test1()
         for (int x : test1) {
                 boolean actual = Power2.isPower2(x);
 
+                System.out.println("Test: " + Integer.toBinaryString(x));
                 assertTrue(actual);
         }
 }
@@ -23,6 +24,7 @@ public void isPower2test2()
         for (int x : test2) {
                 boolean actual = Power2.isPower2(x);
 
+                System.out.println("Test: " + Integer.toBinaryString(x));
                 assertFalse(actual);
         }
 }
