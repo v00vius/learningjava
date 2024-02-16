@@ -18,5 +18,9 @@ public void toCelsius()
 @Test
 public void toFahrenheit()
 {
+        double expected = 32.;
+        double actual = Temperature.toFahrenheit(0.);
+
+        assertEquals(expected, actual, 1e-4);
 }
 }
