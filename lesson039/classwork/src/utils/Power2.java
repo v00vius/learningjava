@@ -19,4 +19,11 @@ static public boolean isPower2(int x)
 
         return count == 1;
 }
+static public boolean isPowerTwo(int x)
+{
+        if(x < 0)
+                return false;
+
+        return (x & (x - 1)) == 0;
+}
 }
