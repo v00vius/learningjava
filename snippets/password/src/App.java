@@ -1,3 +1,5 @@
+import netscape.javascript.JSObject;
+
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -45,6 +47,7 @@ static private String getEncoded(byte[] bytes)
         for (int i = 0; i < bytes.length; i++) {
                 sb.append(String.format(" %02X", 0x00FF & (int)bytes[i]));
         }
+
 
         return sb.toString();
 }
