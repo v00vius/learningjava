@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 public class BracketCheckerTest {
 BracketChecker checker = new BracketChecker("({[<>]})");
-String[] patternts = {
+String[] patterns = {
         "",
         "()",
         "([{}])",
@@ -27,10 +27,10 @@ int[] expected = {
 @Test
 public void checkBrackets()
 {
-        for (int i = 0; i < patternts.length; i++) {
-                int actual = checker.checkBrackets(patternts[i]);
+        for (int i = 0; i < patterns.length; i++) {
+                int actual = checker.checkBrackets(patterns[i]);
 
-                System.out.println("Test: '" + patternts[i] + "'");
+                System.out.println("Test: '" + patterns[i] + "'");
                 assertEquals(expected[i], actual);
         }
 }

@@ -23,4 +23,21 @@ public void toFahrenheit()
 
         assertEquals(expected, actual, 1e-4);
 }
+
+@Test
+public void toFahrenheit1()
+{
+        double expected = 212.;
+        double actual = Temperature.toFahrenheit(100.);
+
+        assertEquals(expected, actual, 1e-4);
+}
+@Test
+public void toFahrenheit2()
+{
+        double expected = -148.;
+        double actual = Temperature.toFahrenheit(-100.);
+
+        assertEquals(expected, actual, 1e-4);
+}
 }
