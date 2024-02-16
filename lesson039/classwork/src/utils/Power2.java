@@ -19,9 +19,4 @@ static public boolean isPower2(int x)
 
         return count == 1;
 }
-
-public static void main(String[] args)
-{
-        System.out.println(isPower2(32));
-}
 }
