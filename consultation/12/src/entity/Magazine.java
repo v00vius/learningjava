@@ -8,7 +8,7 @@ public class Magazine extends LibraryItem{
 
     private String issuedNumber;
     private List<Article> articles;
-    int published;
+    private int published;
 
     public Magazine(String title, int year, String issuedNumber, int published) {
         super(title, year);
@@ -33,7 +33,7 @@ public class Magazine extends LibraryItem{
     public String toString() {
         return "Magazine{" +
                 "issuedNumber='" + issuedNumber + '\'' +
-                ", articles=" + articles +
+                ", articles=" + articles + " published=" + published +
                 '}';
     }
 }
