@@ -16,7 +16,7 @@ public static void main(String[] args) throws NoSuchAlgorithmException, InvalidK
 {
         var random = SecureRandom.getInstance("SHA1PRNG");
 
-        char[] password = "The Password".toCharArray();
+        char[] password = "123".toCharArray();
         byte[] salt = new byte[16];
 
         random.nextBytes(salt);
