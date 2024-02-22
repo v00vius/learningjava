@@ -16,31 +16,32 @@ public static void main(String[] args) throws NoSuchAlgorithmException, InvalidK
 {
         var random = SecureRandom.getInstance("SHA1PRNG");
 
-        char[] password = "123".toCharArray();
+        char[] password = "Password123".toCharArray();
         byte[] salt = new byte[16];
 
         random.nextBytes(salt);
 
         PBEKeySpec keySpec = new PBEKeySpec(password, salt, 65535, 128);
         // https://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html#SecretKeyFactory
+
         var factory  = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
         var hash = factory.generateSecret(keySpec);
-        var enc = Base64.getEncoder();
-        var hashString = enc.encodeToString(hash.getEncoded());
-        var saltString = enc.encodeToString(salt);
+        var encoder = Base64.getEncoder();
+        var hashString = encoder.encodeToString(hash.getEncoded());
+        var saltString = encoder.encodeToString(salt);
 
 //        var key = factory.translateKey(hash);
         var factory2  = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
         var spec = (PBEKeySpec)factory2.getKeySpec(hash, keySpec.getClass());
 
-        System.out.println("# Password (KeySpec) = " + Arrays.toString(password));
-        System.out.println("# Salt = '" + saltString + "', length " + saltString.length());
+        System.out.println("Password (KeySpec) = " + Arrays.toString(password));
+        System.out.println("Salt = '" + saltString + "', length " + saltString.length());
         System.out.println("algorithm = '" + hash.getAlgorithm() + "'");
         System.out.println("format = '" + hash.getFormat() + "'");
-        System.out.println("is destroyed = '" + hash.isDestroyed() + "'");
         System.out.println("hash = '" + hashString + "', length " + hashString.length());
+        System.out.println("is destroyed = '" + hash.isDestroyed() + "'");
 //        System.out.println("key =" + getEncoded(key.getEncoded()));
-        System.out.println("Back to KeySpec (Password) = " + Arrays.toString(spec.getPassword()));
+//        System.out.println("Back to KeySpec (Password) = " + Arrays.toString(spec.getPassword()));
 
 }
 static private String getEncoded(byte[] bytes)
