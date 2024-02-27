@@ -1,7 +1,7 @@
 package utils.data;
 
 import java.util.UUID;
-
+// The Key/Value carrier
 public interface DTO {
         String get(String key);
         long getInt(String key);
