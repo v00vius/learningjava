@@ -51,6 +51,19 @@ public long getInt(String key)
         return value;
 }
 @Override
+public boolean getBoolean(String key)
+{
+        var value = mapper.get(key);
+
+        if(value == null)
+                return false;
+
+        if(value.isEmpty())
+                return true;
+
+        return value.equals("true");
+}
+@Override
 public UUID getId(String key)
 {
         String sValue = get(key);
@@ -112,7 +125,9 @@ public String toString()
 @Override
 public DTO fromString(String str)
 {
-        mapper = Stream.of(str.trim().split(DELIMITER))
+        var addMap = Stream.of(str.trim().split(DELIMITER))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
                 .map(pair -> {
                         String key;
                         String value;
@@ -148,6 +163,8 @@ public DTO fromString(String str)
                         };
                 })
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+        mapper.putAll(addMap);
 
         return this;
 }

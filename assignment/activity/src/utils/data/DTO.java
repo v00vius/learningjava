@@ -5,6 +5,7 @@ import java.util.UUID;
 public interface DTO {
         String get(String key);
         long getInt(String key);
+        boolean getBoolean(String key);
         UUID getId(String key);
         DTO set(String key, String value);
         DTO set(String key, long value);
