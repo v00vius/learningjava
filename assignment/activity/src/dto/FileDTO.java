@@ -1,4 +1,4 @@
-package utils.data;
+package dto;
 
 import java.io.*;
 

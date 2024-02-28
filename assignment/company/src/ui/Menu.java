@@ -1,8 +1,8 @@
 package ui;
 
 import dto.Registry;
-import repo.DepartmentManager;
-import repo.EmployeeManager;
+import repository.DepartmentManager;
+import repository.EmployeeManager;
 import service.ABCompany;
 import service.Company;
 import service.RandomCompany;

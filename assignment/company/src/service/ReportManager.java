@@ -5,8 +5,8 @@ import dto.Properties;
 import dto.Registry;
 import entity.Department;
 import entity.Employee;
-import repo.DepartmentManager;
-import repo.EmployeeManager;
+import repository.DepartmentManager;
+import repository.EmployeeManager;
 import java.util.Collection;
 
 public class ReportManager {

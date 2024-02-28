@@ -1,6 +1,6 @@
 package session.server;
 
-import utils.data.DTO;
+import dto.DTO;
 
 public class EchoServer extends TCPServer {
 
@@ -13,7 +13,7 @@ public EchoServer(int port)
 public boolean run(DTO request, DTO response)
 {
         if(request.exists("bye"))
-                return true;
+                return false;
 
         String msg = null;
 
@@ -23,6 +23,6 @@ public boolean run(DTO request, DTO response)
                 response.set("msg", "Usage: msg=text message");
         }
 
-        return false;
+        return true;
 }
 }

@@ -1,4 +1,4 @@
-package utils.data;
+package dto;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +17,8 @@ public StringDTO()
 }
 public StringDTO(String str)
 {
+        mapper = new HashMap<>();
+
         fromString(str);
 }
 private StringDTO(Map<String, String> mapper)

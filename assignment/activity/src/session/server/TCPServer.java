@@ -1,7 +1,7 @@
 package session.server;
 
-import utils.data.DTO;
-import utils.data.StringDTO;
+import dto.DTO;
+import dto.StringDTO;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -30,9 +30,9 @@ public void start()
                         socket.getLocalSocketAddress(),
                         socket.getLocalPort());
 
-                boolean exit = false;
+                boolean accept = true;
 
-                while (!exit) {
+                while (accept) {
                         var client = socket.accept();
 
                         ++acceptCount;
@@ -56,7 +56,7 @@ public void start()
                                         acceptCount,
                                         dto.get());
 
-                                exit = run(request, response);
+                                accept = run(request, response);
                                 send(response);
 
                                 System.err.printf("#%d Response: %s\n",

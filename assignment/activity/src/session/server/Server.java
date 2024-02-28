@@ -1,7 +1,7 @@
 package session.server;
 
 import session.Endpoint;
-import utils.data.DTO;
+import dto.DTO;
 
 public interface Server extends Endpoint {
         void start();

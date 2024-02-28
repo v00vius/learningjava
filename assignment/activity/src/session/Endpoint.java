@@ -1,6 +1,6 @@
 package session;
 
-import utils.data.DTO;
+import dto.DTO;
 
 import java.io.IOException;
 import java.util.Optional;

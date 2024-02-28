@@ -1,9 +1,9 @@
-package repo;
+package repository;
 
 import entity.Person;
-import utils.data.DTO;
-import utils.data.Mapper;
-import utils.data.StringDTO;
+import dto.DTO;
+import storage.Mapper;
+import dto.StringDTO;
 import java.util.UUID;
 
 public class PersonMapper implements Mapper<Person> {

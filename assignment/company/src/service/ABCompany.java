@@ -6,8 +6,8 @@ import dto.Properties;
 import entity.Department;
 import entity.Employee;
 import entity.Entity;
-import repo.DepartmentManager;
-import repo.EmployeeManager;
+import repository.DepartmentManager;
+import repository.EmployeeManager;
 
 import java.util.Iterator;
 import java.util.List;

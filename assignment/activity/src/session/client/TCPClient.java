@@ -1,5 +1,5 @@
-import utils.data.DTO;
-import utils.data.StringDTO;
+import dto.DTO;
+import dto.StringDTO;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -32,7 +32,7 @@ public List<DTO> getResponse(DTO request)
 
         if (connect()) {
                 send(request);
-                System.out.println("Sent: " + request);
+                System.out.println("Sent '" + request + "'");
 
                 try {
                         while(true) {
@@ -41,7 +41,7 @@ public List<DTO> getResponse(DTO request)
                                 if(response.isEmpty())
                                         break;
 
-                                System.out.println("Got #" + dtos.size() + ": " + response.get());
+                                System.out.println("Got '" + response.get() + "'");
                                 dtos.add(response.get());
                         }
                 } catch (Exception e) {
@@ -118,11 +118,11 @@ public static void main(String[] args) throws IOException
         DTO dto = new StringDTO();
 
 
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < 2; i++) {
                 dto.fromString("msg=message - " + i);
 
                 var response = client.getResponse(dto);
-                System.out.println("Got: " + response.toString());
+//                System.out.println("got: " + response.toString());
         }
 
         client.getResponse(new StringDTO("bye"));

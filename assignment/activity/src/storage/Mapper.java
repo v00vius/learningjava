@@ -1,4 +1,4 @@
-package utils.data;
+package storage;
 // The Mapper interface is for data exchange,
 // storage and so on
 public interface Mapper<T> {
